@@ -1,0 +1,27 @@
+Tener instalado Node.js
+npm init -y     //Crea un nuevo proyecto npm en la carpeta
+npm install express     //Se installa el framework
+
+node .\app.js     //ejecutamos
+
+reiniciar servidor control+ c y arrancamos  para q funcioenn los cambios
+
+npm install mysql
+
+
+npm install nodemon --save-dev     
+añadimos "start": "nodemon app.js" a package.json
+npm run start Para funcionar con nodemon
+
+
+quitar error CORS
+paramos aPI
+instalamos CORS   npm install cors
+en app.js  const cors = require ('cors');
+app.use(cors());
+
+npm install multer
+
+
+
+mirar consultas. buscar ciudades entre X habitantes y y . ordenadas por XXX....

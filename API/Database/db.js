@@ -1,22 +1,19 @@
-const mysql = require('mysql');
-// Configuración de la BD
-const db = mysql.createConnection({
-    host: '0.0.0.0',
+const mysql=require('mysql')
+//CONFIGURACION BASE DE DATOS
+const db= mysql.createConnection({
+    host: 'localhost',
     port: 3307,
-    user: 'georgi',
-    password: 'georgi',
+    user: 'raul',
+    password: 'raul',
     database: 'ejemplodb'
 });
-
-// Conexión a la BD
-db.connect((err) => {
-    if (err) {
-        console.log('Error en la conexión a la base de datos:', err);
-    } else {
-        console.log('Conexión exitosa a la base de datos');
+//CONEXION
+db.connect((err)=>{
+    if (err){
+        console.log('Error en la conexion a la BD');
+    }else{
+        console.log('Conexion correcta a la base de datos');
     }
 });
 
-//where like tabla="*a"
-
-module.exports = db; // Cambiado de db a bd
+module.exports=db;
