@@ -1,11 +1,11 @@
 const mysql=require('mysql')
 //CONFIGURACION BASE DE DATOS
 const db= mysql.createConnection({
-    host: 'localhost',
+    host: '127.0.0.1',
     port: 3307,
     user: 'raul',
     password: 'raul',
-    database: 'ejemplodb'
+    database: 'inventario'
 });
 //CONEXION
 db.connect((err)=>{
