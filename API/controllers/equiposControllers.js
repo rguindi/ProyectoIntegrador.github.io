@@ -1,8 +1,8 @@
 const db = require ('../database/db'); //No requiere extension js
 
-//Funcion para obtener ciudades
-const getCiudades = (req,res)=>{         //localhost:3000/ciudades
-    db.query('SELECT * FROM ciudades', (err, resultados)=>{
+//Funcion para obtener equipo
+const getEquipos = (req,res)=>{         //localhost:3000/equipo
+    db.query('SELECT * FROM equiposelectronicos', (err, resultados)=>{
         if(err){
             console.error('Error al obtener los datos', err);
         }else{
@@ -12,11 +12,11 @@ const getCiudades = (req,res)=>{         //localhost:3000/ciudades
 
 };
 
-const getCiudadById = (req, res) => { //http://localhost:3000/ciudades/registro/3
+const getEquipoById = (req, res) => { //http://localhost:3000/equipo/registro/3
     const idRegistro = req.params.id;
  
     // Consulta a la base de datos para obtener el registro por ID
-    db.query('SELECT * FROM ciudades WHERE id = ?', [idRegistro], (err, resultados) => {
+    db.query('SELECT * FROM equiposelectronicos WHERE id_equipo = ?', [idRegistro], (err, resultados) => {
       if (err) {
         console.error('Error al obtener el registro desde la base de datos:', err);
         res.status(500).json({ error: 'Error interno del servidor' });
@@ -31,86 +31,120 @@ const getCiudadById = (req, res) => { //http://localhost:3000/ciudades/registro/
     });
   };
 
-//Funcion insertar ciudades
-const crearCiudad = (req,res)=>{
-const {nuevoNombre, habitantes} = req.body;
-db.query( 'INSERT INTO ciudades (nombre, cantidad) VALUES (?,?)',[nuevoNombre, habitantes],(err,resultado)=>{
+//Funcion insertar equipo
+const crearEquipo = (req,res)=>{
+const {nombre, descripcion, marca, modelo, numero_de_serie, estado, id_aula, id_categoria, ano_adquisicion, ultima_actualizacion, codigo} = req.body;
+const imagen_producto = req.files[0].originalname;
+const qr_code = req.files[1].originalname;
+db.query( 'INSERT INTO equiposelectronicos (nombre, descripcion, marca, modelo, numero_de_serie, estado, id_aula, id_categoria, imagen_producto, qr_code, ano_adquisicion, ultima_actualizacion, codigo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',[nombre, descripcion, marca, modelo, numero_de_serie, estado, id_aula, id_categoria, imagen_producto, qr_code, ano_adquisicion, ultima_actualizacion, codigo],(err,resultado)=>{
     if(err){
         console.error('Error al guardar los datos', err);
         res.status(500).json({error:'Error interno en el servidor'});
     } else{
-        res.json({recibido:true, nuevoNombre, habitantes, id: resultado.insertid})
+        res.json({recibido:true, nombre, descripcion, marca, modelo, numero_de_serie, estado, id_aula, id_categoria, imagen_producto, qr_code, ano_adquisicion, ultima_actualizacion, codigo, id: resultado.insertid})
     }
 });
 };
 
 
-//modificar ciudad
-const putCiudad = (req,res)=>{
+
+//modificar equipo
+const putEquipo = (req,res)=>{
     const idRegistro = req.params.id;
-    const {nuevoNombre, habitantes} = req.body;
-    const sql = 'UPDATE ciudades SET nombre = ?, cantidad = ? WHERE ID = ?';
-    db.query(sql, [nuevoNombre, habitantes, idRegistro], (err, resultado)=>{
+    const {nombre, descripcion, marca, modelo, numero_de_serie, estado, id_aula, id_categoria,  ano_adquisicion, ultima_actualizacion, codigo} = req.body;
+    const imagen_producto = req.files[0].originalname;
+    const qr_code = req.files[1].originalname;
+    const sql = 'UPDATE equiposelectronicos SET nombre=?, descripcion=?, marca=?, modelo=?, numero_de_serie=?, estado=?, id_aula=?, id_categoria=?, imagen_producto=?, qr_code=?, ano_adquisicion=?, ultima_actualizacion=?, codigo=? WHERE id_equipo = ?';
+    db.query(sql, [nombre, descripcion, marca, modelo, numero_de_serie, estado, id_aula, id_categoria, imagen_producto, qr_code, ano_adquisicion, ultima_actualizacion, codigo, idRegistro], (err, resultado)=>{
         if(err){
             console.error('Error al guardar los datos', err);
             res.status(500).json({error:'Error interno en el servidor'});
         } else{
-            res.json({recibido:true, nuevoNombre, habitantes, id: resultado.idRegistro})
+            res.json({recibido:true, nombre, descripcion, marca, modelo, numero_de_serie, estado, id_aula, id_categoria, imagen_producto, qr_code, ano_adquisicion, ultima_actualizacion, codigo, id: resultado.idRegistro})
 
         }
     });
 }
 
-//modificar ciudad
-const patchCiudad = (req,res)=>{
+//modificar equipo
+const actualizarEquipo = (req,res)=>{  //http://localhost:3000/equipo/3
     const idRegistro = req.params.id;
-    const {nuevoNombre, habitantes} = req.body;
-    const sql = 'UPDATE ciudades SET nombre = ?, cantidad = ? WHERE ID = ?';
-    db.query(sql, [nuevoNombre, habitantes, idRegistro], (err, resultado)=>{
-        if(err){
-            console.error('Error al guardar los datos', err);
-            res.status(500).json({error:'Error interno en el servidor'});
-        } else{
-            res.json({recibido:true, nuevoNombre, habitantes, id: resultado.idRegistro})
-
-        }
-    });
-}
-
-
-//modificar ciudad
-const actualizarCiudad = (req,res)=>{  //http://localhost:3000/ciudades/3
-    const idRegistro = req.params.id;
-    const {nuevoNombre, habitantes} = req.body;
+    const {nombre, descripcion, marca, modelo, numero_de_serie, estado, id_aula, id_categoria, ano_adquisicion, ultima_actualizacion, codigo} = req.body;
+    const imagen_producto = req.files[0].originalname;
+    const qr_code = req.files[1].originalname;
     const updatedFields = [];
     const updatedValues = [];
-    if (nuevoNombre!=undefined) {
-        updatedValues.push(nuevoNombre);
+    if (nombre!=undefined) {
+        updatedValues.push(nombre);
         updatedFields.push('nombre =?');
     }
-    if (habitantes!=undefined) {
-        updatedValues.push(habitantes);
-        updatedFields.push('cantidad =?');
+    if (descripcion!=undefined) {
+        updatedValues.push(descripcion);
+        updatedFields.push('descripcion =?');
+    }
+    if (marca!=undefined) {
+        updatedValues.push(marca);
+        updatedFields.push('marca =?');
+    }
+    if (modelo!=undefined) {
+        updatedValues.push(modelo);
+        updatedFields.push('modelo =?');
+    }
+    if (numero_de_serie!=undefined) {
+        updatedValues.push(numero_de_serie);
+        updatedFields.push('numero_de_serie =?');
+    }
+    if (estado!=undefined) {
+        updatedValues.push(estado);
+        updatedFields.push('estado =?');
+    }
+    if (id_aula!=undefined) {
+        updatedValues.push(id_aula);
+        updatedFields.push('id_aula =?');
+    }
+    if (id_categoria!=undefined) {
+        updatedValues.push(id_categoria);
+        updatedFields.push('id_categoria =?');
+    }
+    if (imagen_producto!=undefined) {
+        updatedValues.push(imagen_producto);
+        updatedFields.push('imagen_producto =?');
+    }
+    if (qr_code!=undefined) {
+        updatedValues.push(qr_code);
+        updatedFields.push('qr_code =?');
+    }
+    if (ano_adquisicion!=undefined) {
+        updatedValues.push(ano_adquisicion);
+        updatedFields.push('ano_adquisicion =?');
+    }
+    if (ultima_actualizacion!=undefined) {
+        updatedValues.push(ultima_actualizacion);
+        updatedFields.push('ultima_actualizacion =?');
+    }
+    if (codigo!=undefined) {
+        updatedValues.push(codigo);
+        updatedFields.push('codigo =?');
     }
 
 
-    const sql = `UPDATE ciudades SET ${updatedFields.join(', ')} WHERE id =?`;
+    const sql = `UPDATE equiposelectronicos SET ${updatedFields.join(', ')} WHERE id_equipo =?`;
     const queryValues = [...updatedValues, idRegistro];
 
     db.query(sql, queryValues, (err, resultado)=>{
         if(err){
             console.error('Error al guardar los datos', err);
         } else{
-            res.json({recibido:true, nuevoNombre, habitantes, id: resultado.idRegistro})
+            res.json({recibido:true, nombre, descripcion, marca, modelo, numero_de_serie, estado, id_aula, id_categoria, imagen_producto, qr_code, ano_adquisicion, ultima_actualizacion, codigo, id: resultado.idRegistro})
 
         }
     });
 }
 
-//borrar ciudad
-const deleteCiudad = (req,res)=>{
+//borrar equipo
+const deleteEquipo = (req,res)=>{
     const idRegistro = req.params.id;
-    db.query('DELETE FROM ciudades WHERE ID = ?', [idRegistro], (err, resultado)=>{
+    db.query('DELETE FROM equiposelectronicos WHERE id_equipo = ?', [idRegistro], (err, resultado)=>{
         if(err){
             console.error('Error al eliminar de la base de datos', err);
             res.status(500).json({error:'Error interno en el servidor'});
@@ -126,45 +160,14 @@ const deleteCiudad = (req,res)=>{
     });
 }
 
-const getCiudadesByHabitantes = (req, res) => {
-    try {
-      // Obtén los valores mínimos y máximos del rango desde los parámetros de consulta
-      const minHabitantes = parseInt(req.params.min, 10) || 0; // Valor mínimo, por defecto 0
-      const maxHabitantes = parseInt(req.params.max, 10) || Number.MAX_SAFE_INTEGER; // Valor máximo, por defecto infinito
-  
-      console.log(minHabitantes);
-      console.log(maxHabitantes);
-  
-      // Ejecuta la consulta SQL para obtener ciudades en el rango especificado
-      db.query('SELECT * FROM ciudades WHERE cantidad BETWEEN ? AND ?', [minHabitantes, maxHabitantes], (err, resultados) => {
-        if (err) {
-          console.error("Error en la consulta:", err);
-          res.status(500).json({ error: 'Error interno del Servidor' });
-        } else {
-          // Verificamos si se encontró algo
-          if (resultados.length > 0) {
-            res.json({ ciudades: resultados });
-          } else {
-            res.status(404).json({ error: `No se encontraron ciudades con esos requisitos` });
-          }
-        }
-      });
-    } catch (error) {
-      console.error('Error en el controlador:', error);
-      res.status(500).json({ error: 'Error interno del Servidor' });
-    }
-  };
-
 
 
 
 module.exports={
-    getCiudades,
-    crearCiudad,
-    getCiudadById,
-    putCiudad,
-    patchCiudad,
-    actualizarCiudad,
-    deleteCiudad,
-    getCiudadesByHabitantes
+    getEquipos,
+    crearEquipo,
+    getEquipoById,
+    putEquipo,
+    actualizarEquipo,
+    deleteEquipo
 };

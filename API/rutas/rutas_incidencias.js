@@ -1,17 +1,16 @@
 const express=require('express');     
-const rutasCiudades = express.Router();
-const ciudadesController= require('../controllers/ciudadesControllers');
+const rutasIncidencias = express.Router();
+const incidenciasController= require('../controllers/incidenciasControllers');
 
 //Ruta para obtener datos de la BD
-//Cambiamos app por la nueva constante rutasciudades
-rutasCiudades.get('/', ciudadesController.getCiudades);
-rutasCiudades.post('/add', ciudadesController.crearCiudad);  //Lo normal es usar la misma ruta para el GET y EL POST
-rutasCiudades.get('/:id', ciudadesController.getCiudadById);  //:id indica q es un parametro
-rutasCiudades.put('/put/:id', ciudadesController.putCiudad); 
-rutasCiudades.patch('/patch/:id', ciudadesController.patchCiudad); 
-rutasCiudades.patch('/:id', ciudadesController.actualizarCiudad); 
-rutasCiudades.delete('/:id', ciudadesController.deleteCiudad);
-rutasCiudades.get('/habitantes/:min/:max', ciudadesController.getCiudadesByHabitantes);
+//Cambiamos app por la nueva constante rutasincidencias
+rutasIncidencias.get('/', incidenciasController.getIncidencias);
+rutasIncidencias.post('/', incidenciasController.crearIncidencia);  //Lo normal es usar la misma ruta para el GET y EL POST
+rutasIncidencias.get('/:id', incidenciasController.getIncidenciaById);  //:id indica q es un parametro
+rutasIncidencias.put('/:id', incidenciasController.putIncidencia); 
+rutasIncidencias.patch('/:id', incidenciasController.actualizarIncidencia); 
+rutasIncidencias.delete('/:id', incidenciasController.deleteIncidencia);
+
 
 //exportamos la constante routes
-module.exports = rutasCiudades;
+module.exports = rutasIncidencias;
