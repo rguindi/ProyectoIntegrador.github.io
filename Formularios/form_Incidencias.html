@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario para Insertar Datos</title>
+<style>
+    .error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+    display: block; /* Asegura que cada mensaje de error aparezca en una línea nueva */
+}
+
+</style>
+</head>
+<body>
+
+<h2>Formulario para Insertar Datos</h2>
+<form id="FormularioIncidencias" novalidate>
+    <label for="id_equipo">ID Equipo:</label><br>
+    <input type="text" id="id_equipo" name="id_equipo" required>
+    <span id="error_id_equipo" class="error"></span><br>
+    
+    <label for="fecha_reporte">Fecha de Reporte:</label><br>
+    <input type="date" id="fecha_reporte" name="fecha_reporte" required>
+    <span id="error_fecha_reporte" class="error"></span><br>
+    
+    <label for="descripcion">Descripción:</label><br>
+    <textarea id="descripcion" name="descripcion" required></textarea>
+    <span id="error_descripcion" class="error"></span><br>
+    
+    <label for="estado">Estado:</label><br>
+    <select id="estado" name="estado" required>
+        <option value="defecto">Seleccione Estado</option>
+        <option value="abierta">Abierta</option>
+        <option value="en_proceso">En Proceso</option>
+        <option value="cerrada">Cerrada</option>
+    </select>
+    <span id="error_estado" class="error"></span><br>
+    
+    <label for="fecha_actualizacion">Fecha de Actualización:</label><br>
+    <input type="date" id="fecha_actualizacion" name="fecha_actualizacion" required>
+    <span id="error_fecha_actualizacion" class="error"></span><br><br>
+    
+    <button type="button" id="submitBtn">Insertar Datos</button>
+</form>
+<script src="js/validar_incidencias.js"></script>
+</body>
+</html>

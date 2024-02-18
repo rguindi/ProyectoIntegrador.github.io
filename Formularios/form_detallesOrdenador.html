@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+            display: block; /* Asegura que cada mensaje de error aparezca en una línea nueva */
+        }
+    </style>
+</head>
+<!-- Formularios -->
+<body>
+    <form id="formularioDetallesOrdenador" enctype="multipart/form-data" novalidate>
+        <label for="procesador">Procesador:</label><br>
+        <input type="text" id="procesador" name="procesador" required>
+        <span id="error_procesador" class="error"></span><br>
+        
+        <label for="memoria_ram">Memoria RAM:</label><br>
+        <input type="text" id="memoria_ram" name="memoria_ram" required>
+        <span id="error_memoria_ram" class="error"></span><br>
+        
+        <label for="disco_duro">Disco Duro:</label><br>
+        <input type="text" id="disco_duro" name="disco_duro" required>
+        <span id="error_disco_duro" class="error"></span><br>
+        
+        <label for="tarjeta_grafica">Tarjeta Gráfica:</label><br>
+        <input type="text" id="tarjeta_grafica" name="tarjeta_grafica" required>
+        <span id="error_tarjeta_grafica" class="error"></span><br>
+        
+        <label for="sistema_operativo">Sistema Operativo:</label><br>
+        <input type="text" id="sistema_operativo" name="sistema_operativo" required>
+        <span id="error_sistema_operativo" class="error"></span><br>
+        
+        <label for="licencia">Licencia:</label><br>
+        <input type="text" id="licencia" name="licencia" required>
+        <span id="error_licencia" class="error"></span><br>
+        
+        <label for="otros_detalles">Otros Detalles:</label><br>
+        <input type="text" id="otros_detalles" name="otros_detalles" required>
+        <span id="error_otros_detalles" class="error"></span><br>
+        
+        <label for="usuario_admin">Usuario Admin:</label><br>
+        <input type="text" id="usuario_admin" name="usuario_admin" required>
+        <span id="error_usuario_admin" class="error"></span><br>
+        
+        <label for="password_admin">Password Admin:</label><br>
+        <input type="password" id="password_admin" name="password_admin" required>
+        <span id="error_password_admin" class="error"></span><br>
+        
+        <button type="submit">Añadir Detalles de Ordenador</button>
+    </form>
+    <script src="js/validar_detalles.js"></script>    
+</body>
+</html>
