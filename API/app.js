@@ -35,6 +35,7 @@ app.use('/categorias', rutasCategorias);
 app.use('/detalles', rutasDetalles); 
 app.use('/equipos', rutasEquipos); 
 app.use('/incidencias', rutasIncidencias); 
+app.use('/usuarios', rutasUsuarios); 
 
 app.listen(puerto, () => {
     console.log(`Servidor escuchando en el puerto ${puerto}`);

@@ -1,4 +1,4 @@
-const db = require ('../database/db'); //No requiere extension js
+const db = require ('../Database/db'); //No requiere extension js
 
 //Funcion para obtener incidencias
 const getIncidencias = (req,res)=>{         //localhost:3000/incidencias
