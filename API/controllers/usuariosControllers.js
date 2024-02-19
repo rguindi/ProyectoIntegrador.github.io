@@ -1,7 +1,7 @@
 const db = require ('../database/db');
 
 // Función para obtener usuarios
-const getUsurios = (req, res) => {
+const getUsuarios = (req, res) => {
 
     db.query('SELECT * FROM usuarios', (err, resultados) => {
 
@@ -16,7 +16,7 @@ const getUsurios = (req, res) => {
 
 
 // Función para obtener usuarios por el id
-const getUsuriosById = (req, res) => {
+const getUsuarioById = (req, res) => {
 
     const id_usuario = req.params.id;
 
@@ -54,4 +54,11 @@ const crearUsuario = (req, res) => {
             res.json({ recibido:true, id_usuario, contraseña, correo, rol})
         }
     });
+};
+
+
+module.exports={
+    getUsuarios,
+    getUsuarioById,
+    crearUsuario
 };

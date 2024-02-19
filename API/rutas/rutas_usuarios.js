@@ -3,5 +3,5 @@ const rutasUsuarios = express.Router();
 const usuariosControllers = require('../controllers/usuariosControllers');
 
 rutasUsuarios.get('/', usuariosControllers.getUsuarios);
-rutasUsuarios.get('/:id', usuariosControllers.getUsuariosById);
+rutasUsuarios.get('/:id', usuariosControllers.getUsuarioById);
 rutasUsuarios.post('/', usuariosControllers.crearUsuario);
