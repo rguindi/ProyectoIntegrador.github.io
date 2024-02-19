@@ -6,6 +6,7 @@ const rutasCategorias= require('./rutas/rutas_categorias');
 const rutasDetalles= require('./rutas/rutas_detalles');
 const rutasEquipos= require('./rutas/rutas_equipos');
 const rutasIncidencias= require('./rutas/rutas_incidencias');
+const rutasUsuarios = require('./rutas/rutas_usuarios');
 const puerto=3000;
 const multer=require('multer');
 app.use(cors());
