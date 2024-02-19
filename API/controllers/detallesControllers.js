@@ -2,21 +2,33 @@ const db = require ('../database/db'); //No requiere extension js
 
 //Funcion para obtener detalles
 const getDetalles = (req,res)=>{         //localhost:3000/detalles
-    db.query('SELECT * FROM detallesordenador', (err, resultados)=>{
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
+    connection.query('SELECT * FROM detallesordenador', (err, resultados)=>{
         if(err){
             console.error('Error al obtener los datos', err);
         }else{
             res.json(resultados);
         }
-    });
-
+    }
+  );
+  connection.release();
+}
+});
 };
 
+
 const getDetalleById = (req, res) => { //http://localhost:3000/detalles/registro/3
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
     const id_detalle = req.params.id;
  
     // Consulta a la base de datos para obtener el registro por ID
-    db.query('SELECT * FROM detallesordenador WHERE id_detalle = ?', [id_detalle], (err, resultados) => {
+    connection.query('SELECT * FROM detallesordenador WHERE id_detalle = ?', [id_detalle], (err, resultados) => {
       if (err) {
         console.error('Error al obtener el registro desde la base de datos:', err);
         res.status(500).json({ error: 'Error interno del servidor' });
@@ -27,43 +39,66 @@ const getDetalleById = (req, res) => { //http://localhost:3000/detalles/registro
         } else {
           res.status(404).json({ error: 'Registro no encontrado' });
         }
-      }
-    });
-  };
+    }
+    connection.release();
+  }
+);
+}
+});
+};
 
 //Funcion insertar detalles
 const crearDetalle = (req,res)=>{
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
 const {id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin} = req.body;
-db.query( 'INSERT INTO detallesordenador (id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)',[id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin],(err,resultado)=>{
+connection.query( 'INSERT INTO detallesordenador (id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)',[id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin],(err,resultado)=>{
     if(err){
         console.error('Error al guardar los datos', err);
         res.status(500).json({error:'Error interno en el servidor'});
     } else{
-        res.json({recibido:true, id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin})
+        res.json({recibido:true, id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin
+        });
     }
+  }
+);
+connection.release();
+}
 });
 };
 
-
 //modificar ciudad
 const putDetalle = (req,res)=>{
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
     const id_detalle = req.params.id;
     const {id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin} = req.body;
     const sql = 'UPDATE detallesordenador SET id_equipo =?, procesador=?, memoria_ram=?, disco_duro=?, tarjeta_grafica=?, sistema_operativo=?, licencia=?, otros_detalles=?, usuario_admin=?, password_admin = ? WHERE id_detalle = ?';
-    db.query(sql, [id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin, id_detalle], (err, resultado)=>{
+    connection.query(sql, [id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin, id_detalle], (err, resultado)=>{
         if(err){
             console.error('Error al guardar los datos', err);
             res.status(500).json({error:'Error interno en el servidor'});
         } else{
-            res.json({recibido:true, id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin, id: resultado.id_detalle})
-
+            res.json({recibido:true, id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin, id: resultado.id_detalle });
         }
+      }
+    );
+    connection.release();
+    }
     });
-}
+    };
 
 
 //modificar ciudad
 const actualizarDetalle = (req,res)=>{  //http://localhost:3000/detalles/3
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
     const id_detalle = req.params.id;
     const {id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin} = req.body;
     const updatedFields = [];
@@ -113,20 +148,29 @@ const actualizarDetalle = (req,res)=>{  //http://localhost:3000/detalles/3
     const sql = `UPDATE detalles SET ${updatedFields.join(', ')} WHERE id_detalle =?`;
     const queryValues = [...updatedValues, id_detalle];
 
-    db.query(sql, queryValues, (err, resultado)=>{
+    connection.query(sql, queryValues, (err, resultado)=>{
         if(err){
             console.error('Error al guardar los datos', err);
         } else{
-            res.json({recibido:true, id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin, id: resultado.id_detalle})
-
+            res.json({recibido:true, id_equipo, procesador, memoria_ram, disco_duro, tarjeta_grafica, sistema_operativo, licencia, otros_detalles, usuario_admin, password_admin, id: resultado.id_detalle
+            });
         }
+      }
+    );
+    connection.release();
+    }
     });
-}
+    };
+
 
 //borrar ciudad
 const deleteDetalle = (req,res)=>{
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
     const id_detalle = req.params.id;
-    db.query('DELETE FROM detalles WHERE id_detalle = ?', [id_detalle], (err, resultado)=>{
+    connection.query('DELETE FROM detalles WHERE id_detalle = ?', [id_detalle], (err, resultado)=>{
         if(err){
             console.error('Error al eliminar de la base de datos', err);
             res.status(500).json({error:'Error interno en el servidor'});
@@ -137,11 +181,13 @@ const deleteDetalle = (req,res)=>{
             }else{
                 res.status(404).json({error:  `No se encontró el registro con id ${id_detalle}.`});
             }
-
         }
-    });
-}
-
+        connection.release();
+      }
+    );
+  }
+});
+};
 
 
 

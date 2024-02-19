@@ -1,22 +1,32 @@
-const db = require ('../Database/db'); //No requiere extension js
+const db = require ('../database/db'); //No requiere extension js
 
 //Funcion para obtener incidencias
 const getIncidencias = (req,res)=>{         //localhost:3000/incidencias
-    db.query('SELECT * FROM incidencias', (err, resultados)=>{
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
+    connection.query('SELECT * FROM incidencias', (err, resultados)=>{
         if(err){
             console.error('Error al obtener los datos', err);
         }else{
             res.json(resultados);
         }
     });
-
+    connection.release();
+  }
+});
 };
 
 const getIncidenciaById = (req, res) => { //http://localhost:3000/incidencias/registro/3
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
     const id_incidencia = req.params.id;
  
     // Consulta a la base de datos para obtener el registro por ID
-    db.query('SELECT * FROM incidencias WHERE id_incidencia = ?', [id_incidencia], (err, resultados) => {
+    connection.query('SELECT * FROM incidencias WHERE id_incidencia = ?', [id_incidencia], (err, resultados) => {
       if (err) {
         console.error('Error al obtener el registro desde la base de datos:', err);
         res.status(500).json({ error: 'Error interno del servidor' });
@@ -27,46 +37,75 @@ const getIncidenciaById = (req, res) => { //http://localhost:3000/incidencias/re
         } else {
           res.status(404).json({ error: 'Registro no encontrado' });
         }
-      }
-    });
-  };
+    }
+    connection.release();
+  }
+);
+}
+});
+};
 
 //Funcion insertar incidencias
 const crearIncidencia = (req,res)=>{
-const {id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion} = req.body;
-db.query( 'INSERT INTO incidencias (id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion) VALUES (?,?,?,?,?)',[id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion],(err,resultado)=>{
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
+const {id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion} = req.body;
+connection.query( 'INSERT INTO incidencias (id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion) VALUES (?,?,?,?,?,?)',[id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion],(err,resultado)=>{
     if(err){
         console.error('Error al guardar los datos', err);
         res.status(500).json({error:'Error interno en el servidor'});
     } else{
-        res.json({recibido:true, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id: resultado.insertid})
+        res.json({recibido:true, id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id: resultado.insertId
+        });
     }
+  }
+);
+connection.release();
+}
+});
+};
+
+//modificar incidencia
+const putIncidencia = (req,res)=>{
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
+    const id_incidencia = req.params.id;
+    const {id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion} = req.body;
+    const sql = 'UPDATE incidencias SET id_usuario =?, id_equipo=?, fecha_reporte=?, descripcion=?, estado=?, fecha_actualizacion=? WHERE id_incidencia = ?';
+    connection.query(sql, [id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id_incidencia], (err, resultado)=>{
+        if(err){
+            console.error('Error al guardar los datos', err);
+            res.status(500).json({error:'Error interno en el servidor'});
+        } else{
+            res.json({recibido:true, id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id: resultado.id_incidencia
+            });
+        }
+      }
+    );
+    connection.release();
+  }
 });
 };
 
 
 //modificar incidencia
-const putIncidencia = (req,res)=>{
-    const id_incidencia = req.params.id;
-    const {id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion} = req.body;
-    const sql = 'UPDATE incidencias SET id_equipo=?, fecha_reporte=?, descripcion=?, estado=?, fecha_actualizacion=? WHERE id_incidencia = ?';
-    db.query(sql, [id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id_incidencia], (err, resultado)=>{
-        if(err){
-            console.error('Error al guardar los datos', err);
-            res.status(500).json({error:'Error interno en el servidor'});
-        } else{
-            res.json({recibido:true, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id: resultado.id_incidencia})
-
-        }
-    });
-}
-
-//modificar incidencia
 const actualizarIncidencia = (req,res)=>{  //http://localhost:3000/incidencias/3
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
     const id_incidencia = req.params.id;
-    const {id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion} = req.body;
+    const {id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion} = req.body;
     const updatedFields = [];
     const updatedValues = [];
+    if (id_usuario!=undefined) {
+        updatedValues.push(id_usuario);
+        updatedFields.push('id_usuario =?');
+    }
     if (id_equipo!=undefined) {
         updatedValues.push(id_equipo);
         updatedFields.push('id_equipo =?');
@@ -92,20 +131,27 @@ const actualizarIncidencia = (req,res)=>{  //http://localhost:3000/incidencias/3
     const sql = `UPDATE incidencias SET ${updatedFields.join(', ')} WHERE id_incidencia =?`;
     const queryValues = [...updatedValues, id_incidencia];
 
-    db.query(sql, queryValues, (err, resultado)=>{
+    connection.query(sql, queryValues, (err, resultado)=>{
         if(err){
             console.error('Error al guardar los datos', err);
         } else{
-            res.json({recibido:true, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id: resultado.id_incidencia})
-
+            res.json({recibido:true, id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id: resultado.id_incidencia   });
         }
-    });
-}
+      }
+    );
+    connection.release();
+  }
+});
+};
 
 //borrar incidencia
 const deleteIncidencia = (req,res)=>{
+    db.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error en la conexion", err);
+        } else {
     const id_incidencia = req.params.id;
-    db.query('DELETE FROM incidencias WHERE id_incidencia = ?', [id_incidencia], (err, resultado)=>{
+    connection.query('DELETE FROM incidencias WHERE id_incidencia = ?', [id_incidencia], (err, resultado)=>{
         if(err){
             console.error('Error al eliminar de la base de datos', err);
             res.status(500).json({error:'Error interno en el servidor'});
@@ -116,10 +162,14 @@ const deleteIncidencia = (req,res)=>{
             }else{
                 res.status(404).json({error:  `No se encontró el registro con id ${id_incidencia}.`});
             }
-
         }
-    });
-}
+        connection.release();
+      }
+    );
+  }
+});
+};
+
 
 
 
