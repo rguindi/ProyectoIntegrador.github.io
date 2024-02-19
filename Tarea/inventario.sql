@@ -78,6 +78,7 @@ CREATE TABLE `detallesordenador` (
 DROP TABLE IF EXISTS `equiposelectronicos`;
 CREATE TABLE `equiposelectronicos` (
   `id_equipo` int(11) NOT NULL,
+  `id_usuario` varchar (20),
   `nombre` varchar(50) DEFAULT NULL,
   `descripcion` varchar(100) DEFAULT NULL,
   `marca` varchar(50) DEFAULT NULL,
@@ -102,11 +103,26 @@ CREATE TABLE `equiposelectronicos` (
 DROP TABLE IF EXISTS `incidencias`;
 CREATE TABLE `incidencias` (
   `id_incidencia` int(11) NOT NULL,
+  `id_usuario` varchar (20),
   `id_equipo` int(11) DEFAULT NULL,
   `fecha_reporte` date DEFAULT NULL,
   `descripcion` varchar(200) DEFAULT NULL,
   `estado` enum('abierta','en_proceso','cerrada') DEFAULT NULL,
   `fecha_actualizacion` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE `usuarios` (
+  `id_usuario` varchar (20) UNIQUE,
+  `contraseña` varchar (15),
+  `correo` varchar (50),
+  `rol` ENUM('administrador', 'docente')
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -137,6 +153,7 @@ ALTER TABLE `detallesordenador`
 --
 ALTER TABLE `equiposelectronicos`
   ADD PRIMARY KEY (`id_equipo`),
+  ADD KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_aula` (`id_aula`),
   ADD KEY `id_categoria` (`id_categoria`);
 
@@ -145,7 +162,14 @@ ALTER TABLE `equiposelectronicos`
 --
 ALTER TABLE `incidencias`
   ADD PRIMARY KEY (`id_incidencia`),
+  ADD KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_equipo` (`id_equipo`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id_usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -195,16 +219,23 @@ ALTER TABLE `detallesordenador`
 -- Filtros para la tabla `equiposelectronicos`
 --
 ALTER TABLE `equiposelectronicos`
-  ADD CONSTRAINT `equiposelectronicos_ibfk_1` FOREIGN KEY (`id_aula`) REFERENCES `aulas` (`id_aula`),
-  ADD CONSTRAINT `equiposelectronicos_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`);
+  ADD CONSTRAINT `equiposelectronicos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `equiposelectronicos_ibfk_2` FOREIGN KEY (`id_aula`) REFERENCES `aulas` (`id_aula`),
+  ADD CONSTRAINT `equiposelectronicos_ibfk_3` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`);
 
 --
 -- Filtros para la tabla `incidencias`
 --
 ALTER TABLE `incidencias`
-  ADD CONSTRAINT `incidencias_ibfk_1` FOREIGN KEY (`id_equipo`) REFERENCES `equiposelectronicos` (`id_equipo`);
+  ADD CONSTRAINT `incidencias_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `incidencias_ibfk_2` FOREIGN KEY (`id_equipo`) REFERENCES `equiposelectronicos` (`id_equipo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+INSERT INTO `usuarios` VALUES ('admin1', 'admin1', 'admin1@admin1.com', 'administrador');
+INSERT INTO `usuarios` VALUES ('docente1', 'docente1', 'docente1@docente1.com', 'docente');
+INSERT INTO `usuarios` VALUES ('docente2', 'docente2', 'docente2@docente2.com', 'docente');
