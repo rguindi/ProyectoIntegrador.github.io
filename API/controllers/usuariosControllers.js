@@ -1,15 +1,22 @@
-const db = require ('../database/db');
+const db = require('../database/db');
+
+
 
 // Función para obtener usuarios
 const getUsuarios = (req, res) => {
-
-    db.query('SELECT * FROM usuarios', (err, resultados) => {
-
+    db.getConnection((err, connection) => {
         if (err) {
-            console.error('Error al obtener usuarios de la bbdd', err);
-        
+            console.error("Error en la conexion", err);
         } else {
-            res.json(resultados);
+            connection.query('SELECT * FROM usuarios', (err, resultados) => {
+                if (err) {
+                    console.error('Error al obtener usuarios de la base de datos', err);
+                    res.status(500).json({ error: 'Error interno del servidor' });
+                } else {
+                    res.json(resultados);
+                }
+            });
+            connection.release();
         }
     });
 };
@@ -17,23 +24,25 @@ const getUsuarios = (req, res) => {
 
 // Función para obtener usuarios por el id
 const getUsuarioById = (req, res) => {
-
     const id_usuario = req.params.id;
 
-    db.query('SELECT * FROM usuarios WHERE id = ?', [id_usuario], (err, resultados) => {
-
-        if (err) {            
-            console.error('Error al obtener el registro de la base de datos: ', err);
-            res.status(500).json({ error: 'Error interno del servidor' });
-        
+    db.getConnection((err, connection) => {
+        if (err) {
+            console.error("Error en la conexion", err);
         } else {
-
-            if (resultados.length > 0) {
-                res.json(resultados[0]);
-
-            } else {
-                res.status(400).json({ error: 'Registro no encontrado' });
-            }
+            connection.query('SELECT * FROM usuarios WHERE id_usuario = ?', [id_usuario], (err, resultados) => {
+                if (err) {
+                    console.error('Error al obtener el registro de la base de datos: ', err);
+                    res.status(500).json({ error: 'Error interno del servidor' });
+                } else {
+                    if (resultados.length > 0) {
+                        res.json(resultados[0]);
+                    } else {
+                        res.status(400).json({ error: 'Registro no encontrado' });
+                    }
+                    connection.release();
+                }
+            });
         }
     });
 };
@@ -41,24 +50,67 @@ const getUsuarioById = (req, res) => {
 
 // Función para insertar usuarios
 const crearUsuario = (req, res) => {
+    const { id_usuario, contraseña, correo, rol } = req.body;
 
-    const {id_usuario, contraseña, correo, rol} = req.body;
-
-    db.query('INSERT INTO usuarios (id_usuario, contraseña, correo, rol) VALUES (?,?,?,?)', [id_usuario, contraseña, correo, rol], (err, resultados) => {
-
+    db.getConnection((err, connection) => {
         if (err) {
-            console.error('Error al crear el usuario', err);
-            res.status(500).json({ error: 'Error interno del servidor' });
-
+            console.error("Error en la conexion", err);
         } else {
-            res.json({ recibido:true, id_usuario, contraseña, correo, rol})
+            connection.query('INSERT INTO usuarios (id_usuario, contraseña, correo, rol) VALUES (?,?,?,?)', [id_usuario, contraseña, correo, rol], (err, resultados) => {
+                if (err) {
+                    console.error('Error al crear el usuario', err);
+                    res.status(500).json({ error: 'Error interno del servidor' });
+                } else {
+                    res.json({ recibido: true, id_usuario, contraseña, correo, rol });
+                }
+                connection.release();
+            });
         }
     });
 };
 
+// Función para verificar si un usuario existe por id_usuario y contraseña
+const verificarUsuario = (req, res) => {
+    const { id_usuario, contraseña } = req.body;
+    db.getConnection((err, connection) => {
+        if (err) {
+            console.error("Error en la conexion", err);
+        } else {
+            connection.query('SELECT * FROM usuarios WHERE id_usuario = ? AND contraseña = ?', [id_usuario, contraseña], (err, resultados) => {
+                if (err) {
+                    console.error('Error al verificar el usuario', err);
+                    res.status(500).json({ error: 'El usuario no existe' });
+                } else {
+                    if (resultados.length > 0) {
+                        const usuario = resultados[0];
 
-module.exports={
+                        // Guardar el usuario en la sesión
+                        req.session.usuario = usuario;
+
+                        res.json(usuario);
+                    } else {
+                        res.status(400).json({ error: 'Registro no encontrado' });
+                    }
+                    connection.release();
+                }
+            });
+        }
+    });
+};
+
+// Función para obtener usuarios
+const getRol = (req, res) => {
+    if (req.session.usuario) {
+        res.json({ rol: req.session.usuario.rol });
+      } else {
+        res.status(401).json({ error: 'No se ha iniciado sesión' });
+      }
+};
+
+module.exports = {
     getUsuarios,
     getUsuarioById,
-    crearUsuario
+    crearUsuario,
+    verificarUsuario,
+    getRol,
 };

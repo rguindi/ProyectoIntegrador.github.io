@@ -160,9 +160,9 @@ const putEquipo = (req, res) => {
         ultima_actualizacion,
         codigo,
       } = req.body;
-       // Obtener los archivos adjuntos
-       const imagen_producto = req.files[0];
-       const qr_code = req.files[1];
+      // Obtener los archivos adjuntos
+      const imagen_producto = req.files[0];
+      const qr_code = req.files[1];
       const sql =
         "UPDATE equiposelectronicos SET id_usuario =?, nombre=?, descripcion=?, marca=?, modelo=?, numero_de_serie=?, estado=?, id_aula=?, id_categoria=?, imagen_producto=?, qr_code=?, ano_adquisicion=?, ultima_actualizacion=?, codigo=? WHERE id_equipo = ?";
       connection.query(
@@ -236,9 +236,9 @@ const actualizarEquipo = (req, res) => {
         ultima_actualizacion,
         codigo,
       } = req.body;
-    // Obtener los archivos adjuntos
-    const imagen_producto = req.files[0];
-    const qr_code = req.files[1];
+      // Obtener los archivos adjuntos
+      const imagen_producto = req.files[0];
+      const qr_code = req.files[1];
       const updatedFields = [];
       const updatedValues = [];
       if (id_usuario != undefined) {

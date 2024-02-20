@@ -1,14 +1,15 @@
-const express= require('express'); // npm -i express
-const cors= require('cors');
-const app=express();
-const rutasAulas= require('./rutas/rutas_aulas');
-const rutasCategorias= require('./rutas/rutas_categorias');
-const rutasDetalles= require('./rutas/rutas_detalles');
-const rutasEquipos= require('./rutas/rutas_equipos');
-const rutasIncidencias= require('./rutas/rutas_incidencias');
+const express = require('express'); // npm -i express
+const cors = require('cors');
+const session = require('express-session');
+const app = express();
+const rutasAulas = require('./rutas/rutas_aulas');
+const rutasCategorias = require('./rutas/rutas_categorias');
+const rutasDetalles = require('./rutas/rutas_detalles');
+const rutasEquipos = require('./rutas/rutas_equipos');
+const rutasIncidencias = require('./rutas/rutas_incidencias');
 const rutasUsuarios = require('./rutas/rutas_usuarios');
-const puerto=3000;
-const multer=require('multer');
+const puerto = 3000;
+const multer = require('multer');
 app.use(cors());
 // Middleware para parsear el cuerpo de las peticiones en formato JSON
 app.use(express.json());
@@ -26,18 +27,26 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage: multer.memoryStorage() });
- 
+
+// Configuración de Express Session
+app.use(session({
+    secret: 'clave',
+    resave: false,
+    saveUninitialized: true
+  }));
+
+
 // Middleware Multer para manejar archivos
 app.use(upload.any());
 
-app.use('/aulas', rutasAulas); 
-app.use('/categorias', rutasCategorias); 
-app.use('/detalles', rutasDetalles); 
-app.use('/equipos', rutasEquipos); 
-app.use('/incidencias', rutasIncidencias); 
-app.use('/usuarios', rutasUsuarios); 
+app.use('/aulas', rutasAulas);
+app.use('/categorias', rutasCategorias);
+app.use('/detalles', rutasDetalles);
+app.use('/equipos', rutasEquipos);
+app.use('/incidencias', rutasIncidencias);
+app.use('/usuarios', rutasUsuarios);
+
 
 app.listen(puerto, () => {
     console.log(`Servidor escuchando en el puerto ${puerto}`);
 });
-  
