@@ -79,18 +79,18 @@ DROP TABLE IF EXISTS `equiposelectronicos`;
 CREATE TABLE `equiposelectronicos` (
   `id_equipo` int(11) NOT NULL,
   `id_usuario` varchar (20),
-  `nombre` varchar(50) DEFAULT NULL,
-  `descripcion` varchar(100) DEFAULT NULL,
-  `marca` varchar(50) DEFAULT NULL,
-  `modelo` varchar(50) DEFAULT NULL,
+  `nombre` varchar(50) NOT NULL,   
+  `descripcion` varchar(100) NOT NULL,  
+  `marca` varchar(50) NOT NULL,
+  `modelo` varchar(50) NOT NULL,
   `numero_de_serie` varchar(50) DEFAULT NULL,
-  `estado` enum('activo','mantenimiento','estropeado') DEFAULT NULL,
-  `id_aula` int(11) DEFAULT NULL,
-  `id_categoria` int(11) DEFAULT NULL,
+  `estado` enum('activo','mantenimiento','estropeado') NOT NULL,
+  `id_aula` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL,
   `imagen_producto` blob DEFAULT NULL,
   `qr_code` blob DEFAULT NULL,
-  `ano_adquisicion` int(11) DEFAULT NULL,
-  `ultima_actualizacion` date DEFAULT NULL,
+  `ano_adquisicion` int(11) NOT NULL,
+  `ultima_actualizacion` date DEFAULT NOW(),
   `codigo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -103,11 +103,12 @@ CREATE TABLE `equiposelectronicos` (
 DROP TABLE IF EXISTS `incidencias`;
 CREATE TABLE `incidencias` (
   `id_incidencia` int(11) NOT NULL,
-  `id_usuario` varchar (20),
+  `id_usuario` varchar (20) NOT NULL,
   `id_equipo` int(11) DEFAULT NULL,
-  `fecha_reporte` date DEFAULT NULL,
+  `fecha_reporte` date DEFAULT NOW(),
   `descripcion` varchar(200) DEFAULT NULL,
-  `estado` enum('abierta','en_proceso','cerrada') DEFAULT NULL,
+  `solucion` varchar(200) DEFAULT NULL,
+  `estado` enum('abierta','en_proceso','cerrada') DEFAULT 'abierta',
   `fecha_actualizacion` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
