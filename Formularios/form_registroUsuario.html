@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario para Insertar Datos</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Formulario registro</h2>
+    <form id="formRegistro" novalidate>
+        <label for="id_usuario">Id usuario:</label><br>
+        <div class="id" id="divId">
+            <input type="text" id="id_usuario" name="id_usuario" required>
+            <span class="aviso"></span>
+        </div>
+        <span class="error"></span><br>
+
+        <label for="contraseña">Contraseña:</label><br>
+        <input type="password" id="contraseña" name="contraseña" required>
+        <span class="error"></span><br>
+
+        <label for="contraseña2">Repetir contraseña:</label><br>
+        <input type="password" id="contraseña2" name="contraseña2" required>
+        <span class="error"></span><br>
+
+        <label for="correo">Correo:</label><br>
+        <input type="email" id="correo" name="correo" required>
+        <span class="error"></span><br>
+
+        <button type="submit">Registrar</button>
+    </form>
+    <p id="p1"></p>
+    <script src="js/validar_registro.js"></script>
+</body>
+
+</html>

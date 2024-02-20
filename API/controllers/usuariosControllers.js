@@ -25,7 +25,6 @@ const getUsuarios = (req, res) => {
 // Función para obtener usuarios por el id
 const getUsuarioById = (req, res) => {
     const id_usuario = req.params.id;
-
     db.getConnection((err, connection) => {
         if (err) {
             console.error("Error en la conexion", err);
@@ -38,7 +37,8 @@ const getUsuarioById = (req, res) => {
                     if (resultados.length > 0) {
                         res.json(resultados[0]);
                     } else {
-                        res.status(400).json({ error: 'Registro no encontrado' });
+                        // res.status(400).json({ error: 'Registro no encontrado' });
+                        res.json({ error: 'Registro no encontrado' });
                     }
                     connection.release();
                 }
@@ -56,7 +56,7 @@ const crearUsuario = (req, res) => {
         if (err) {
             console.error("Error en la conexion", err);
         } else {
-            connection.query('INSERT INTO usuarios (id_usuario, contraseña, correo, rol) VALUES (?,?,?,?)', [id_usuario, contraseña, correo, rol], (err, resultados) => {
+            connection.query('INSERT INTO usuarios (id_usuario, contraseña, correo, rol) VALUES (?,?,?,?)', [id_usuario, contraseña, correo, "docente"], (err, resultados) => {
                 if (err) {
                     console.error('Error al crear el usuario', err);
                     res.status(500).json({ error: 'Error interno del servidor' });
@@ -98,13 +98,13 @@ const verificarUsuario = (req, res) => {
     });
 };
 
-// Función para obtener usuarios
+// Función para obtener rol
 const getRol = (req, res) => {
     if (req.session.usuario) {
         res.json({ rol: req.session.usuario.rol });
-      } else {
+    } else {
         res.status(401).json({ error: 'No se ha iniciado sesión' });
-      }
+    }
 };
 
 module.exports = {
