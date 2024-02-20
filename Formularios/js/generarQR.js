@@ -6,13 +6,15 @@ document.addEventListener('DOMContentLoaded', function(event) {
         event.preventDefault(); 
         
      
-        var numeroSerie = document.getElementById('numero_de_serie').value;
+        // var numeroSerie = document.getElementById('numero_de_serie').value;
         
        
-        if (numeroSerie.trim() === '') {
-            document.getElementById('error_numero_de_serie').textContent = 'El número de serie es obligatorio.';
-            return;
-        }
+        // if (numeroSerie.trim() === '') {
+        //     document.getElementById('error_numero_de_serie').textContent = 'El número de serie es obligatorio.';
+        //     return;
+        // }
+
+        let categoria = document.getElementById('id_categoria').value;
         
    
         document.getElementById('error_numero_de_serie').textContent = '';

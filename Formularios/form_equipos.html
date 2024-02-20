@@ -48,16 +48,29 @@
     </select>
     <span id="error_estado" class="error"></span><br>
     
-    <label for="id_aula">ID Aula:</label><br>
+    <!-- <label for="id_aula">ID Aula:</label><br>
     <input type="number" id="id_aula" name="id_aula" required>
-    <span id="error_id_aula" class="error"></span><br>
+    <span id="error_id_aula" class="error"></span><br> -->
+    <label for="aula">Aula:</label><br>
+    <select id="aula" name="id_aula" required>
+        <option value="defecto" selected disabled>Seleccione aula</option>
+        
+    </select>
+    <span id="error_aula" class="error"></span><br>
     
-    <label for="id_categoria">ID Categoría:</label><br>
+    <!-- <label for="id_categoria">ID Categoría:</label><br>
     <input type="number" id="id_categoria" name="id_categoria" required>
-    <span id="error_id_categoria" class="error"></span><br>
+    <span id="error_id_categoria" class="error"></span><br> -->
+
+    <label for="categoria">Categoria:</label><br>
+    <select id="categoria" name="id_categoria" required>
+        <option value="defecto" selected disabled>Seleccione categoria</option>
+        
+    </select>
+    <span id="error_categoria" class="error"></span><br>
     
     <label for="imagen_producto">Imagen del Producto:</label><br>
-    <input type="file" id="imagen_producto" name="imagen_producto" required>
+    <input type="file" id="imagen_producto" name="imagen_producto">
     <span id="error_imagen_producto" class="error"></span><br>
     
 
@@ -76,5 +89,6 @@
 <script src="js/qrcode.js"></script>
 <script src="js/validar_equipos.js"></script>
 <script src="js/generarQR.js"></script>
+<script src="js/peticionesEquipos.js"></script>
 </body>
 </html>

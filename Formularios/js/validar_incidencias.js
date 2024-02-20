@@ -1,6 +1,7 @@
 const id_equipo = document.getElementById('id_equipo');
 const fecha_reporte = document.getElementById('fecha_reporte');
 const descripcion = document.getElementById('descripcion');
+const solucion = document.getElementById('solucion');
 const estado = document.getElementById('estado');
 const fecha_actualizacion = document.getElementById('fecha_actualizacion');
 console.log("funciona");
@@ -33,6 +34,11 @@ document.getElementById('submitBtn').addEventListener("click", function (evento)
     if(!descripcion.checkValidity()) {
         descripcion.focus();
         mostrarError('error_descripcion', descripcion.validationMessage);
+        return;
+    }
+    if(!solucion.checkValidity()) {
+        solucion.focus();
+        mostrarError('error_solucion', solucion.validationMessage);
         return;
     }
 

@@ -1,4 +1,4 @@
-const db = require ('../database/db'); //No requiere extension js
+const db = require ('../Database/db'); //No requiere extension js
 
 //Funcion para obtener incidencias
 const getIncidencias = (req,res)=>{         //localhost:3000/incidencias
@@ -51,13 +51,13 @@ const crearIncidencia = (req,res)=>{
         if (err) {
           console.error("Error en la conexion", err);
         } else {
-const {id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion} = req.body;
-connection.query( 'INSERT INTO incidencias (id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion) VALUES (?,?,?,?,?,?)',[id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion],(err,resultado)=>{
+const {id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion} = req.body;
+connection.query( 'INSERT INTO incidencias (id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion) VALUES (?,?,?,?,?,?,?)',[id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion],(err,resultado)=>{
     if(err){
         console.error('Error al guardar los datos', err);
         res.status(500).json({error:'Error interno en el servidor'});
     } else{
-        res.json({recibido:true, id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id: resultado.insertId
+        res.json({recibido:true, id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion, id: resultado.insertId
         });
     }
   }
@@ -74,9 +74,9 @@ const putIncidencia = (req,res)=>{
           console.error("Error en la conexion", err);
         } else {
     const id_incidencia = req.params.id;
-    const {id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion} = req.body;
-    const sql = 'UPDATE incidencias SET id_usuario =?, id_equipo=?, fecha_reporte=?, descripcion=?, estado=?, fecha_actualizacion=? WHERE id_incidencia = ?';
-    connection.query(sql, [id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id_incidencia], (err, resultado)=>{
+    const {id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion} = req.body;
+    const sql = 'UPDATE incidencias SET id_usuario =?, id_equipo=?, fecha_reporte=?, descripcion=?, solucion=? ,estado=?, fecha_actualizacion=? WHERE id_incidencia = ?';
+    connection.query(sql, [id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion, id_incidencia], (err, resultado)=>{
         if(err){
             console.error('Error al guardar los datos', err);
             res.status(500).json({error:'Error interno en el servidor'});
@@ -99,7 +99,7 @@ const actualizarIncidencia = (req,res)=>{  //http://localhost:3000/incidencias/3
           console.error("Error en la conexion", err);
         } else {
     const id_incidencia = req.params.id;
-    const {id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion} = req.body;
+    const {id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion} = req.body;
     const updatedFields = [];
     const updatedValues = [];
     if (id_usuario!=undefined) {
@@ -118,6 +118,10 @@ const actualizarIncidencia = (req,res)=>{  //http://localhost:3000/incidencias/3
         updatedValues.push(descripcion);
         updatedFields.push('descripcion =?');
     }
+    if (solucion!=undefined) {
+        updatedValues.push(solucion);
+        updatedFields.push('solucion =?');
+    }
     if (estado!=undefined) {
         updatedValues.push(estado);
         updatedFields.push('estado =?');
@@ -135,7 +139,7 @@ const actualizarIncidencia = (req,res)=>{  //http://localhost:3000/incidencias/3
         if(err){
             console.error('Error al guardar los datos', err);
         } else{
-            res.json({recibido:true, id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id: resultado.id_incidencia   });
+            res.json({recibido:true, id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion, id: resultado.id_incidencia   });
         }
       }
     );
