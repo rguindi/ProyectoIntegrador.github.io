@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario para Insertar Datos</title>
+<style>
+    .error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+    display: block; /* Asegura que cada mensaje de error aparezca en una línea nueva */
+}
+
+</style>
+</head>
+<body>
+
+<h2>Formulario para Insertar Categoría</h2>
+<form id="FormularioCategorias" novalidate>
+    <label for="nombre">Nombre de Categoría:</label><br>
+    <input type="text" id="nombre" name="nombre" required>
+    <span id="error_nombre" class="error"></span><br>
+   
+    <button type="submit" id="submitBtn">Insertar Categoría</button>
+</form>
+<p id="p1"></p>
+<script src="js/peticionesCategorias.js"></script>
+<script src="js/validar_categorias.js"></script>
+</body>
+</html>

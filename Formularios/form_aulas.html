@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario para Insertar Datos</title>
+<style>
+    .error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+    display: block; /* Asegura que cada mensaje de error aparezca en una línea nueva */
+}
+
+</style>
+</head>
+<body>
+
+<h2>Formulario para Insertar Aula</h2>
+<form id="FormularioAulas" novalidate>
+    <label for="num_aula">Numero de Aula:</label><br>
+    <input type="text" id="num_aula" name="num_aula" required>
+    <span id="error_num_aula" class="error"></span><br>
+   
+    <label for="descripcion">Descripción:</label><br>
+    <textarea id="descripcion" name="descripcion" required></textarea>
+    <span id="error_descripcion" class="error"></span><br>
+   
+
+    
+    <button type="submit" id="submitBtn">Insertar Aula</button>
+</form>
+<p id="p1"></p>
+<script src="js/peticionesAulas.js"></script>
+<script src="js/validar_aulas.js"></script>
+</body>
+</html>
