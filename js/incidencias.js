@@ -80,7 +80,8 @@ function renderTabla(datos) {
             celdaDesc.innerText = registro.descripcion;
 
         const celdaSolucion = document.createElement('td');
-            celdaSolucion.innerText = registro.solucion; 
+            celdaSolucion.innerText = registro.solucion;
+            celdaSolucion.setAttribute('id', 'td_Solucion');
 
         // funcion para edfitar el texto de la solución
         celdaSolucion.addEventListener('click', () => {
@@ -130,8 +131,8 @@ function renderTabla(datos) {
         // botón de modificación
         const celdaEliminar = document.createElement('td');
         const boton = document.createElement('button');
-
-        boton.innerText = "Guardar";
+            boton.setAttribute("class", "btnGuardar btn btn-warning btn-sm");
+            boton.innerText = "Guardar";
 
         boton.addEventListener("click", modificarIncidencia.bind(null, registro.id_incidencia, celdaSolucion, selectEstado))
         celdaEliminar.appendChild(boton);

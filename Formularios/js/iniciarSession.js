@@ -1,6 +1,6 @@
 import * as funcionesForms from './funcionesForms.js';
 
-const dirIP_api = '127.0.0.1';
+const dirIP_api = '192.168.7.106';
 const PUERTO_EXPRESS = 3000;
 
 const id_usuario = document.getElementById('id_usuario');

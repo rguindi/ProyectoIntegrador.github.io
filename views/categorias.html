@@ -11,7 +11,7 @@
 
         <link rel="stylesheet" href="../css/estilos.css">
 
-        <title>Categorías</title>
+        <title>Aulas</title>
 
     </head>
 
@@ -29,10 +29,22 @@
             <nav class="bg-primary bg-gradient">
 
                 <ul class="nav navAdmin">
-                    <li class="nav-item" ><a href="./equipos.html" class="nav-link fw-bold aNav">Equipos Electronicos</a></li>
+                    <li class="nav-item dropdown" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Equipos Electronicos</a>
+                        <ul class="dropdown-menu bg-primary bg-gradient">
+                            <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./registrarEquipo.html">Registrar Equipo</a></li>
+                            <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./equipos.html">Visualizar Equipos</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Incidencias</a>
+                        <ul class="dropdown-menu bg-primary bg-gradient">
+                            <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./registrarIncidencia.html">Registrar Incidencia</a></li>
+                            <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./incidencias.html">Visualizar Incidencias</a></li>
+                        </ul>
+                    </li>
+                    
                     <li class="nav-item active" ><a class="nav-link fw-bold aNav">Categorías</a></li>
                     <li class="nav-item" ><a href="./aulas.html" class="nav-link fw-bold aNav">Aulas</a></li>
-                    <li class="nav-item" ><a href="./incidencias.html" class="nav-link fw-bold aNav">Incidencias</a></li>
                     <li class="nav-item" ><a href="../index.html" class="nav-link fw-bold aNav">Logout</a></li>
                 </ul>
 
@@ -42,11 +54,32 @@
             <main class="centered py-3">
                 
                 <div class="container">
-    
+                    
                     <div class="row">
-    
+                                            
                         <div class="col-md-6 offset-md-3">
+                            
+                            <form novalidate action="" id="formAula">
+
+                                <div class="col-12 mb-5">
+                                    <h2 class="text-center">Registro de Categoría</h2>
+                                </div>
+
+                                <!-- Categoria input -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="nombreCategoria">Nombre de Categoría</label>
+                                    <input type="text" id="nombreCategoria" name="nombreCategoria" class="form-control" required/>
+                                    <span id="errorNombreCategoria" class="error"></span> 
+                                </div>
+                    
+                                                    
+                                <div class="text-center">
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-warning" name="btnInsertarCategoria" id="btnInsertarCategoria">Insertar Categoría</button>
+                                </div>
     
+                            </form>
+
                         </div>
 
                     </div>

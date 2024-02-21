@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"/>
+
+        <link rel="stylesheet" href="../css/estilos.css">
+
+        <title>Aulas</title>
+
+    </head>
+
+    <body class="bg-light">
+
+        <div class="wrapper">
+
+        <!-- HEADER -->
+            <header class="bg-primary bg-gradient  py-3">
+    
+                <h1 class="text-center">GESTIÓN DE INVENTARIO</h1>
+        
+            </header>
+
+            <nav class="bg-primary bg-gradient">
+
+                <ul class="nav navAdmin">
+                    <li class="nav-item dropdown" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Equipos Electronicos</a>
+                        <ul class="dropdown-menu bg-primary bg-gradient">
+                            <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./registrarEquipo.html">Registrar Equipo</a></li>
+                            <li class="text-center active"><a class="dropdown-item liNavSub fw-bold" href="./equipos.html">Visualizar Equipos</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown active" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Incidencias</a>
+                        <ul class="dropdown-menu bg-primary bg-gradient">
+                            <li class="text-center active"><a class="dropdown-item liNavSub fw-bold" href="./registrarIncidencia.html">Registrar Incidencia</a></li>
+                            <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./incidencias.html">Visualizar Incidencias</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item" ><a href="./categorias.html" class="nav-link fw-bold aNav">Categorías</a></li>
+                    <li class="nav-item" ><a href="./aulas.html" class="nav-link fw-bold aNav">Aulas</a></li>
+                    <li class="nav-item" ><a href="../index.html" class="nav-link fw-bold aNav">Logout</a></li>
+                </ul>
+
+            </nav>
+
+        <!-- MAIN -->
+            <main class="centered py-3">
+                
+                <div class="container">
+                    
+                    <div class="row">
+                                            
+                        <div class="col-md-6 offset-md-3">
+                            
+                            <form novalidate action="" id="formEquipos">
+
+                                <div class="col-12 mb-5">
+                                    <h2 class="text-center">Registro de Incidencia</h2>
+                                </div>
+
+                                <!--  input -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="nombreEquipo">Nombre</label>
+                                    <input type="text" id="nombreEquipo" name="nombreEquipo" class="form-control" required/>
+                                    <span id="errorNombreEquipo" class="error"></span> 
+                                </div>
+
+                               <!-- Descripcion textarea -->
+                                <div class="form-outline mb-4 text-center">
+                                    <label class="form-label fw-bold" for="descripcionEquipo">Descripción</label>
+                                        <textarea name="descripcionEquipo" id="descripcionEquipo" cols="36" rows="5" class="form-control"></textarea>
+                                    <span id="errorDescripcionEquipo" class="error"></span> 
+                                </div>
+
+                                <!--  input -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="marcaEquipo">Marca</label>
+                                    <input type="text" id="marcaEquipo" name="marcaEquipo" class="form-control" required/>
+                                    <span id="errorMarcaEquipo" class="error"></span> 
+                                </div>
+
+                                <!--  input -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="modeloEquipo">Modelo</label>
+                                    <input type="text" id="modeloEquipo" name="modeloEquipo" class="form-control" required/>
+                                    <span id="errorModeloEquipo" class="error"></span> 
+                                </div>
+
+                                <!--  input -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="numSerieEquipo">Número de Serie</label>
+                                    <input type="text" id="numSerieEquipo" name="numSerieEquipo" class="form-control" required/>
+                                    <span id="errorNumSerieEquipo" class="error"></span> 
+                                </div>
+
+                                <!--  input -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="estadoEquipo">Estado</label>
+                                    <input type="text" id="estadoEquipo" name="estadoEquipo" class="form-control" required/>
+                                    <span id="errorEstadoEquipo" class="error"></span> 
+                                </div>
+
+                                <!--  input -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="imagenEquipo">Imagen</label>
+                                    <input type="text" id="" name="" class="form-control" required/>
+                                    <span id="error" class="error"></span> 
+                                </div>
+
+                                <!--  input -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="qrEquipo">QR</label>
+                                    <input type="text" id="" name="" class="form-control" required/>
+                                    <span id="error" class="error"></span> 
+                                </div>
+
+                                <!--  input -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="anoAdquisicionEquipo">Año Adquisición</label>
+                                    <input type="date" id="anoAdquisicionEquipo" name="anoAdquisicionEquipo" class="form-control" required/>
+                                    <span id="errorAnoAdquisicionEquipo" class="error"></span> 
+                                </div>
+
+                                <!--  input -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="codEquipo">Código</label>
+                                    <input type="text" id="codEquipo" name="codEquipo" class="form-control" required/>
+                                    <span id="errorCodEquipo" class="error"></span> 
+                                </div>
+                                         
+                                <div class="text-center">
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-warning" name="btnInsertarAula" id="btnInsertarAula">Insertar Aula</button>
+                                </div>
+    
+                            </form>
+
+                        </div>
+
+                    </div>
+    
+                </div>
+
+            </main>
+    
+        <!-- FOOTER -->
+            <footer>
+
+                <div class="bg-primary bg-gradient py-3 text-center">
+                    <img src="../img/logo.png" alt="No se encuentra" class="img-thumbnail">
+                </div>
+
+            </footer>
+        </div>
+
+        
+    </body>
+
+</html>
