@@ -1,5 +1,5 @@
 
-const dirIP_api = '192.168.7.106';
+const dirIP_api = '127.0.0.1';
 const PUERTO_EXPRESS = 3000;
 
 const tBody = document.getElementById('table-body');

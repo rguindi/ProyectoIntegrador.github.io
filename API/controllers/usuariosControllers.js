@@ -100,7 +100,6 @@ const verificarUsuario = (req, res) => {
 
 // Función para obtener rol
 const getUser = (req, res) => {
-    console.log('User');
     if (req.session.usuario) {
         res.json({ usuario: req.session.usuario });
     } else {

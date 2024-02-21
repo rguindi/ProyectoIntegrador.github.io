@@ -79,6 +79,7 @@ async function getUsuario() {
         throw `Error ${response.status} de la BBDD: ${response.statusText}`;
     }
     const datos = await response.json();
+    console.log(datos.usuario);
     return datos;
   } catch (error) {
     console.log("Fallo fetch");
@@ -86,7 +87,8 @@ async function getUsuario() {
   }
 }
 
-
+// para comprobar que la session funciona
+getUsuario();
 
 
 //FUNCION PARA INSERTAR LOS DATOS CON FORMDATA

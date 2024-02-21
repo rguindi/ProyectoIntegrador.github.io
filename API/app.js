@@ -10,7 +10,10 @@ const rutasIncidencias = require('./rutas/rutas_incidencias');
 const rutasUsuarios = require('./rutas/rutas_usuarios');
 const puerto = 3000;
 const multer = require('multer');
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true,
+}));
 // Middleware para parsear el cuerpo de las peticiones en formato JSON
 app.use(express.json());
 
@@ -33,7 +36,7 @@ app.use(session({
     secret: 'clave',
     resave: false,
     saveUninitialized: true
-  }));
+}));
 
 
 // Middleware Multer para manejar archivos

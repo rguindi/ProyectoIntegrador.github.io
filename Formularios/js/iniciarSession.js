@@ -1,6 +1,6 @@
 import * as funcionesForms from './funcionesForms.js';
 
-const dirIP_api = '192.168.7.106';
+const dirIP_api = '127.0.0.1';
 const PUERTO_EXPRESS = 3000;
 
 const id_usuario = document.getElementById('id_usuario');
@@ -14,6 +14,7 @@ async function verificarUser(usuario) {
         const response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify(usuario),
+            credentials: 'include' ,
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -23,7 +24,7 @@ async function verificarUser(usuario) {
             funcionesForms.mostrarError('errorContraseña', 'Login incorrecto');
 
         }else{
-            window.location.href = '../views/nueva_Incidencia.html';
+            window.location.href = '../Formularios/form_Incidencias.html';
         }
 
     } catch (error) {
