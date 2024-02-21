@@ -11,7 +11,7 @@
 
         <link rel="stylesheet" href="../css/estilos.css">
 
-        <title>Aulas</title>
+        <title>Incidencias</title>
 
     </head>
 
@@ -31,26 +31,51 @@
                 <ul class="nav navAdmin">
                     <li class="nav-item" ><a href="./equipos.html" class="nav-link fw-bold aNav">Equipos Electronicos</a></li>
                     <li class="nav-item" ><a href="./categorias.html" class="nav-link fw-bold aNav">Categorías</a></li>
-                    <li class="nav-item active" ><a class="nav-link fw-bold aNav">Aulas</a></li>
-                    <li class="nav-item" ><a href="./incidencias.html" class="nav-link fw-bold aNav">Incidencias</a></li>
+                    <li class="nav-item" ><a href="./aulas.html" class="nav-link fw-bold aNav">Aulas</a></li>
+                    <li class="nav-item active" ><a class="nav-link fw-bold aNav">Incidencias</a></li>
                     <li class="nav-item" ><a href="../index.html" class="nav-link fw-bold aNav">Logout</a></li>
                 </ul>
 
             </nav>
 
         <!-- MAIN -->
-            <main class="centered py-3">
+            <main class="py-3 mt-3">
                 
                 <div class="container">
-    
-                    <div class="row">
-    
-                        <div class="col-md-6 offset-md-3">
-    
+
+                    <div class="row justify-content-center">
+
+                        <div class="col-12">
+
+                            <div class="table-responsive">
+
+                                <table class="table mx-auto" id="tabla">
+
+                                    <thead id="campos">
+
+                                        <th>Id_Incidencia</th>
+                                        <th>Id_Usuario</th>
+                                        <th>Id_Equipo</th>
+                                        <th>Fecha_Reporte</th>
+                                        <th>Descripción</th>
+                                        <th>Solución</th>
+                                        <th>Estado</th>
+                                        <th>Fecha_Actualización</th>
+                                        
+                                    </thead>
+
+                                    <tbody id="datos">
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
                         </div>
 
                     </div>
-    
+
                 </div>
 
             </main>
@@ -65,6 +90,7 @@
             </footer>
         </div>
 
+        <script src="../Formularios/js/peticionesIncidencias.js"></script>
         
     </body>
 

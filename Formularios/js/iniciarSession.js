@@ -20,11 +20,12 @@ async function verificarUser(usuario) {
         });
 
         if (!response.ok) {
-            alert('Login incorrecto');
+            funcionesForms.mostrarError('errorContraseña', 'Login incorrecto');
+
         }else{
-            window.location.href = './form_Incidencias.html';
+            window.location.href = '../views/nueva_Incidencia.html';
         }
-        
+
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
     }
@@ -48,11 +49,6 @@ function validarFormularioInicioSesion(event) {
     // Validar contraseña
     if (contraseña.value === "") {
         funcionesForms.mostrarError('errorContraseña', "Contraseña vacía");
-        contraseña.focus();
-        hayError = true;
-    
-    } else if (contraseña.value.length < 8) {
-        funcionesForms.mostrarError('errorContraseña', "La contraseña debe tener al menos 8 caracteres");
         contraseña.focus();
         hayError = true;
     }
