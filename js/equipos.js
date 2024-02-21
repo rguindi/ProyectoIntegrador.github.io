@@ -12,17 +12,15 @@ async function pedirDatos() {
         throw "Ha ocurrido un error: " + respuesta.status + " (" + respuesta.statusText + ")";
     }
     const datosObtenidos = await respuesta.json();
-    console.log(datosObtenidos);
     return datosObtenidos;
 }
 
-async function pedirDetalles() {
-    const respuesta = await fetch(`http://${dirIP_api}:${PUERTO_EXPRESS}/equipos/`);
+async function pedirDetalles(id) {
+    const respuesta = await fetch(`http://${dirIP_api}:${PUERTO_EXPRESS}/detalles/${id}`);
     if (!respuesta.ok) {
         throw "Ha ocurrido un error: " + respuesta.status + " (" + respuesta.statusText + ")";
     }
     const datosObtenidos = await respuesta.json();
-    console.log(datosObtenidos);
     return datosObtenidos;
 }
 
@@ -66,10 +64,30 @@ function renderTabla(datos) {
         const celdaBoton = document.createElement('td');
         const boton = document.createElement("button");
         boton.innerText = "Ver detalles";
-        boton.addEventListener("click", () => {
+        boton.addEventListener("click", async function () {
+            const datosDetalles = await pedirDetalles(registro.id_equipo);
+            console.log(datosDetalles);
+            // nueva ventana con detalles
+            const ventanaDetalles = window.open("", "Diseño Web", "width=900, height=600")
+            const ventanaDocument = ventanaDetalles.document;
+            const titulo = document.createElement("h1");
+            titulo.innerText = `Detalles del equipo ${registro.id_equipo}`
 
-            const ventanaDetalles = window.open("https://www.google.es", "Diseño Web", "width=900, height=600")
-            ventanaDetalles.document.write(`<h1>${registro.id_equipo}</h1>`)
+            const divDatos = ventanaDocument.createElement("div");
+            for (const key in datosDetalles) {
+                const parrafo = document.createElement("p");
+                const dato = document.createElement("span");
+                parrafo.innerText=key + ": ";
+                dato.innerText = datosDetalles[key];
+                parrafo.appendChild(dato)
+                divDatos.appendChild(parrafo);
+            }
+               
+
+
+
+            ventanaDocument.body.appendChild(titulo);
+            ventanaDocument.body.appendChild(divDatos);
         })
 
         celdaBoton.appendChild(boton);
