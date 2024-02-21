@@ -1,20 +1,19 @@
-document.addEventListener('DOMContentLoaded', function(event) {
-    event.preventDefault();
-    console.log("El DOM ha sido completamente cargado.");
+// document.addEventListener('DOMContentLoaded', function(event) {
+//     event.preventDefault();
+//     console.log("El DOM ha sido completamente cargado.");
 
-    document.getElementById('formularioEquipos').addEventListener('submit', async function(event) {
-        event.preventDefault(); 
+ async function qr_code() {
+        // event.preventDefault(); 
         
          //GENERAMOS UN CODIGO UNICO PARA EL EQUIPO
 
           //Obtenemos el id y acontinuacon el nombre de la categoria los primeros 3 caracteres en mayusculas
-        let categoria = document.getElementById('categoria');     
+        let categoria = document.getElementById('id_categoria');     
        const  datosCategoria = await getCategoriaById(categoria.value);
-
         let nombreCategoria = datosCategoria.nombre;
-   
         console.log(datosCategoria);
         let cat = nombreCategoria.substring(0,3).toUpperCase();
+
 
         //Obtenemos la marca del equipo los primeros 3 caracteres en mayusculas
         let marca = document.getElementById('marca').value; 
@@ -33,7 +32,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
         //Generamos el codigo unico para el equipo
         let codigo = cat + mar + mod + id;
 
-        
+        console.log(codigo);
+
+        //Ponemos en codigo en el input hidden del formulario para ademas de generar el Qr mandarlo en el formdata
+        document.getElementById('codigo').value = codigo;
     
         
    
@@ -42,13 +44,19 @@ document.addEventListener('DOMContentLoaded', function(event) {
         qr.make();
         
         
-        // document.getElementById('codigoQR').innerHTML = qr.createImgTag(5); // 5 es el tamaño del código QR
+        document.getElementById('codigoQR').innerHTML = qr.createImgTag(5); // 5 es el tamaño del código QR. Esta función simplemente muestra el codigo en pantalla al insertarlo
+        
+        var qrCodeImgUrl = qr.createImgTag(5);
+        var array = qrCodeImgUrl.split("\"");           //"Cortamos" el String del elemento QR para mandar a la base de datos el contenido que va dentro del atributo src en un elemento img. Este codigo mostrará el QR
+        
+        console.log(array[1]);
+        return array[1];
 
-        document.getElementById('qr_code').value = qr.createImgTag(5);
+        // document.getElementById('qr_code').value = qr.createImgTag(5);
         
 
-    });
-});
+    }
+// });
 
 
 async function getCategoriaById(idCategoria) {

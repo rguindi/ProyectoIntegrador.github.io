@@ -16,7 +16,7 @@
 <body>
 
 <h2>Formulario para Añadir Equipo Electrónico</h2>
-<form id="formularioEquipos"   enctype="multipart/form-data" novalidate>
+<form action="" method="post" id="formularioEquipos"   enctype="multipart/form-data" novalidate>
     <label for="nombre">Nombre:</label><br>
     <input type="text" id="nombre" name="nombre" required>
     <span id="error_nombre" class="error"></span><br>
@@ -51,8 +51,8 @@
     <!-- <label for="id_aula">ID Aula:</label><br>
     <input type="number" id="id_aula" name="id_aula" required>
     <span id="error_id_aula" class="error"></span><br> -->
-    <label for="aula">Aula:</label><br>
-    <select id="aula" name="id_aula" required>
+    <label for="id_aula">Aula:</label><br>
+    <select id="id_aula" name="id_aula" required>
         <option value="defecto" selected disabled>Seleccione aula</option>
         
     </select>
@@ -62,8 +62,8 @@
     <input type="number" id="id_categoria" name="id_categoria" required>
     <span id="error_id_categoria" class="error"></span><br> -->
 
-    <label for="categoria">Categoria:</label><br>
-    <select id="categoria" name="id_categoria" required>
+    <label for="id_categoria">Categoria:</label><br>
+    <select id="id_categoria" name="id_categoria" required>
         <option value="defecto" selected disabled>Seleccione categoria</option>
         
     </select>
@@ -74,7 +74,7 @@
     <span id="error_imagen_producto" class="error"></span><br>
     
 
-    <input type="file" id="qr_code" name="qr_code" hidden>
+    <input type="hidden" id="codigo" name="codigo" >
 
 
 

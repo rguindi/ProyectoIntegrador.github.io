@@ -57,7 +57,10 @@ const getEquipoById = (req, res) => {
   });
 };
 
-const crearEquipo = (req, res) => {
+ //La imagen del producto se inserta como file y se convierte a blob en mysql,.
+ //El QR entra como String por ser generado asi por el script. Su valor es el contenido del atributo src en un elemento img
+
+ const crearEquipo = (req, res) => {            
   db.getConnection((err, connection) => {
     if (err) {
       console.error("Error en la conexion", err);
@@ -75,6 +78,7 @@ const crearEquipo = (req, res) => {
       estado,
       id_aula,
       id_categoria,
+      qr_code,
       ano_adquisicion,
       ultima_actualizacion,
       codigo,
@@ -82,7 +86,7 @@ const crearEquipo = (req, res) => {
 
     // Obtener los archivos adjuntos
     const imagen_producto = req.files[0];
-    const qr_code = req.files[1];
+    // const qr_code = req.files[1];
 
     // Consulta SQL para insertar el equipo con archivos BLOB
     const query =
@@ -102,7 +106,7 @@ const crearEquipo = (req, res) => {
         id_aula,
         id_categoria,
         imagen_producto.buffer, // Acceder al buffer del archivo en memoria
-        qr_code.buffer, // Acceder al buffer del archivo en memoria
+        qr_code, //.buffer, // Acceder al buffer del archivo en memoria
         ano_adquisicion,
         ultima_actualizacion,
         codigo,
@@ -124,7 +128,7 @@ const crearEquipo = (req, res) => {
             id_aula,
             id_categoria,
             imagen_producto: imagen_producto.originalname,
-            qr_code: qr_code.originalname,
+            qr_code, // qr_code.originalname,
             ano_adquisicion,
             ultima_actualizacion,
             codigo,

@@ -99,9 +99,10 @@ const verificarUsuario = (req, res) => {
 };
 
 // Función para obtener rol
-const getRol = (req, res) => {
+const getUser = (req, res) => {
+    console.log('User');
     if (req.session.usuario) {
-        res.json({ rol: req.session.usuario.rol });
+        res.json({ usuario: req.session.usuario });
     } else {
         res.status(401).json({ error: 'No se ha iniciado sesión' });
     }
@@ -112,5 +113,5 @@ module.exports = {
     getUsuarioById,
     crearUsuario,
     verificarUsuario,
-    getRol,
+    getUser,
 };
