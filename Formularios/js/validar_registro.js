@@ -33,11 +33,11 @@ async function comprobarUser() {
             // console.log(datos);
             // indicar que el id de usuario ya existe
             if (!datos.error) {
-                document.querySelector('span.aviso').textContent =`El usuario ${idUsuario.value} ya existe`;
+                document.querySelector('span.aviso').textContent =`El usuario "${idUsuario.value}" ya existe`;
                 document.querySelector('span.aviso').style.color = "red";
                 return false;
             }else{
-                document.querySelector('span.aviso').textContent =`El usuario ${idUsuario.value} está disponible`;
+                document.querySelector('span.aviso').textContent =`El usuario "${idUsuario.value}" está disponible`;
                 document.querySelector('span.aviso').style.color = "green";
                 return true;
             }

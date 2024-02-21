@@ -51,11 +51,7 @@ function validarFormularioInicioSesion(event) {
         contraseña.focus();
         hayError = true;
     
-    } else if (contraseña.value.length < 8) {
-        funcionesForms.mostrarError('errorContraseña', "La contraseña debe tener al menos 8 caracteres");
-        contraseña.focus();
-        hayError = true;
-    }
+    } 
 
     if (!hayError) {
         funcionesForms.enviado();
