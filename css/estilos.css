@@ -28,6 +28,10 @@ h1 {
     text-shadow: 2px 2px 1px black;
 }
 
+.error {
+    color: red;
+}
+
 .navAdmin {
     display: flex;
     justify-content: space-around;
@@ -50,4 +54,29 @@ h1 {
     cursor: pointer;
     color: rgb(255, 189, 8);
     text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+table,th,tr,td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.938);
+}
+
+th {
+    background-color: rgba(223, 215, 213, 0.938);
+    white-space: nowrap;
+}
+
+
+#tA_Solucion {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin-top: 20px;
+    padding: 5px;
+    resize: none;
 }

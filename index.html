@@ -35,18 +35,20 @@
     
                         <div class="col-md-6 offset-md-3">
     
-                            <form action="" method="post">
+                            <form novalidate action="" id="formLogin">
 
                                 <!-- user input -->
                                 <div class="mb-4 text-center">
-                                    <label class="form-label fw-bold" for="user">Usuario</label>
-                                    <input type="text" id="user" name="user" class="form-control" required />
+                                    <label class="form-label fw-bold" for="id_usuario">Usuario</label>
+                                    <input type="text" id="id_usuario" name="id_usuario" class="form-control" required/>
+                                    <span id="errorUsuario" class="error"></span> 
                                 </div>
                     
                                 <!-- Password input -->
                                 <div class="form-outline mb-4 text-center">
-                                    <label class="form-label fw-bold" for="pass">Contraseña</label>
-                                    <input type="password" id="pass" class="form-control" name="pass" />
+                                    <label class="form-label fw-bold" for="contraseña">Contraseña</label>
+                                    <input type="password" id="contraseña" name="contraseña" class="form-control" required/>
+                                    <span id="errorContraseña" class="error"></span> 
                                 </div>
                                         
                                 <div class="text-center">
@@ -74,6 +76,7 @@
             </footer>
         </div>
 
+        <script type="module" src="./Formularios/js/iniciarSession.js"></script>
         
     </body>
 
