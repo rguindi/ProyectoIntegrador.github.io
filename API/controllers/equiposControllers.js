@@ -139,6 +139,27 @@ const crearEquipo = (req, res) => {
   });
 };
 
+//devolver el ultimo Id insertado para añadir al QR
+const getUltimoId = (req, res) => {
+  db.getConnection((err, connection) => {
+    if (err) {
+      console.error("Error en la conexion", err);
+      res.status(500).json({ error: "Error interno en el servidor" });
+      return;
+    }
+    connection.query("SELECT MAX(id_equipo) as id FROM equiposelectronicos", (err, resultados) => {
+      if (err) {
+        console.error("Error al obtener los datos", err);
+      } else {
+        res.json(resultados[0]);
+      }
+      connection.release();
+    });
+  }
+  );
+};
+
+
 //modificar equipo
 const putEquipo = (req, res) => {
   db.getConnection((err, connection) => {
@@ -372,4 +393,5 @@ module.exports = {
   putEquipo,
   actualizarEquipo,
   deleteEquipo,
+  getUltimoId,
 };

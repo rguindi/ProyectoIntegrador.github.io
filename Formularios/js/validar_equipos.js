@@ -52,7 +52,7 @@ document.getElementById('formularioEquipos').addEventListener("submit", function
         mostrarError('error_estado', 'Por favor, seleccione el estado del equipo    .');
         return;
     }
-    if (!id_aula.checkValidity()) {
+    if (id_aula.value === "defecto") {
         id_aula.focus();
         mostrarError('error_id_aula', id_aula.validationMessage);
         return;
