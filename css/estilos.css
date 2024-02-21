@@ -1,30 +1,53 @@
-body {
-    display: flex;
-    flex-direction: column;
-    /* min-height: 100vh; */
+html, body {
+    height: 100%;
 }
 
-header {
-    /* position: fixed; */
-    top: 0;
-    width: 100%;
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 main {
-    /* flex-grow: 1; */
+    flex: 1;
+}
+
+.centered {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+form {
+    border: 1px solid #ccc;
+    padding: 20px;
 }
 
 h1 {
     color: rgb(255, 189, 8);
     text-shadow: 2px 2px 1px black;
+}
+
+.navAdmin {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+}
+
+.nav-item.active a {
+    color: rgb(255, 189, 8);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+.aNav {
+    color: rgba(255, 255, 255, 0.938);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+
+.aNav:hover {
+    cursor: pointer;
+    color: rgb(255, 189, 8);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
