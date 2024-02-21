@@ -28,6 +28,10 @@ h1 {
     text-shadow: 2px 2px 1px black;
 }
 
+.error {
+    color: red;
+}
+
 .navAdmin {
     display: flex;
     justify-content: space-around;
