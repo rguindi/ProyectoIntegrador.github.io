@@ -72,18 +72,19 @@ window.onload = async function() {
 //Funcion para obtener el id_usuario de la session:
 async function getUsuario() { 
   try {
-    const response = await fetch(url + '/usuarios/user');
+    const response = await fetch(url + '/usuarios/user', {
+      credentials: 'include' // Incluye la cookie de sesión en la solicitud
+    });
     if (!response.ok) {
-        throw `Error ${response.status} de la BBDD: ${response.statusText}`
+        throw `Error ${response.status} de la BBDD: ${response.statusText}`;
     }
-    const datos = await response.json()
-    return datos
-} catch (error) {
+    const datos = await response.json();
+    return datos;
+  } catch (error) {
     console.log("Fallo fetch");
     throw error;
+  }
 }
-}
-
 
 
 
