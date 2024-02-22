@@ -16,31 +16,31 @@ function limpiarErrores() {
     });
 }
 
-document.getElementById('submitBtn').addEventListener("click", function (evento) {
+document.getElementById('FormularioIncidencias').addEventListener("submit", function (evento) {
     limpiarErrores();
 
-    if (!id_equipo.checkValidity()) {
-        id_equipo.focus();
-        mostrarError('error_id_equipo', id_equipo.validationMessage);
-       return;
-    }
+    // if (!id_equipo.checkValidity()) {
+    //     id_equipo.focus();
+    //     mostrarError('error_id_equipo', id_equipo.validationMessage);
+    //    return;
+    // }
 
-    if(!fecha_reporte.checkValidity()) {
-        fecha_reporte.focus();
-        mostrarError('error_fecha_reporte', fecha_reporte.validationMessage);
-        return;
-    }
+    // if(!fecha_reporte.checkValidity()) {
+    //     fecha_reporte.focus();
+    //     mostrarError('error_fecha_reporte', fecha_reporte.validationMessage);
+    //     return;
+    // }
 
-    if(!descripcion.checkValidity()) {
-        descripcion.focus();
-        mostrarError('error_descripcion', descripcion.validationMessage);
-        return;
-    }
-    if(!solucion.checkValidity()) {
-        solucion.focus();
-        mostrarError('error_solucion', solucion.validationMessage);
-        return;
-    }
+    // if(!descripcion.checkValidity()) {
+    //     descripcion.focus();
+    //     mostrarError('error_descripcion', descripcion.validationMessage);
+    //     return;
+    // }
+    // if(!solucion.checkValidity()) {
+    //     solucion.focus();
+    //     mostrarError('error_solucion', solucion.validationMessage);
+    //     return;
+    // }
 
     if (estado.value === "defecto") {
         estado.focus();
@@ -48,11 +48,11 @@ document.getElementById('submitBtn').addEventListener("click", function (evento)
       return;
     }
 
-    if(!fecha_actualizacion.checkValidity()) {
-        fecha_actualizacion.focus();
-        mostrarError('error_fecha_actualizacion', fecha_actualizacion.validationMessage);
-        return;
-    }
+    // if(!fecha_actualizacion.checkValidity()) {
+    //     fecha_actualizacion.focus();
+    //     mostrarError('error_fecha_actualizacion', fecha_actualizacion.validationMessage);
+    //     return;
+    // }
 
     // Aquí puedes validar los otros campos del formulario de manera similar
 

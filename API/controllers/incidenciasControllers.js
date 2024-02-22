@@ -52,7 +52,7 @@ const crearIncidencia = (req, res) => {
       console.error("Error en la conexion", err);
     } else {
       const { id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion } = req.body;
-      connection.query('INSERT INTO incidencias (id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion) VALUES (?,?,?,?,?,?,?)', [id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion], (err, resultado) => {
+      connection.query('INSERT INTO incidencias (id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion) VALUES (?,?,?,?,?,?,?)', [id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion], (err, resultado) => {
         if (err) {
           console.error('Error al guardar los datos', err);
           res.status(500).json({ error: 'Error interno en el servidor' });
@@ -83,7 +83,7 @@ const putIncidencia = (req, res) => {
           res.status(500).json({ error: 'Error interno en el servidor' });
         } else {
           res.json({
-            recibido: true, id_usuario, id_equipo, fecha_reporte, descripcion, estado, fecha_actualizacion, id: resultado.id_incidencia
+            recibido: true, id_usuario, id_equipo, fecha_reporte, descripcion, solucion, estado, fecha_actualizacion, id: resultado.id_incidencia
           });
         }
       }
