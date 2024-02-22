@@ -101,6 +101,9 @@ const verificarUsuario = (req, res) => {
 // Función para obtener rol
 const getUser = (req, res) => {
     if (req.session.usuario) {
+        console.log(req.session.usuario);
+        console.log(req.session.usuario.rol);
+        console.log(req.session);
         res.json({ usuario: req.session.usuario });
     } else {
         res.status(401).json({ error: 'No se ha iniciado sesión' });

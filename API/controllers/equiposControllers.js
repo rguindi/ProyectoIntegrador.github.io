@@ -85,13 +85,15 @@ const getEquipoById = (req, res) => {
     } = req.body;
 
     // Obtener los archivos adjuntos
-    const imagen_producto = req.files[0];
+    let imagen_producto = req.files[0];
     // const qr_code = req.files[1];
 
     // Consulta SQL para insertar el equipo con archivos BLOB
     const query =
       "INSERT INTO equiposelectronicos (id_usuario, nombre, descripcion, marca, modelo, numero_de_serie, estado, id_aula, id_categoria, imagen_producto, qr_code, ano_adquisicion, ultima_actualizacion, codigo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+    if (imagen_producto === undefined) {
+      imagen_producto = "none";
+    }
     // Ejecutar la consulta con los archivos BLOB como parámetros
     connection.query(
       query,

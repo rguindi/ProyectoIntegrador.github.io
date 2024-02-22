@@ -12,16 +12,16 @@
        const  datosCategoria = await getCategoriaById(categoria.value);
         let nombreCategoria = datosCategoria.nombre;
         console.log(datosCategoria);
-        let cat = nombreCategoria.substring(0,3).toUpperCase();
+        let cat = nombreCategoria.substring(0,2).toUpperCase();
 
 
         //Obtenemos la marca del equipo los primeros 3 caracteres en mayusculas
         let marca = document.getElementById('marca').value; 
-        let mar = marca.substring(0,3).toUpperCase();
+        let mar = marca.substring(0,2).toUpperCase();
 
         //Obtenemos el modelo del equipo los primeros 3 caracteres en mayusculas
         let modelo = document.getElementById('modelo').value; 
-        let mod = modelo.substring(0,3).toUpperCase();
+        let mod = modelo.substring(0,2).toUpperCase();
 
         //Obtenemos el id autoincremental que se va a generar en la base de datos
         const response = await fetch(url + '/equipos/ultimo');
