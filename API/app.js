@@ -35,7 +35,8 @@ const upload = multer({ storage: multer.memoryStorage() });
 app.use(session({
     secret: 'clave',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {maxAge: 600000 }
 }));
 
 
