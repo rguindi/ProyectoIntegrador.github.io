@@ -8,6 +8,18 @@ const formBuscarCiudad = document.getElementById('buscarCiudad');
 const inputNombre = document.getElementById('nombre');
 
 
+//cargar las incidencias
+async function pedirIncidencia(id) {
+    const url = `http://${dirIP_api}:${PUERTO_EXPRESS}/incidencias/${id}`;
+    const respuesta = await fetch(url);
+    if (!respuesta.ok) {
+        throw "Ha ocurrido un error: " + respuesta.status + " (" + respuesta.statusText + ")";
+    }
+    const incidencia = await respuesta.json();
+    return incidencia;
+}
+
+
 async function pedirDatos() {
     const respuesta = await fetch(`http://${dirIP_api}:${PUERTO_EXPRESS}/incidencias/`);
 

@@ -7,6 +7,7 @@ const incidenciasController= require('../controllers/incidenciasControllers');
 rutasIncidencias.get('/', incidenciasController.getIncidencias);
 rutasIncidencias.post('/', incidenciasController.crearIncidencia);  //Lo normal es usar la misma ruta para el GET y EL POST
 rutasIncidencias.get('/:id', incidenciasController.getIncidenciaById);  //:id indica q es un parametro
+rutasIncidencias.get('/equipo/:id', incidenciasController.getIncidenciaByEquipo); 
 rutasIncidencias.put('/:id', incidenciasController.putIncidencia); 
 rutasIncidencias.patch('/:id', incidenciasController.actualizarIncidencia); 
 rutasIncidencias.delete('/:id', incidenciasController.deleteIncidencia);

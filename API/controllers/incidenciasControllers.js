@@ -18,6 +18,9 @@ const getIncidencias = (req, res) => {         //localhost:3000/incidencias
   });
 };
 
+
+
+
 const getIncidenciaById = (req, res) => { //http://localhost:3000/incidencias/registro/3
   db.getConnection((err, connection) => {
     if (err) {
@@ -177,6 +180,35 @@ const deleteIncidencia = (req, res) => {
 };
 
 
+//funcion para obtener incidencia por id del equipo
+const getIncidenciaByEquipo = (req, res) => { //http://localhost:3000/incidencias/equipo/3
+  db.getConnection((err, connection) => {
+    if (err) {
+      console.error("Error en la conexion", err);
+    } else {
+      const id_equipo = req.params.id;
+
+      // Consulta a la base de datos para obtener el registro por ID
+      connection.query('SELECT * FROM incidencias WHERE id_equipo = ?', [id_equipo], (err, resultados) => {
+        if (err) {
+          console.error('Error al obtener el registro desde la base de datos:', err);
+          res.status(500).json({ error: 'Error interno del servidor' });
+        } else {
+          // Verifica si se encontró un registro
+          if (resultados.length > 0) {
+            res.json(resultados); // Devuelve el primer resultado encontrado (debería ser único)
+          } else {
+            res.status(404).json({ error: 'Registro no encontrado' });
+          }
+        }
+        connection.release();
+      }
+      );
+    }
+  });
+};
+
+
 
 
 
@@ -186,5 +218,6 @@ module.exports = {
   getIncidenciaById,
   putIncidencia,
   actualizarIncidencia,
-  deleteIncidencia
+  deleteIncidencia,
+  getIncidenciaByEquipo
 };

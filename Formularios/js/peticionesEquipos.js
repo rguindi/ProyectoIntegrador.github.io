@@ -5,9 +5,10 @@ const selectAula = document.getElementById('id_aula');
 const selectCategoria = document.getElementById('id_categoria');
 
 
-
+console.log("");
 
 //FUNCION PARA Auto-RELLENAR LAS AULAS   
+
 async function getData(isAula) { 
     const response = await fetch(url + '/aulas/') 
     try {
@@ -15,6 +16,9 @@ async function getData(isAula) {
         throw `Error ${response.status} de la BBDD: ${response.statusText}` 
       } 
       const datos = await response.json() 
+      console.log(datos);
+     
+   
       return datos
       
     } catch (error) {
