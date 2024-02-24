@@ -11,7 +11,7 @@
 
         <link rel="stylesheet" href="../css/estilos.css">
 
-        <title>Aulas</title>
+        <title>Registrar Equipos</title>
 
     </head>
 
@@ -59,7 +59,7 @@
                                             
                         <div class="col-md-6 offset-md-3">
                             
-                            <form novalidate action="" id="formEquipos">
+                            <form novalidate action="" id="formularioEquipos">
 
                                 <div class="col-12 mb-5">
                                     <h2 class="text-center">Registro de Equipo</h2>
@@ -75,7 +75,7 @@
                                <!-- Descripcion textarea -->
                                 <div class="form-outline mb-4 text-center">
                                     <label class="form-label fw-bold" for="descripcion">Descripción</label>
-                                        <textarea name="descripcion" id="descripcion" cols="36" rows="2" class="form-control"></textarea>
+                                        <textarea name="descripcion" id="descripcion" cols="36" rows="2" class="form-control" required></textarea>
                                     <span id="error_descripcion" class="error"></span> 
                                 </div>
 
@@ -116,7 +116,7 @@
                                 <div class="mb-4 text-center">
                                     <label class="form-label fw-bold" for="aula">Aula</label>
                                     <br>
-                                    <select id="aula" name="id_aula" class="form-select text-center" required>
+                                    <select id="id_aula" name="id_aula" class="form-select text-center" required>
                                         <option value="defecto" selected disabled>Seleccione aula</option>
                                     </select>
                                     <span id="error_aula" class="error"></span> 
@@ -126,7 +126,7 @@
                                 <div class="mb-4 text-center">
                                     <label class="form-label fw-bold" for="categoria">Categoria</label>
                                     <br>
-                                    <select id="categoria" name="id_categoria" class="form-select text-center" required>
+                                    <select id="id_categoria" name="id_categoria" class="form-select text-center" required>
                                         <option value="defecto" selected disabled>Seleccione categoria</option>
                                     </select>
                                     <span id="error_categoria" class="error"></span>
@@ -135,7 +135,7 @@
                                 <!-- Imagen input -->
                                 <div class="mb-4 text-center">
                                     <label class="form-label fw-bold" for="imagen_producto">Imagen</label>
-                                    <input type="file" id="imagen_producto" name="imagen_producto" class="form-control" required/>
+                                    <input type="file" id="imagen_producto" name="imagen_producto" class="form-control" />
                                     <span id="error_imagen_producto" class="error"></span> 
                                 </div>
 
@@ -180,7 +180,7 @@
             </footer>
         </div>
 
-        
+        <script src="../js/validacionesForm/validar_equipos.js"></script>
     </body>
 
 </html>
