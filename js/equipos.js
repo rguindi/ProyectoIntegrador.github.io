@@ -66,32 +66,49 @@ function renderTabla(datos) {
         boton.innerText = "Ver detalles";
         boton.addEventListener("click", async function () {
             const datosDetalles = await pedirDetalles(registro.id_equipo);
-            console.log(datosDetalles);
             // nueva ventana con detalles
-            const ventanaDetalles = window.open("", "Diseño Web", "width=900, height=600")
+            const ventanaDetalles = window.open("", "Detalles", "width=450, height=550");
+
+            // Ajustar la posición de la ventana al centro de la pantalla
+            const ventanaAncho = ventanaDetalles.outerWidth;
+            const ventanaAlto = ventanaDetalles.outerHeight;
+
+            const pantallaAncho = window.screen.width;
+            const pantallaAlto = window.screen.height;
+            const posX = (pantallaAncho - ventanaAncho) / 2;
+            const posY = (pantallaAlto - ventanaAlto) / 2;
+
+            ventanaDetalles.moveTo(posX, posY);
+
+            // datos de la ventana
             const ventanaDocument = ventanaDetalles.document;
+            const title = document.createElement("title");
+            title.innerHTML = "Detalles";
+            ventanaDocument.head.appendChild(title);
+            
+            ventanaDocument.body.innerHTML = "";
             const titulo = document.createElement("h1");
             titulo.innerText = `Detalles del equipo ${registro.id_equipo}`
 
             const divDatos = ventanaDocument.createElement("div");
             for (const key in datosDetalles) {
-                const parrafo = document.createElement("p");
-                const dato = document.createElement("span");
-                parrafo.innerText=key + ": ";
-                dato.innerText = datosDetalles[key];
-                parrafo.appendChild(dato)
-                divDatos.appendChild(parrafo);
+                if (key != "id_detalle" && key != "id_equipo") {
+                    const parrafo = document.createElement("p");
+                    parrafo.style.fontWeight = "bold";
+                    const dato = document.createElement("span");
+                    dato.style.fontWeight = "normal";
+                    parrafo.innerText = key + ": ";
+                    dato.innerText = datosDetalles[key];
+                    parrafo.appendChild(dato)
+                    divDatos.appendChild(parrafo);
+                }
+
             }
-               
-
-
-
             ventanaDocument.body.appendChild(titulo);
             ventanaDocument.body.appendChild(divDatos);
         })
 
         celdaBoton.appendChild(boton);
-        fila.appendChild(celdaBoton);
         fila.appendChild(celdaId);
         fila.appendChild(celdaUser);
         fila.appendChild(celdaNombre);
@@ -107,6 +124,7 @@ function renderTabla(datos) {
         fila.appendChild(celdaAno);
         fila.appendChild(celdaUltimaAtualicacion);
         fila.appendChild(celdaCodigo);
+        fila.appendChild(celdaBoton);
 
         tBody.appendChild(fila);
     });

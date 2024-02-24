@@ -61,33 +61,34 @@ function renderTabla(datos) {
 
         // fila con todos los datos
         const celdaId = document.createElement('td');
-            celdaId.innerText = registro.id_incidencia;
-            fila.appendChild(celdaId);
+        celdaId.innerText = registro.id_incidencia;
+        fila.appendChild(celdaId);
 
         const celdaUser = document.createElement('td');
-            celdaUser.innerText = registro.id_usuario;
-            fila.appendChild(celdaId);
+        celdaUser.innerText = registro.id_usuario;
+        fila.appendChild(celdaId);
 
         const celdaEquipo = document.createElement('td');
-            celdaEquipo.innerText = registro.id_equipo;
+        celdaEquipo.innerText = registro.id_equipo;
 
         const celdaFechaReporte = document.createElement('td');
 
         let fecha = new Date(registro.fecha_reporte);
-            celdaFechaReporte.innerText = fecha.toLocaleDateString();
+        celdaFechaReporte.innerText = fecha.toLocaleDateString();
 
         const celdaDesc = document.createElement('td');
-            celdaDesc.innerText = registro.descripcion;
+        celdaDesc.innerText = registro.descripcion;
 
         const celdaSolucion = document.createElement('td');
-            celdaSolucion.innerText = registro.solucion;
-            celdaSolucion.setAttribute('id', 'td_Solucion');
+        celdaSolucion.innerText = registro.solucion;
+        celdaSolucion.setAttribute('id', 'td_Solucion');
 
         // funcion para edfitar el texto de la solución
         celdaSolucion.addEventListener('click', () => {
             const textarea = document.createElement('textarea');
-                textarea.value = celdaSolucion.innerText;
-                textarea.setAttribute('id', 'tA_Solucion');
+            textarea.style.width = "200px";
+            textarea.value = celdaSolucion.innerText;
+            textarea.setAttribute('id', 'tA_Solucion');
 
             celdaSolucion.replaceWith(textarea);
 
@@ -131,8 +132,8 @@ function renderTabla(datos) {
         // botón de modificación
         const celdaEliminar = document.createElement('td');
         const boton = document.createElement('button');
-            boton.setAttribute("class", "btnGuardar btn btn-warning btn-sm");
-            boton.innerText = "Guardar";
+        boton.setAttribute("class", "btnGuardar btn btn-warning btn-sm");
+        boton.innerText = "Guardar";
 
         boton.addEventListener("click", modificarIncidencia.bind(null, registro.id_incidencia, celdaSolucion, selectEstado))
         celdaEliminar.appendChild(boton);
