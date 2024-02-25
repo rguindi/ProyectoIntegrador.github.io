@@ -130,7 +130,7 @@ td {
 }
 
 /* FORM AULAS */
-#descripcion {
+#descripcion, #descripcionIncidencia {
     resize: none;
     font-size: 12px;
     width: 100%;
