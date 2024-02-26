@@ -29,12 +29,18 @@
             
 
         <!-- MAIN -->
-        <main class="centered py-3">
+        <main class="centered py-3 position-relative">
 
-            <div class="container">
+            <button class="btn btn-danger btnCerrarSesion" onclick="location.href='../index.html'">Cerrar sesión</button>
+
+            <div class="container py-5">
+
                 <div class="row">
+
                     <div class="col-md-6 offset-md-3">
+
                         <h2 class="text-center">Formulario de Registro</h2>
+
                         <form id="formRegistro" novalidate>
                             <div class="mb-4 text-center id" id="divId">
                                 <label class="form-label fw-bold" for="id_usuario">Id usuario:</label><br>
@@ -65,6 +71,7 @@
                                 <button type="submit" class="btn btn-warning">Registrar</button>
                             </div>
                         </form>
+
                         <p id="p1"></p>
                     </div>
                 </div>

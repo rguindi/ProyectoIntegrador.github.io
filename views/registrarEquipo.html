@@ -45,15 +45,16 @@
 
                     <li class="nav-item" ><a href="./categorias.html" class="nav-link fw-bold aNav">Categorías</a></li>
                     <li class="nav-item" ><a href="./aulas.html" class="nav-link fw-bold aNav">Aulas</a></li>
-                    <li class="nav-item" ><a href="../index.html" class="nav-link fw-bold aNav">Logout</a></li>
                 </ul>
 
             </nav>
 
         <!-- MAIN -->
-            <main class="centered py-3">
+            <main class="centered py-3 position-relative">
+
+                <button class="btn btn-danger btnCerrarSesion" onclick="location.href='../index.html'">Cerrar sesión</button>
                 
-                <div class="container">
+                <div class="container py-5">
                     
                     <div class="row">
                                             
@@ -75,7 +76,7 @@
                                <!-- Descripcion textarea -->
                                 <div class="form-outline mb-4 text-center">
                                     <label class="form-label fw-bold" for="descripcion">Descripción</label>
-                                        <textarea name="descripcion" id="descripcion" cols="36" rows="2" class="form-control" required></textarea>
+                                        <textarea name="descripcion" id="descripcion" cols="36" rows="3" class="form-control" required></textarea>
                                     <span id="error_descripcion" class="error"></span> 
                                 </div>
 
