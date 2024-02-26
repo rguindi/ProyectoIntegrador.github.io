@@ -1,0 +1,144 @@
+/* Estructura Responsive */
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+/* TÍTULO */
+h1 {
+    color: rgb(255, 189, 8);
+    text-shadow: 2px 2px 1px black;
+}
+
+/* SUBTÍTULOS */
+h2 {
+    color: rgb(0, 132, 255);
+    text-shadow: 1px 1px 1px black;
+}
+
+/* ERRORES FORMULARIOS */
+.error {
+    color: red;
+}
+
+/* FORM INICIO SESIÓN */
+#btnInicioSesion {
+    border: 1px solid black;
+    box-shadow: 1px 1px black;
+}
+
+/* NAV */
+.navAdmin {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+}
+
+.nav-item.active a {
+    color: rgb(255, 189, 8);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+.aNav {
+    color: rgba(255, 255, 255, 0.938);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+.aNav:hover {
+    cursor: pointer;
+    color: rgb(255, 189, 8);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+.liNavSub {
+    color: rgba(255, 255, 255, 0.938);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+.liNavSub:hover {
+    cursor: pointer;
+    color: rgb(255, 189, 8);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    background-color: #0d6efd;
+}
+
+
+/* TABLAS */
+table,th,tr,td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.938);
+}
+
+th {
+    background-color: rgba(0, 132, 255, 0.651);
+    white-space: nowrap;
+}
+
+td {
+    cursor: default;
+}
+
+#td_Solucion {
+    cursor: pointer;
+}
+
+#tA_Solucion {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin-top: 20px;
+    padding: 5px;
+    resize: none;
+}
+
+.btnGuardar {
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px black;
+}
+
+/* FORM CATEGORIAS */
+#btnInsertarCategoria {
+    width: 100%;
+    border: 1px solid black;
+    box-shadow: 1px 1px black;
+}
+
+/* FORM AULAS */
+#descripcion, #descripcionIncidencia {
+    resize: none;
+    font-size: 12px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+#btnInsertarAula {
+    width: 100%;
+    border: 1px solid black;
+    box-shadow: 1px 1px black;
+}
