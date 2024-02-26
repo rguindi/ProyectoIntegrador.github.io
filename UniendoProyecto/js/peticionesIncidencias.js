@@ -86,6 +86,7 @@ document.getElementById('FormularioIncidencias').addEventListener('submit', asyn
     let estado = 'abierta';
     let usuario = await getUsuario();
     let usuario_admin = usuario['usuario'].id_usuario; 
+    let id_equipo = document.getElementById('id_equipo').value;
 
     // Obtener la fecha actual
 const fechaActual = new Date();
@@ -101,7 +102,7 @@ const fechaFormateada = `${year}-${month}-${day}`;
 
     const incidencia = {
         id_usuario: usuario_admin,
-        id_equipo: "1",                                                         //PENDIENTE MODIFICAR
+        id_equipo: id_equipo,                                                         //PENDIENTE MODIFICAR
         fecha_reporte: fechaFormateada,
         descripcion: descripcion,
         solucion: solucion,
