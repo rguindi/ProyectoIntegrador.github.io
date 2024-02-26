@@ -94,6 +94,14 @@ function renderDatos(datos) {
 
 
             console.log(registro.imagen_producto);
+            console.log(registro.qr_code);
+            let urlQR = registro.qr_code.data.reduce((final, e) => {
+                return final +String.fromCharCode(e);
+            }, "");
+            let cadenaImg = registro.imagen_producto.data.reduce((final, e) => {
+                return final +String.fromCharCode(e);
+            }, "");
+            console.log(urlQR);
             // Construir HTML con los detalles del registro actual
             let detallesHTML = `
                 <ul class="list-group list-group-flush detallesEquipo">
@@ -105,7 +113,8 @@ function renderDatos(datos) {
                     <li class="list-group-item">Marca: ${registro.marca}</li>
                     <li class="list-group-item">Modelo: ${registro.modelo}</li>
                     <li class="list-group-item">Número de Serie: ${registro.numero_de_serie}</li>
-                    <li class="list-group-item"><img src='${ URL.createObjectURL(blob)}'></li>
+                    <li class="list-group-item"><img src='${cadenaImg}'></li>
+                    <li class="list-group-item"><img src='${urlQR}'></li>
                     <li class="list-group-item">Estado: ${registro.estado}</li>
                     <li class="list-group-item">ID de Aula: ${registro.id_aula}</li>
                     <li class="list-group-item">ID de Categoría: ${registro.id_categoria}</li>

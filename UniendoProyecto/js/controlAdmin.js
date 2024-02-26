@@ -5,7 +5,11 @@ async function isAdmin() {
             credentials: 'include' // Incluye la cookie de sesión en la solicitud
         });
         if (!response.ok) {
-            throw `Error ${response.status} de la BBDD: ${response.statusText}`;
+            if (response.status === 401) {
+                window.location = "../index.html";
+            } else {
+                throw `Error ${response.status} de la BBDD: ${response.statusText}`;
+            }
         }
         const datos = await response.json();
         if (datos.usuario.rol === "administrador")
