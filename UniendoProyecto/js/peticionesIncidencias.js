@@ -1,6 +1,44 @@
 // Peticion POST con ASYNC/AWAIT
 const dirIP_api = '127.0.0.1'; // O asignar el valor que necesitas
 const PUERTO_EXPRESS = 3000; // O asignar el valor que necesitas
+const url=`http://${dirIP_api}:${PUERTO_EXPRESS}`;
+selectEquipo = document.getElementById('id_equipo');
+
+
+  //FUNCION PARA AUTO-RELLENAR LOSEQUIPOS
+  async function getDataEquipo(isEquipo) {
+    const response = await fetch(url + '/equipos/')
+    try {
+        if (!response.ok) {
+            throw `Error ${response.status} de la BBDD: ${response.statusText}`
+        }
+        const datos = await response.json()
+        return datos
+    } catch (error) {
+        console.log("Fallo fetch");
+        throw error;
+    }
+}
+
+//Rellenamos equipos al cargar la ventana
+window.onload = async function() {
+    await getDataEquipo()
+   .then(datos=>{
+    datos.forEach(element => {
+        let option = document.createElement('option');
+        option.value = element.id_equipo;
+        option.text = element.nombre;
+        selectEquipo.appendChild(option);
+    });
+    
+   }).catch(error=>{
+    console.log("mal"+error)
+   })
+
+}
+
+
+
  
 async function crearIncidencia(incidencia) {
     const url = `http://${dirIP_api}:${PUERTO_EXPRESS}/incidencias`;
@@ -44,7 +82,8 @@ document.getElementById('FormularioIncidencias').addEventListener('submit', asyn
     if (descripcion == "") descripcion = null;
     let solucion = document.getElementById('solucion').value;
     if (solucion == "") solucion = null;
-    let estado = document.getElementById('estado').value;
+    // let estado = document.getElementById('estado').value;
+    let estado = 'abierta';
     let usuario = await getUsuario();
     let usuario_admin = usuario['usuario'].id_usuario; 
 

@@ -67,6 +67,16 @@
                                     <h2 class="text-center">Registro de Incidencia</h2>
                                 </div>
 
+                                <!-- equipo Select -->
+                            <div class="mb-4 text-center">
+                                <label class="form-label fw-bold" for="id_equipo">Equipo</label>
+                                <br>
+                                <select id="id_equipo" name="id_equipo" class="form-select text-center" required>
+                                    <option value="defecto" selected disabled>Seleccione equipo</option>
+                                </select>
+                                <span id="error_equipo" class="error"></span>
+                            </div>
+
                                 <div class="form-outline mb-4 text-center">
                                 <label class="form-label fw-bold"  for="descripcion">Descripción:</label><br>
                                 <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
@@ -81,7 +91,7 @@
                             </div>
                                 <br>
                                 
-                                <div class="form-outline mb-4 text-center">
+                                <!-- <div class="form-outline mb-4 text-center">
                                 <label class="form-label fw-bold" for="estado">Estado:</label><br>
                                 <select class="form-select text-center" id="estado" name="estado" required>
                                     <option value="defecto">Seleccione Estado</option>
@@ -90,7 +100,7 @@
                                     <option value="cerrada">Cerrada</option>
                                 </select>
                                 <span id="error_estado" class="error"></span>
-                            </div><br>
+                            </div><br> -->
                                 
                                 <!-- <label for="fecha_actualizacion">Fecha de Actualización:</label><br>
                                 <input type="date" id="fecha_actualizacion" name="fecha_actualizacion" required>

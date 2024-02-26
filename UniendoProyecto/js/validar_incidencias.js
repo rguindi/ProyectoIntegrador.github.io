@@ -4,6 +4,7 @@ const descripcion = document.getElementById('descripcion');
 const solucion = document.getElementById('solucion');
 const estado = document.getElementById('estado');
 const fecha_actualizacion = document.getElementById('fecha_actualizacion');
+const equipo = document.getElementById('id_equipo');
 console.log("funciona");
 function mostrarError(idError, mensaje) {
     document.getElementById(idError).textContent = mensaje;
@@ -42,10 +43,15 @@ document.getElementById('FormularioIncidencias').addEventListener("submit", func
     //     return;
     // }
 
-    if (estado.value === "defecto") {
-        estado.focus();
-        mostrarError('error_estado', 'Por favor, seleccione un estado para la incidencia.');
-      return;
+    // if (estado.value === "defecto") {
+    //     estado.focus();
+    //     mostrarError('error_estado', 'Por favor, seleccione un estado para la incidencia.');
+
+    // }
+
+    if (equipo.value === "defecto") {
+        equipo.focus();
+        mostrarError('error_equipo', 'Por favor, seleccione el equipo .');
     }
 
     // if(!fecha_actualizacion.checkValidity()) {
