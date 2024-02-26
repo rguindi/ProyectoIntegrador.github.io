@@ -30,83 +30,106 @@ function renderTabla(datos) {
         const fila = document.createElement('tr');
         // fila con todos los datos
         const celdaId = document.createElement('td');
-        celdaId.innerText = registro.id_equipo;
+            celdaId.innerText = registro.id_equipo;
+
         const celdaUser = document.createElement('td');
-        celdaUser.innerText = registro.id_usuario;
+            celdaUser.innerText = registro.id_usuario;
+
         const celdaNombre = document.createElement('td');
-        celdaNombre.innerText = registro.nombre;
+            celdaNombre.innerText = registro.nombre;
+
         const celdaDesc = document.createElement('td');
-        celdaDesc.innerText = registro.descripcion;
+            celdaDesc.innerText = registro.descripcion;
+
         const celdaMarca = document.createElement('td');
-        celdaMarca.innerText = registro.marca;
+            celdaMarca.innerText = registro.marca;
+
         const celdaModelo = document.createElement('td');
-        celdaModelo.innerText = registro.modelo;
+            celdaModelo.innerText = registro.modelo;
+
         const celdaNumSerie = document.createElement('td');
-        celdaNumSerie.innerText = registro.numero_de_serie;
+            celdaNumSerie.innerText = registro.numero_de_serie;
+
         const celdaEstado = document.createElement('td');
-        celdaEstado.innerText = registro.estado;
+            celdaEstado.innerText = registro.estado;
+
         const celdaAula = document.createElement('td');
-        celdaAula.innerText = registro.id_aula;
+            celdaAula.innerText = registro.id_aula;
+
         const celdaCategoria = document.createElement('td');
-        celdaCategoria.innerText = registro.id_categoria;
+            celdaCategoria.innerText = registro.id_categoria;
+
         const celdaImagen = document.createElement('td');
-        celdaImagen.innerText = registro.imagen_producto;
+            celdaImagen.innerText = registro.imagen_producto;
+
         const celdaQR = document.createElement('td');
-        celdaQR.innerText = registro.qr_code;
+            celdaQR.innerText = registro.qr_code;
+
         const celdaAno = document.createElement('td');
-        celdaAno.innerText = registro.ano_adquisicion;
+            celdaAno.innerText = registro.ano_adquisicion;
+
         const celdaUltimaAtualicacion = document.createElement('td');
+
         let fecha = new Date(registro.ultima_actualizacion);
-        celdaUltimaAtualicacion.innerText = fecha.toLocaleDateString();
+            celdaUltimaAtualicacion.innerText = fecha.toLocaleDateString();
+
         const celdaCodigo = document.createElement('td');
-        celdaCodigo.innerText = registro.codigo;
+            celdaCodigo.innerText = registro.codigo;
 
         const celdaBoton = document.createElement('td');
+
         const boton = document.createElement("button");
-        boton.innerText = "Ver detalles";
-        boton.addEventListener("click", async function () {
-            const datosDetalles = await pedirDetalles(registro.id_equipo);
-            // nueva ventana con detalles
-            const ventanaDetalles = window.open("", "Detalles", "width=450, height=550");
+            boton.innerText = "Ver detalles";
 
-            // Ajustar la posición de la ventana al centro de la pantalla
-            const ventanaAncho = ventanaDetalles.outerWidth;
-            const ventanaAlto = ventanaDetalles.outerHeight;
+            boton.addEventListener("click", async function () {
+                const datosDetalles = await pedirDetalles(registro.id_equipo);
+                // nueva ventana con detalles
+                const ventanaDetalles = window.open("", "Detalles", "width=450, height=550");
 
-            const pantallaAncho = window.screen.width;
-            const pantallaAlto = window.screen.height;
-            const posX = (pantallaAncho - ventanaAncho) / 2;
-            const posY = (pantallaAlto - ventanaAlto) / 2;
+                // Ajustar la posición de la ventana al centro de la pantalla
+                const ventanaAncho = ventanaDetalles.outerWidth;
+                const ventanaAlto = ventanaDetalles.outerHeight;
 
-            ventanaDetalles.moveTo(posX, posY);
+                const pantallaAncho = window.screen.width;
+                const pantallaAlto = window.screen.height;
+                const posX = (pantallaAncho - ventanaAncho) / 2;
+                const posY = (pantallaAlto - ventanaAlto) / 2;
 
-            // datos de la ventana
-            const ventanaDocument = ventanaDetalles.document;
-            const title = document.createElement("title");
-            title.innerHTML = "Detalles";
-            ventanaDocument.head.appendChild(title);
-            
-            ventanaDocument.body.innerHTML = "";
-            const titulo = document.createElement("h1");
-            titulo.innerText = `Detalles del equipo ${registro.id_equipo}`
+                ventanaDetalles.moveTo(posX, posY);
 
-            const divDatos = ventanaDocument.createElement("div");
-            for (const key in datosDetalles) {
-                if (key != "id_detalle" && key != "id_equipo") {
-                    const parrafo = document.createElement("p");
-                    parrafo.style.fontWeight = "bold";
-                    const dato = document.createElement("span");
-                    dato.style.fontWeight = "normal";
-                    parrafo.innerText = key + ": ";
-                    dato.innerText = datosDetalles[key];
-                    parrafo.appendChild(dato)
-                    divDatos.appendChild(parrafo);
+                // datos de la ventana
+                const ventanaDocument = ventanaDetalles.document;
+
+                const title = document.createElement("title");
+                    title.innerHTML = "Detalles";
+
+                ventanaDocument.head.appendChild(title);
+                ventanaDocument.body.innerHTML = "";
+
+                const titulo = document.createElement("h1");
+                    titulo.innerText = `Detalles del equipo ${registro.id_equipo}`
+
+                const divDatos = ventanaDocument.createElement("div");
+
+                for (const key in datosDetalles) {
+
+                    if (key != "id_detalle" && key != "id_equipo") {
+                        const parrafo = document.createElement("p");
+                            parrafo.style.fontWeight = "bold";
+
+                        const dato = document.createElement("span");
+                            dato.style.fontWeight = "normal";
+
+                        parrafo.innerText = key + ": ";
+                        dato.innerText = datosDetalles[key];
+                        parrafo.appendChild(dato)
+                        divDatos.appendChild(parrafo);
+                    }
                 }
-
-            }
-            ventanaDocument.body.appendChild(titulo);
-            ventanaDocument.body.appendChild(divDatos);
-        })
+                
+                ventanaDocument.body.appendChild(titulo);
+                ventanaDocument.body.appendChild(divDatos);
+            })
 
         celdaBoton.appendChild(boton);
         fila.appendChild(celdaId);

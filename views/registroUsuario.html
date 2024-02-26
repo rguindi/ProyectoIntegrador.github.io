@@ -26,6 +26,30 @@
         
             </header>
 
+        <!-- NAV -->
+        <nav class="bg-primary bg-gradient">
+
+            <ul class="nav navAdmin">
+                <li class="nav-item dropdown active" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Equipos Electronicos</a>
+                    <ul class="dropdown-menu bg-primary bg-gradient">
+                        <li class="text-center active"><a class="dropdown-item liNavSub fw-bold" href="./registrarEquipo.html">Registrar Equipo</a></li>
+                        <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./equipos.html">Visualizar Equipos</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Incidencias</a>
+                    <ul class="dropdown-menu bg-primary bg-gradient">
+                        <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./registrarIncidencia.html">Registrar Incidencia</a></li>
+                        <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./incidencias.html">Visualizar Incidencias</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item" ><a href="./categorias.html" class="nav-link fw-bold aNav">Categorías</a></li>
+                <li class="nav-item" ><a href="./aulas.html" class="nav-link fw-bold aNav">Aulas</a></li>
+            </ul>
+
+        </nav>
+
             
 
         <!-- MAIN -->
@@ -39,15 +63,18 @@
 
                     <div class="col-md-6 offset-md-3">
 
-                        <h2 class="text-center">Formulario de Registro</h2>
-
+                        
                         <form id="formRegistro" novalidate>
-                            <div class="mb-4 text-center id" id="divId">
+
+                            <div class="col-12 mb-4">
+                                <h2 class="text-center">Formulario de Registro</h2>
+                            </div>
+
+                            <div class="mb-4 text-center">
                                 <label class="form-label fw-bold" for="id_usuario">Id usuario:</label><br>
                                 <input type="text" id="id_usuario" name="id_usuario" class="form-control" required />
-                                <span class="aviso"></span>
+                                <span class="error "></span><br>
                             </div>
-                            <span class="error "></span><br>
             
                             <div class="mb-4 text-center">
                                 <label class="form-label fw-bold" for="contraseña">Contraseña:</label><br>

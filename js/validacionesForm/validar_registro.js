@@ -70,11 +70,14 @@ idUsuario.addEventListener("blur", comprobarUser);
 
 form.addEventListener('submit', async function (event) {
     event.preventDefault();
+
     limpiarErrores();
+
     let userCorrexto = await comprobarUser();
+    
     if (!this.checkValidity() || contraseña.value != contraseña2.value || !userCorrexto) {
         if (!idUsuario.checkValidity()) {
-            mostrarError('#divId + span.error', "Introduzca el Id de usuario");
+            mostrarError('#id_usuario + span.error', "Introduzca el Id de usuario");
         }
         if (!contraseña.checkValidity()) {
             mostrarError('#contraseña + span.error', "Introduzca la contraseña");

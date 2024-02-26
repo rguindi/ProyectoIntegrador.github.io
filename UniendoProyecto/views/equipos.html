@@ -5,51 +5,63 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
 
         <link rel="stylesheet" href="../css/estilos.css">
 
-        <title>Incidencias</title>
+        <title>Equipos</title>
 
     </head>
 
     <body class="bg-light">
-
+views/incidencias.html
         <div class="wrapper">
 
-        <!-- HEADER -->
-            <header class="bg-primary bg-gradient py-3">
-    
+            <!-- HEADER -->
+            <header class="bg-primary bg-gradient  py-3">
+
                 <h1 class="text-center">GESTIÓN DE INVENTARIO</h1>
-        
+
+                    
             </header>
 
             <nav class="bg-primary bg-gradient">
 
                 <ul class="nav navAdmin">
-                    <li class="nav-item dropdown" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Equipos Electronicos</a>
+                    <li class="nav-item dropdown active" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Equipos Electronicos</a>
                         <ul class="dropdown-menu bg-primary bg-gradient">
                             <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./registrarEquipo.html">Registrar Equipo</a></li>
                             <li class="text-center active"><a class="dropdown-item liNavSub fw-bold" href="./equipos.html">Visualizar Equipos</a></li>
                         </ul>
                     </li>
 
-                    <li class="nav-item dropdown active" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Incidencias</a>
+                    <li class="nav-item dropdown" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Incidencias</a>
                         <ul class="dropdown-menu bg-primary bg-gradient">
                             <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./registrarIncidencia.html">Registrar Incidencia</a></li>
-                            <li class="text-center active"><a class="dropdown-item liNavSub fw-bold" href="./incidencias.html">Visualizar Incidencias</a></li>
+                            <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./incidencias.html">Visualizar Incidencias</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item" ><a href="./categorias.html" class="nav-link fw-bold aNav">Categorías</a></li>
                     <li class="nav-item" ><a href="./aulas.html" class="nav-link fw-bold aNav">Aulas</a></li>
                 </ul>
-
             </nav>
 
-        <!-- MAIN -->
+        <!-- <nav class="bg-primary bg-gradient">
+
+            <ul class="nav navAdmin">
+                <li class="nav-item active"><a class="nav-link fw-bold aNav">Equipos Electronicos</a></li>
+                <li class="nav-item"><a href="./categorias.html" class="nav-link fw-bold aNav">Categorías</a></li>
+                <li class="nav-item"><a href="./aulas.html" class="nav-link fw-bold aNav">Aulas</a></li>
+                <li class="nav-item"><a href="../index.html" class="nav-link fw-bold aNav">Logout</a></li>
+            </ul>
+
+        </nav> -->
+
+            <!-- MAIN -->
             <main class="py-3 mt-3 position-relative">
 
                 <button class="btn btn-danger btnCerrarSesion" onclick="location.href='../index.html'">Cerrar sesión</button>
@@ -61,7 +73,7 @@
                         <div class="col-12">
 
                             <div class="col-12 mb-4">
-                                <h2 class="text-center">Visualizar Incidencias</h2>
+                                <h2 class="text-center">Visualizar Equipos</h2>
                             </div>
 
                             <div class="table-responsive">
@@ -70,15 +82,22 @@
 
                                     <thead>
 
-                                        <th>Id_Incidencia</th>
-                                        <th>Id_Usuario</th>
-                                        <th>Id_Equipo</th>
-                                        <th>Fecha_Reporte</th>
+                                        <th>Equipo</th>
+                                        <th>Usuario</th>
+                                        <th>Nombre</th>
                                         <th>Descripción</th>
-                                        <th>Solución</th>
+                                        <th>Marca</th>
+                                        <th>Modelo</th>
+                                        <th>Número de Serie</th>
                                         <th>Estado</th>
-                                        <th>Fecha_Actualización</th>
-                                        <th>Guardar cambios</th>
+                                        <th>Aula</th>
+                                        <th>Categoria</th>
+                                        <th>Imagen</th>
+                                        <th>QR</th>
+                                        <th>Año adquisición</th>
+                                        <th>Última actualización</th>
+                                        <th>Código</th>
+                                        <th>Detalles</th>
                                         
                                     </thead>
 
@@ -97,8 +116,8 @@
                 </div>
 
             </main>
-    
-        <!-- FOOTER -->
+
+            <!-- FOOTER -->
             <footer>
 
                 <div class="bg-primary bg-gradient py-3 text-center">
@@ -108,8 +127,8 @@
             </footer>
         </div>
 
-        <script src="../js/incidencias.js"></script>
-        
+
+        <script src="../js/equipos.js"></script>
     </body>
 
 </html>
