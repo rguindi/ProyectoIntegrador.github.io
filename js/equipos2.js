@@ -112,19 +112,20 @@ function renderDatos(datos) {
                 console.log(incidencia);
         
                 // Construir HTML con los detalles de la incidencia
-                            let detallesHTML = `
+                let detallesHTML = `
                 <ul class="list-group list-group-flush detallesIncidencia">
                     <li class="list-group-item"><strong>Incidencia:</strong></li>
                     <li class="list-group-item">ID de Incidencia: ${incidencia.id_incidencia}</li>
                     <li class="list-group-item">ID de Equipo: ${incidencia.id_equipo}</li>
                     <li class="list-group-item">ID de Usuario: ${incidencia.id_usuario}</li>
-                    <li class="list-group-item">Fecha de Incidencia: ${incidencia.fecha_incidencia}</li>
-                    <li class="list-group-item">Descripción: ${incidencia.descripcion}</li>
+                    <li class="list-group-item">Fecha de Incidencia: ${incidencia.fecha_reporte}</li>
+                    <li class="list-group-item ${incidencia.descripcion === null ? 'd-none' : ''}">Descripción: ${incidencia.descripcion !== null ? incidencia.descripcion : 'N/A'}</li>
                     <li class="list-group-item">Estado: ${incidencia.estado}</li>
-                    <li class="list-group-item">Fecha de Solución: ${incidencia.fecha_solucion}</li>
-                    <li class="list-group-item">Solución: ${incidencia.solucion}</li>
-                    <li class="list-group-item">Última Actualización: ${incidencia.ultima_actualizacion}</li>
+                    <li class="list-group-item ${incidencia.fecha_solucion === null ? 'd-none' : ''}">Fecha de Solución: ${incidencia.fecha_solucion !== null ? incidencia.fecha_solucion : 'N/A'}</li>
+                    <li class="list-group-item ${incidencia.solucion === null ? 'd-none' : ''}">Solución: ${incidencia.solucion !== null ? incidencia.solucion : 'N/A'}</li>
+                    <li class="list-group-item">Última Actualización: ${incidencia.fecha_actualizacion !== null ? incidencia.fecha_actualizacion : 'N/A'}</li>
                 </ul>`;
+            
             
                     // Obtener el cuerpo de la card actual
                     const cardBody = card.querySelector('.card-body');
