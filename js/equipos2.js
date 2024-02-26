@@ -61,7 +61,7 @@ function renderDatos(datos) {
         botonDetalles.classList.add('btn', 'btn-warning', 'btn-sm');
         botonDetalles.textContent = 'Ver detalles';
         botonDetalles.addEventListener('click', function() {
-            // Obtener el cuerpo de la card actual
+            // Obtener body de la card
             const cardBody = card.querySelector('.card-body');
 
             const detallesIncidenciaAnterior = cardBody.querySelector('.detallesIncidencia');
@@ -146,6 +146,25 @@ function renderDatos(datos) {
                 console.error("Error al obtener detalles de incidencia:", error);
             }
         });
+
+
+
+        // Limpiar detalles al hacer doble click en el botón Detalles
+        botonDetalles.addEventListener('dblclick', function() {
+            const detallesEquipo = cardBody.querySelector('.detallesEquipo');
+            if (detallesEquipo) {
+                detallesEquipo.remove();
+            }
+        });
+
+        // Limpiar incidencia al hacer doble click en el botón Incidencia
+        botonIncidencia.addEventListener('dblclick', function() {
+            const detallesIncidencia = cardBody.querySelector('.detallesIncidencia');
+            if (detallesIncidencia) {
+                detallesIncidencia.remove();
+            }
+        });
+        
 
         
 
