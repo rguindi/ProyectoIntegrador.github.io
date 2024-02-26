@@ -86,6 +86,7 @@ const getEquipoById = (req, res) => {
 
     // Obtener los archivos adjuntos
     let imagen_producto = req.files[0];
+    console.log(req.files);
     // const qr_code = req.files[1];
 
     // Consulta SQL para insertar el equipo con archivos BLOB

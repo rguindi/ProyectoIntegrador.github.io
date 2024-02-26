@@ -24,7 +24,7 @@ async function verificarUser(usuario) {
             funcionesForms.mostrarError('errorContraseña', 'Login incorrecto');
 
         }else{
-            window.location.href = './views/verEquipos_incidencias.html';
+            window.location.href = './views/registrarIncidencia.html';
         }
 
     } catch (error) {

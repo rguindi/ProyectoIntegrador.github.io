@@ -21,7 +21,7 @@ async function pedirIncidencia(id) {
 
 function renderDatos(datos) {
     const datosEquipos = document.querySelector('.datosEquipos');
-  
+
     datos.forEach(registro => {
         // Crear la card
         const card = document.createElement('div');
@@ -60,7 +60,7 @@ function renderDatos(datos) {
         const botonDetalles = document.createElement('button');
         botonDetalles.classList.add('btn', 'btn-warning', 'btn-sm');
         botonDetalles.textContent = 'Ver detalles';
-        botonDetalles.addEventListener('click', function() {
+        botonDetalles.addEventListener('click', function () {
             // Obtener body de la card
             const cardBody = card.querySelector('.card-body');
 
@@ -75,6 +75,25 @@ function renderDatos(datos) {
                 detallesEquipoAnteriores.remove();
             }
 
+
+
+
+
+            let blob = new Blob(registro.qr_code.data, { type: 'text/plain' });
+            console.log(blob);
+            let reader = new FileReader();
+            // console.log(reader.readAsDataURL(blob).result);
+
+            blob = new Blob(registro.imagen_producto.data, { type: 'image/png' });
+            console.log(blob);
+            reader = new FileReader();
+            // console.log(reader.readAsDataURL(blob).result);
+
+
+
+
+
+            console.log(registro.imagen_producto);
             // Construir HTML con los detalles del registro actual
             let detallesHTML = `
                 <ul class="list-group list-group-flush detallesEquipo">
@@ -86,6 +105,7 @@ function renderDatos(datos) {
                     <li class="list-group-item">Marca: ${registro.marca}</li>
                     <li class="list-group-item">Modelo: ${registro.modelo}</li>
                     <li class="list-group-item">Número de Serie: ${registro.numero_de_serie}</li>
+                    <li class="list-group-item"><img src='${ URL.createObjectURL(blob)}'></li>
                     <li class="list-group-item">Estado: ${registro.estado}</li>
                     <li class="list-group-item">ID de Aula: ${registro.id_aula}</li>
                     <li class="list-group-item">ID de Categoría: ${registro.id_categoria}</li>
@@ -98,19 +118,19 @@ function renderDatos(datos) {
 
             //para agregar la lista  cardBody
             cardBody.insertAdjacentHTML('beforeend', detallesHTML);
-            
+
         });
-            
-        
+
+
         const botonIncidencia = document.createElement('button');
         botonIncidencia.classList.add('btn', 'btn-danger', 'btn-sm');
         botonIncidencia.textContent = 'Ver incidencia';
-        botonIncidencia.addEventListener('click', async function() {
+        botonIncidencia.addEventListener('click', async function () {
             try {
                 // Realizar solicitud para obtener detalles de incidencia
                 const incidencia = await pedirIncidencia(registro.id_equipo);
                 console.log(incidencia);
-        
+
                 // Construir HTML con los detalles de la incidencia
                 let detallesHTML = `
                 <ul class="list-group list-group-flush detallesIncidencia">
@@ -125,24 +145,24 @@ function renderDatos(datos) {
                     <li class="list-group-item ${incidencia.solucion === null ? 'd-none' : ''}">Solución: ${incidencia.solucion !== null ? incidencia.solucion : 'N/A'}</li>
                     <li class="list-group-item">Última Actualización: ${incidencia.fecha_actualizacion !== null ? incidencia.fecha_actualizacion : 'N/A'}</li>
                 </ul>`;
-            
-            
-                    // Obtener el cuerpo de la card actual
-                    const cardBody = card.querySelector('.card-body');
-            
-                    // Limpiar cualquier detalle anterior
-                    const detallesIncidenciaAnterior = cardBody.querySelector('.detallesIncidencia');
-                    if (detallesIncidenciaAnterior) {
-                        detallesIncidenciaAnterior.remove();
-                    }
-                    const detallesEquipoAnteriores = cardBody.querySelector('.detallesEquipo');
-                    if (detallesEquipoAnteriores) {
-                        detallesEquipoAnteriores.remove();
-                    }
-            
-                    // Agregar detalles de la incidencia al cuerpo de la card
-                    cardBody.insertAdjacentHTML('beforeend', detallesHTML);
-            
+
+
+                // Obtener el cuerpo de la card actual
+                const cardBody = card.querySelector('.card-body');
+
+                // Limpiar cualquier detalle anterior
+                const detallesIncidenciaAnterior = cardBody.querySelector('.detallesIncidencia');
+                if (detallesIncidenciaAnterior) {
+                    detallesIncidenciaAnterior.remove();
+                }
+                const detallesEquipoAnteriores = cardBody.querySelector('.detallesEquipo');
+                if (detallesEquipoAnteriores) {
+                    detallesEquipoAnteriores.remove();
+                }
+
+                // Agregar detalles de la incidencia al cuerpo de la card
+                cardBody.insertAdjacentHTML('beforeend', detallesHTML);
+
             } catch (error) {
                 console.error("Error al obtener detalles de incidencia:", error);
             }
@@ -151,7 +171,7 @@ function renderDatos(datos) {
 
 
         // Limpiar detalles al hacer doble click en el botón Detalles
-        botonDetalles.addEventListener('dblclick', function() {
+        botonDetalles.addEventListener('dblclick', function () {
             const detallesEquipo = cardBody.querySelector('.detallesEquipo');
             if (detallesEquipo) {
                 detallesEquipo.remove();
@@ -159,15 +179,15 @@ function renderDatos(datos) {
         });
 
         // Limpiar incidencia al hacer doble click en el botón Incidencia
-        botonIncidencia.addEventListener('dblclick', function() {
+        botonIncidencia.addEventListener('dblclick', function () {
             const detallesIncidencia = cardBody.querySelector('.detallesIncidencia');
             if (detallesIncidencia) {
                 detallesIncidencia.remove();
             }
         });
-        
 
-        
+
+
 
         // Agregar botones al div de botones
         divBotones.appendChild(botonDetalles);
