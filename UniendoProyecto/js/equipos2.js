@@ -21,18 +21,19 @@ async function pedirIncidencia(id) {
 
 async function pedirDetallesOrdenador(id) {
     const respuesta = await fetch(`http://${dirIP_api}:${PUERTO_EXPRESS}/detalles/${id}`);
-    
+
     if (!respuesta.ok) {
         throw "Ha ocurrido un error: " + respuesta.status + " (" + respuesta.statusText + ")";
     }
     const datosObtenidos = await respuesta.json();
-    return datosObtenidos[0];
+    return datosObtenidos;
 }
 
 function renderDatos(datos) {
     const datosEquipos = document.querySelector('.datosEquipos');
 
     datos.forEach(registro => {
+        
         // Crear la card
         const card = document.createElement('div');
         card.classList.add('card', 'm-2', 'mb-3', 'shadow', 'p-3', 'mb-5', 'bg-body', 'rounded');
@@ -191,15 +192,14 @@ function renderDatos(datos) {
                 console.log(registro.id_equipo);
 
                 // Realizar solicitud para obtener detalles de incidencia
-                const detalles_ordenador = await pedirDetallesOrdenador(registro.id_equipo);
-                console.log(detalles_ordenador);
+                const detallesOrdenador = await pedirDetallesOrdenador(registro.id_equipo);
+                console.log(detallesOrdenador);
 
-
-                if (detalles_ordenador) {
+                if (detallesOrdenador) {
                     // Construir HTML con los detalles de la incidencia
                     let detallesHTML = `
                     <div>
-                        <h4>Detalles del Ordenador:</h4>
+                        <h4>Detalles del Ordenador</h4>
                         <p><strong>Procesador:</strong> ${detallesOrdenador.procesador}</p>
                         <p><strong>Memoria RAM:</strong> ${detallesOrdenador.memoria_ram}</p>
                         <p><strong>Disco Duro:</strong> ${detallesOrdenador.disco_duro}</p>
