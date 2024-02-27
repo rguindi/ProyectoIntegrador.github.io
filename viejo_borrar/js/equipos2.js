@@ -16,70 +16,51 @@ async function pedirIncidencia(id) {
         throw "Ha ocurrido un error: " + respuesta.status + " (" + respuesta.statusText + ")";
     }
     const datosObtenidos = await respuesta.json();
-    return datosObtenidos[0];
-}
-
-async function pedirDetallesOrdenador(id) {
-    const respuesta = await fetch(`http://${dirIP_api}:${PUERTO_EXPRESS}/detalles/${id}`);
-
-    if (!respuesta.ok) {
-        throw "Ha ocurrido un error: " + respuesta.status + " (" + respuesta.statusText + ")";
-    }
-    const datosObtenidos = await respuesta.json();
     return datosObtenidos;
 }
 
 function renderDatos(datos) {
     const datosEquipos = document.querySelector('.datosEquipos');
-
+  
     datos.forEach(registro => {
-        
         // Crear la card
         const card = document.createElement('div');
         card.classList.add('card', 'm-2', 'mb-3', 'shadow', 'p-3', 'mb-5', 'bg-body', 'rounded');
         card.style.width = '18rem';
 
+        // Icono SVG
+        const iconoSVG = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="Blue" class="bi bi-pc-display" viewBox="0 0 16 16">
+                <path d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0M9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5M1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2z"/>
+            </svg>
+        `;
         const icono = document.createElement('div');
         icono.classList.add('card-img-top', 'mx-auto', 'mt-3', 'text-center');
-
-        // Obtener la imagen a partir del Blob
-        const bufferData = registro?.imagen_producto?.data;
-        const arrayBuffer = new Uint8Array(bufferData).buffer; // Convertir el array de datos a un ArrayBuffer
-        const blob = new Blob([arrayBuffer], { type: 'image/png' });
-
-        const urlImg = URL.createObjectURL(blob);
-
-        const imagen = document.createElement("img");
-            imagen.style.width = "200px";
-            imagen.style.height = "150px";
-            imagen.src = urlImg;
-            icono.appendChild(imagen);
+        icono.innerHTML = iconoSVG;
 
         // Cuerpo de la card
         const cardBody = document.createElement('div');
-            cardBody.classList.add('card-body');
+        cardBody.classList.add('card-body');
 
         // Título con el nombre del equipo
         const titulo = document.createElement('h5');
-            titulo.classList.add('card-title', 'text-center', 'fw-bold');
-            titulo.textContent = registro.nombre;
+        titulo.classList.add('card-title', 'text-center', 'fw-bold');
+        titulo.textContent = registro.nombre;
 
         // Descripción del equipo
         const descripcion = document.createElement('p');
-            descripcion.classList.add('card-text', 'text-center', 'fst-italic');
-            descripcion.textContent = registro.descripcion;
+        descripcion.classList.add('card-text', 'fst-italic');
+        descripcion.textContent = registro.descripcion;
 
         // Div para los botones
         const divBotones = document.createElement('div');
-            divBotones.classList.add('d-flex', 'justify-content-center');
-        
+        divBotones.classList.add('d-flex', 'justify-content-between', 'mt-3', 'mb-3');
+
         // Botón para ver detalles
         const botonDetalles = document.createElement('button');
-            botonDetalles.classList.add('btn', 'btn-warning', 'btn-sm');
-            botonDetalles.style.marginRight = '5px';
-            botonDetalles.textContent = 'Ver detalles';
-
-        botonDetalles.addEventListener('click', function () {
+        botonDetalles.classList.add('btn', 'btn-warning', 'btn-sm');
+        botonDetalles.textContent = 'Ver detalles';
+        botonDetalles.addEventListener('click', function() {
             // Obtener body de la card
             const cardBody = card.querySelector('.card-body');
 
@@ -94,11 +75,6 @@ function renderDatos(datos) {
                 detallesEquipoAnteriores.remove();
             }
 
-            // Obtener el QR a partir del Blob
-            const urlQR = registro.qr_code.data.reduce((final, e) => {
-                return final + String.fromCharCode(e);
-            }, "");
-
             // Construir HTML con los detalles del registro actual
             let detallesHTML = `
                 <ul class="list-group list-group-flush detallesEquipo">
@@ -110,7 +86,6 @@ function renderDatos(datos) {
                     <li class="list-group-item">Marca: ${registro.marca}</li>
                     <li class="list-group-item">Modelo: ${registro.modelo}</li>
                     <li class="list-group-item">Número de Serie: ${registro.numero_de_serie}</li>
-                    <li class="list-group-item"><img src='${urlQR}'></li>
                     <li class="list-group-item">Estado: ${registro.estado}</li>
                     <li class="list-group-item">ID de Aula: ${registro.id_aula}</li>
                     <li class="list-group-item">ID de Categoría: ${registro.id_categoria}</li>
@@ -123,42 +98,38 @@ function renderDatos(datos) {
 
             //para agregar la lista  cardBody
             cardBody.insertAdjacentHTML('beforeend', detallesHTML);
-
+            
         });
-
-
+            
+        
         const botonIncidencia = document.createElement('button');
-            botonIncidencia.classList.add('btn', 'btn-danger', 'btn-sm');
-            botonIncidencia.style.marginRight = '5px';
-            botonIncidencia.textContent = 'Ver incidencia';
-
-        botonIncidencia.addEventListener('click', async function () {
+        botonIncidencia.classList.add('btn', 'btn-danger', 'btn-sm');
+        botonIncidencia.textContent = 'Ver incidencia';
+        botonIncidencia.addEventListener('click', async function() {
             try {
                 // Realizar solicitud para obtener detalles de incidencia
                 const incidencia = await pedirIncidencia(registro.id_equipo);
                 console.log(incidencia);
-
-
-                if (incidencia) {
-                    // Construir HTML con los detalles de la incidencia
-                    let detallesHTML = `
-                    <ul class="list-group list-group-flush detallesIncidencia">
-                        <li class="list-group-item"><strong>Incidencia:</strong></li>
-                        <li class="list-group-item">ID de Incidencia: ${incidencia.id_incidencia}</li>
-                        <li class="list-group-item">ID de Equipo: ${incidencia.id_equipo}</li>
-                        <li class="list-group-item">ID de Usuario: ${incidencia.id_usuario}</li>
-                        <li class="list-group-item">Fecha de Incidencia: ${incidencia.fecha_reporte}</li>
-                        <li class="list-group-item ${incidencia.descripcion === null ? 'd-none' : ''}">Descripción: ${incidencia.descripcion !== null ? incidencia.descripcion : 'N/A'}</li>
-                        <li class="list-group-item">Estado: ${incidencia.estado}</li>
-                        <li class="list-group-item ${incidencia.fecha_solucion === null ? 'd-none' : ''}">Fecha de Solución: ${incidencia.fecha_solucion !== null ? incidencia.fecha_solucion : 'N/A'}</li>
-                        <li class="list-group-item ${incidencia.solucion === null ? 'd-none' : ''}">Solución: ${incidencia.solucion !== null ? incidencia.solucion : 'N/A'}</li>
-                        <li class="list-group-item">Última Actualización: ${incidencia.fecha_actualizacion !== null ? incidencia.fecha_actualizacion : 'N/A'}</li>
-                    </ul>`;
-    
-    
+        
+                // Construir HTML con los detalles de la incidencia
+                let detallesHTML = `
+                <ul class="list-group list-group-flush detallesIncidencia">
+                    <li class="list-group-item"><strong>Incidencia:</strong></li>
+                    <li class="list-group-item">ID de Incidencia: ${incidencia.id_incidencia}</li>
+                    <li class="list-group-item">ID de Equipo: ${incidencia.id_equipo}</li>
+                    <li class="list-group-item">ID de Usuario: ${incidencia.id_usuario}</li>
+                    <li class="list-group-item">Fecha de Incidencia: ${incidencia.fecha_reporte}</li>
+                    <li class="list-group-item ${incidencia.descripcion === null ? 'd-none' : ''}">Descripción: ${incidencia.descripcion !== null ? incidencia.descripcion : 'N/A'}</li>
+                    <li class="list-group-item">Estado: ${incidencia.estado}</li>
+                    <li class="list-group-item ${incidencia.fecha_solucion === null ? 'd-none' : ''}">Fecha de Solución: ${incidencia.fecha_solucion !== null ? incidencia.fecha_solucion : 'N/A'}</li>
+                    <li class="list-group-item ${incidencia.solucion === null ? 'd-none' : ''}">Solución: ${incidencia.solucion !== null ? incidencia.solucion : 'N/A'}</li>
+                    <li class="list-group-item">Última Actualización: ${incidencia.fecha_actualizacion !== null ? incidencia.fecha_actualizacion : 'N/A'}</li>
+                </ul>`;
+            
+            
                     // Obtener el cuerpo de la card actual
                     const cardBody = card.querySelector('.card-body');
-    
+            
                     // Limpiar cualquier detalle anterior
                     const detallesIncidenciaAnterior = cardBody.querySelector('.detallesIncidencia');
                     if (detallesIncidenciaAnterior) {
@@ -168,64 +139,19 @@ function renderDatos(datos) {
                     if (detallesEquipoAnteriores) {
                         detallesEquipoAnteriores.remove();
                     }
-    
+            
                     // Agregar detalles de la incidencia al cuerpo de la card
                     cardBody.insertAdjacentHTML('beforeend', detallesHTML);
-                
-                } else {
-                    console.error("No hay incidencias para este equipo");
-                }
-
+            
             } catch (error) {
                 console.error("Error al obtener detalles de incidencia:", error);
             }
         });
 
 
-        const botonDetallesOrdenador = document.createElement('button');
-            botonDetallesOrdenador.classList.add('btn', 'btn-success', 'btn-sm');
-            botonDetallesOrdenador.textContent = 'Ver detalles ordenador';
-
-        botonDetallesOrdenador.addEventListener('click', async function () {
-            try {
-
-                console.log(registro.id_equipo);
-
-                // Realizar solicitud para obtener detalles de incidencia
-                const detallesOrdenador = await pedirDetallesOrdenador(registro.id_equipo);
-                console.log(detallesOrdenador);
-
-                if (detallesOrdenador) {
-                    // Construir HTML con los detalles de la incidencia
-                    let detallesHTML = `
-                    <div>
-                        <h4>Detalles del Ordenador</h4>
-                        <p><strong>Procesador:</strong> ${detallesOrdenador.procesador}</p>
-                        <p><strong>Memoria RAM:</strong> ${detallesOrdenador.memoria_ram}</p>
-                        <p><strong>Disco Duro:</strong> ${detallesOrdenador.disco_duro}</p>
-                        <p><strong>Tarjeta Gráfica:</strong> ${detallesOrdenador.tarjeta_grafica}</p>
-                        <p><strong>Sistema Operativo:</strong> ${detallesOrdenador.sistema_operativo}</p>
-                        <p><strong>Licencia:</strong> ${detallesOrdenador.licencia}</p>
-                        <p><strong>Otros detalles:</strong> ${detallesOrdenador.otros_detalles ? detallesOrdenador.otros_detalles : 'N/A'}</p>
-                    </div>
-                    `;
-
-                    // Abrir una ventana emergente y mostrar los detalles del ordenador
-                    const detallesOrdenadorWindow = window.open('', 'Detalles del Ordenador', 'width=600,height=400');
-                    detallesOrdenadorWindow.document.body.innerHTML = detallesHTML;
-        
-                } else {
-                    console.error("No hay detalles de ordenador para este equipo");
-                }
-
-            } catch (error) {
-                console.error("Error al obtener detalles de ordenador:", error);
-            }
-        });
-
 
         // Limpiar detalles al hacer doble click en el botón Detalles
-        botonDetalles.addEventListener('dblclick', function () {
+        botonDetalles.addEventListener('dblclick', function() {
             const detallesEquipo = cardBody.querySelector('.detallesEquipo');
             if (detallesEquipo) {
                 detallesEquipo.remove();
@@ -233,18 +159,19 @@ function renderDatos(datos) {
         });
 
         // Limpiar incidencia al hacer doble click en el botón Incidencia
-        botonIncidencia.addEventListener('dblclick', function () {
+        botonIncidencia.addEventListener('dblclick', function() {
             const detallesIncidencia = cardBody.querySelector('.detallesIncidencia');
             if (detallesIncidencia) {
                 detallesIncidencia.remove();
             }
         });
+        
 
+        
 
         // Agregar botones al div de botones
         divBotones.appendChild(botonDetalles);
         divBotones.appendChild(botonIncidencia);
-        divBotones.appendChild(botonDetallesOrdenador);
 
         // Agregar elementos al cuerpo de la card
         cardBody.appendChild(titulo);
