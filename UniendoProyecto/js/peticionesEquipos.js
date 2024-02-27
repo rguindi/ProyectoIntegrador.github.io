@@ -106,11 +106,9 @@ document.getElementById('formularioEquipos').addEventListener('submit', async (e
   const datosForm = new FormData(document.getElementById('formularioEquipos'));
   let usuario = await getUsuario();
   datosForm.append('id_usuario', usuario['usuario'].id_usuario);
-  // console.log(usuario['usuario']);
-  // console.log(usuario['usuario'].id_usuario);
-  // console.log(usuario['usuario']['id_usuario']);
+
   let qrCode = await qr_code();
-  //  datosForm.append('qr_code', datosForm.get('imagen_producto'));
+
   datosForm.append('qr_code', qrCode);
   let codigo = document.getElementById('codigo').value;
   datosForm.append('codigo', codigo); 

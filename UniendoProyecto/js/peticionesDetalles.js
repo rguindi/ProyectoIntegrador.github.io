@@ -72,48 +72,4 @@ document.getElementById('formularioDetallesOrdenador').addEventListener('submit'
 
     localStorage.removeItem('id_equipo');
 
- 
-    // // Insertamos los valores de los campos input en un objeto nuevaAula
-
-    // //obtenemos el ultimo id de equipo insertado:
-    // const response = await fetch(url + '/equipos/ultimo');
-    //     const equipo = await response.json();
-    //     let id = equipo.id;
-    
-    // let procesador = document.getElementById('procesador').value;
-    // if (procesador == "") procesador = null;
-    // let memoria_ram = document.getElementById('memoria_ram').value;
-    // if (memoria_ram == "") memoria_ram = null;
-    // let disco_duro = document.getElementById('disco_duro').value;
-    // if (disco_duro == "") disco_duro = null;
-    // let tarjeta_grafica = document.getElementById('tarjeta_grafica').value;
-    // if (tarjeta_grafica == "") tarjeta_grafica = null;
-    // let sistema_operativo = document.getElementById('sistema_operativo').value;
-    // if (sistema_operativo == "") sistema_operativo = null;
-    // let licencia = document.getElementById('licencia').value;
-    // if (licencia == "") licencia = null;
-    // let otros_detalles = document.getElementById('otros_detalles').value;
-    // if (otros_detalles == "") otros_detalles = null;
-    // let usuario = await getUsuario();
-    // let usuario_admin = usuario['usuario'].id_usuario; 
-    // let password_admin = "No registrado";
-
-    // const detalles = {
-    //     id_equipo: id,                                                         //PENDIENTE MODIFICAR
-    //     procesador: procesador,
-    //     memoria_ram: memoria_ram,
-    //     disco_duro: disco_duro,
-    //     tarjeta_grafica: tarjeta_grafica,
-    //     sistema_operativo: sistema_operativo,
-    //     licencia: licencia,
-    //     otros_detalles: otros_detalles,
-    //     usuario_admin: usuario_admin,
-    //     password_admin: password_admin
-
-    // }
- 
-    // const datos = await crearDetalles(detalles);
- 
-    // // Pintamos los datos
-    // document.getElementById('p1').innerHTML ="Insertados Detalles: \n " + JSON.stringify(detalles);
 });
