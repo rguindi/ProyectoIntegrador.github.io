@@ -28,15 +28,20 @@ function renderDatos(datos) {
         card.classList.add('card', 'm-2', 'mb-3', 'shadow', 'p-3', 'mb-5', 'bg-body', 'rounded');
         card.style.width = '18rem';
 
-        // Icono SVG
-        const iconoSVG = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="Blue" class="bi bi-pc-display" viewBox="0 0 16 16">
-                <path d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0M9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5M1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2z"/>
-            </svg>
-        `;
         const icono = document.createElement('div');
         icono.classList.add('card-img-top', 'mx-auto', 'mt-3', 'text-center');
-        icono.innerHTML = iconoSVG;
+
+        // Obtener la imagen a partir del Blob
+        const bufferData = registro?.imagen_producto?.data;
+        const arrayBuffer = new Uint8Array(bufferData).buffer; // Convertir el array de datos a un ArrayBuffer
+        const blob = new Blob([arrayBuffer], { type: 'image/png' });
+
+        const urlImg = URL.createObjectURL(blob);
+
+        const imagen = document.createElement("img");
+        imagen.style.width = "200px";
+        imagen.src = urlImg;
+        icono.appendChild(imagen);
 
         // Cuerpo de la card
         const cardBody = document.createElement('div');
@@ -75,33 +80,11 @@ function renderDatos(datos) {
                 detallesEquipoAnteriores.remove();
             }
 
-
-
-
-
-            let blob = new Blob(registro.qr_code.data, { type: 'text/plain' });
-            console.log(blob);
-            let reader = new FileReader();
-            // console.log(reader.readAsDataURL(blob).result);
-
-            blob = new Blob(registro.imagen_producto.data, { type: 'image/png' });
-            console.log(blob);
-            reader = new FileReader();
-            // console.log(reader.readAsDataURL(blob).result);
-
-
-
-
-
-            console.log(registro.imagen_producto);
-            console.log(registro.qr_code);
-            let urlQR = registro.qr_code.data.reduce((final, e) => {
-                return final +String.fromCharCode(e);
+            // Obtener el QR a partir del Blob
+            const urlQR = registro.qr_code.data.reduce((final, e) => {
+                return final + String.fromCharCode(e);
             }, "");
-            let cadenaImg = registro.imagen_producto.data.reduce((final, e) => {
-                return final +String.fromCharCode(e);
-            }, "");
-            console.log(urlQR);
+
             // Construir HTML con los detalles del registro actual
             let detallesHTML = `
                 <ul class="list-group list-group-flush detallesEquipo">
@@ -113,7 +96,6 @@ function renderDatos(datos) {
                     <li class="list-group-item">Marca: ${registro.marca}</li>
                     <li class="list-group-item">Modelo: ${registro.modelo}</li>
                     <li class="list-group-item">Número de Serie: ${registro.numero_de_serie}</li>
-                    <li class="list-group-item"><img src='${cadenaImg}'></li>
                     <li class="list-group-item"><img src='${urlQR}'></li>
                     <li class="list-group-item">Estado: ${registro.estado}</li>
                     <li class="list-group-item">ID de Aula: ${registro.id_aula}</li>
