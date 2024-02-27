@@ -2,7 +2,8 @@
 const dirIP_api = '127.0.0.1'; // O asignar el valor que necesitas
 const PUERTO_EXPRESS = 3000; // O asignar el valor que necesitas
 const url=`http://${dirIP_api}:${PUERTO_EXPRESS}`;
-selectEquipo = document.getElementById('id_equipo');
+const selectEquipo = document.getElementById('id_equipo');
+import { validaIncidencia } from "./validar_incidencias.js";
 
 
   //FUNCION PARA AUTO-RELLENAR LOSEQUIPOS
@@ -75,6 +76,9 @@ async function getUsuario() {
 
 document.getElementById('FormularioIncidencias').addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (!validaIncidencia()) {
+        return;
+    }
  
     // Insertamos los valores de los campos input en un objeto nuevaAula
     

@@ -22,68 +22,78 @@ function limpiarErrores() {
     });
 }
 
-document.getElementById('formularioEquipos').addEventListener("submit", function (evento) {
-    evento.preventDefault();
+ function validarEquipos(){
     limpiarErrores();
 
+    let error = false;
         //todo not null en la tabla de quipos 
 
-    if (!nombre.checkValidity()) {
+    if (nombre.value === "" || nombre.value === null) {
         nombre.focus();
         nombre.setCustomValidity('El nombre del equipo es obligatorio');
         mostrarError('error_nombre', nombre.validationMessage);
-      
+        error = true;
     }
-    if (!descripcion.checkValidity()) {
+    if (descripcion.value === "" || descripcion.value === null) {
         descripcion.focus();
         descripcion.setCustomValidity('Añade Una Descripción del Equipo');
         mostrarError('error_descripcion', descripcion.validationMessage);
+        error = true;
     }
 
-    if (!marca.checkValidity()) {
+    if (marca.value === "" || marca.value === null) {
         marca.focus();
         marca.setCustomValidity('Indicar la marca del equipo es obligatoria');
         mostrarError('error_marca', marca.validationMessage);
+        error = true;
         
     }
 
-    if (!modelo.checkValidity()) {
+    if (modelo.value === "" || modelo.value === null) {
         modelo.focus();
         modelo.setCustomValidity('Indicar el modelo del equipo es obligatorio');
         mostrarError('error_modelo', modelo.validationMessage);
+        error = true;
      
     }
 
-    if(!numero_de_serie.checkValidity()) {
+    if(numero_de_serie.value === "" || numero_de_serie.value === null || isNaN(numero_de_serie.value)) {
         numero_de_serie.focus();
         numero_de_serie.setCustomValidity('El número de serie del equipo es obligatorio');
         mostrarError('error_numero_de_serie', numero_de_serie.validationMessage);
+        error = true;
     }
 
     if (estado.value === "defecto") {
         estado.focus();
         mostrarError('error_estado', 'Por favor, seleccione el estado del equipo    .');
+        error = true;
     }
 
     if (id_aula.value === "defecto") {
         id_aula.focus();
         mostrarError('error_aula', "Por favor, seleccione el aula donde se encuentra el equipo.");
+        error = true;
     }
 
     if (id_categoria.value=="defecto") {
         id_categoria.focus();
         mostrarError('error_categoria', "Por favor, seleccione la categoria del equipo.");
+        error = true;
     }
 
         //imagen default null en bd 
    
 
-    if(!ano_adquisicion.checkValidity()) {
+    if(ano_adquisicion.value === "" || ano_adquisicion.value === null || isNaN(ano_adquisicion.value) || ano_adquisicion.value< 1900 || ano_adquisicion.value > 2100) {
         ano_adquisicion.focus();
         ano_adquisicion.setCustomValidity('Indica el año de adquisición del equipo');
         mostrarError('error_ano_adquisicion', ano_adquisicion.validationMessage);
+        error = true;
     }
 
+    return !error;
+    
     //Para redirigir a la pagina de registro de ordenador 
 
     //revisar para que no se pierdan los datos antes de redirigir
@@ -92,7 +102,7 @@ document.getElementById('formularioEquipos').addEventListener("submit", function
     //     window.location.href = "../views/registrarOrdenador.html";
     //     return;
     // }
-    
-});
+   
+}
 
 

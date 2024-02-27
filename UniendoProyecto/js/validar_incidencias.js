@@ -4,6 +4,9 @@ const descripcion = document.getElementById('descripcion');
 const solucion = document.getElementById('solucion');
 const estado = document.getElementById('estado');
 const fecha_actualizacion = document.getElementById('fecha_actualizacion');
+const dirIP_api = '127.0.0.1'; // O asignar el valor que necesitas
+const PUERTO_EXPRESS = 3000; // O asignar el valor que necesitas
+const url=`http://${dirIP_api}:${PUERTO_EXPRESS}`;
 const equipo = document.getElementById('id_equipo');
 console.log("funciona");
 
@@ -47,7 +50,7 @@ function limpiarErrores() {
     });
 }
 
-document.getElementById('FormularioIncidencias').addEventListener("submit", function (evento) {
+export function validaIncidencia() {
     limpiarErrores();
 
     // if (!id_equipo.checkValidity()) {
@@ -82,6 +85,9 @@ document.getElementById('FormularioIncidencias').addEventListener("submit", func
     if (equipo.value === "defecto") {
         equipo.focus();
         mostrarError('error_equipo', 'Por favor, seleccione el equipo .');
+        return false
+    }   else {
+        return true;
     }
 
     // if(!fecha_actualizacion.checkValidity()) {
@@ -94,4 +100,4 @@ document.getElementById('FormularioIncidencias').addEventListener("submit", func
 
     // Si todos los campos son válidos, puedes enviar el formulario
     // document.getElementById('FormularioIncidencias').submit();
-});
+}

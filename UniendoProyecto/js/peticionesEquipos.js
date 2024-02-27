@@ -99,6 +99,10 @@ async function getUsuario() {
 
 document.getElementById('formularioEquipos').addEventListener('submit', async (event) => {
   event.preventDefault();
+  if (!validarEquipos()) {
+    return;
+  }
+  
   const datosForm = new FormData(document.getElementById('formularioEquipos'));
   let usuario = await getUsuario();
   datosForm.append('id_usuario', usuario['usuario'].id_usuario);
@@ -125,6 +129,7 @@ const day = String(fechaActual.getDate()).padStart(2, '0');
 const fechaFormateada = `${year}-${month}-${day}`;
 
   datosForm.append('ultima_actualizacion', fechaFormateada);
+  // datosForm.delete('ordenador');
   
     fetch(url + '/equipos/', {
       method: 'POST',
@@ -135,6 +140,14 @@ const fechaFormateada = `${year}-${month}-${day}`;
         throw new Error(`Error ${response.status} de la BBDD: ${response.statusText}`);
       }
       console.log('Data inserted successfully');
+      document.getElementById('respuesta').innerHTML = "Equipo insertado correctamente. ";
+      if(datosForm.has('es_ordenador') && datosForm.get('es_ordenador') === 'on'){
+        document.getElementById('respuesta').innerHTML = "Equipo insertado correctamente. Redirigiendo a detalles de equipo... ";
+        setTimeout(function() {
+          window.location.href = "./registrarOrdenador.html";
+      }, 3000);
+        return;
+      }
     })
     .catch(error => {
       console.log('Error inserting data:', error);
