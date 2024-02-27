@@ -30,9 +30,9 @@
         <nav class="bg-primary bg-gradient">
 
             <ul class="nav navAdmin">
-                <li class="nav-item dropdown active" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Equipos Electronicos</a>
+                <li class="nav-item dropdown" ><a class="nav-link fw-bold dropdown-toggle aNav" role="button" data-bs-toggle="dropdown" aria-expanded="false">Equipos Electronicos</a>
                     <ul class="dropdown-menu bg-primary bg-gradient">
-                        <li class="text-center active"><a class="dropdown-item liNavSub fw-bold" href="./registrarEquipo.html">Registrar Equipo</a></li>
+                        <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./registrarEquipo.html">Registrar Equipo</a></li>
                         <li class="text-center"><a class="dropdown-item liNavSub fw-bold" href="./equipos.html">Visualizar Equipos</a></li>
                     </ul>
                 </li>
@@ -46,6 +46,8 @@
 
                 <li class="nav-item" ><a href="./categorias.html" class="nav-link fw-bold aNav">Categorías</a></li>
                 <li class="nav-item" ><a href="./aulas.html" class="nav-link fw-bold aNav">Aulas</a></li>
+
+                <li class="nav-item active" ><a href="./registroUsuario.html" class="nav-link fw-bold aNav">Registrar Usuario</a></li>
             </ul>
 
         </nav>
@@ -55,7 +57,7 @@
         <!-- MAIN -->
         <main class="centered py-3 position-relative">
 
-            <button class="btn btn-danger btnCerrarSesion" onclick="location.href='../index.html'">Cerrar sesión</button>
+            <button class="btn btn-danger btnCerrarSesion" id="btn-cerrar-session">Cerrar sesión</button>
 
             <div class="container py-5">
 
@@ -73,25 +75,25 @@
                             <div class="mb-4 text-center">
                                 <label class="form-label fw-bold" for="id_usuario">Id usuario:</label><br>
                                 <input type="text" id="id_usuario" name="id_usuario" class="form-control" required />
-                                <span class="error "></span><br>
+                                <span id="error_id_usuario" class="error"></span>
                             </div>
             
                             <div class="mb-4 text-center">
                                 <label class="form-label fw-bold" for="contraseña">Contraseña:</label><br>
                                 <input type="password" id="contraseña" name="contraseña" class="form-control" required />
-                                <span class="error "></span><br>
+                                <span id="error_contraseña" class="error"></span>
                             </div>
             
                             <div class="mb-4 text-center">
                                 <label class="form-label fw-bold" for="contraseña2">Repetir contraseña:</label><br>
                                 <input type="password" id="contraseña2" name="contraseña2" class="form-control" required />
-                                <span class="error "></span><br>
+                                <span id="error_contraseña2" class="error"></span>
                             </div>
             
                             <div class="mb-4 text-center">
                                 <label class="form-label fw-bold" for="correo">Correo:</label><br>
                                 <input type="email" id="correo" name="correo" class="form-control" required />
-                                <span class="error "></span><br>
+                                <span id="error_correo" class="error"></span>
                             </div>
             
                             <div class="text-center">
@@ -99,7 +101,8 @@
                             </div>
                         </form>
 
-                        <p id="p1"></p>
+                        <div id="respuesta"></div>
+
                     </div>
                 </div>
             </div>
@@ -116,7 +119,8 @@
             </footer>
         </div>
 
-        <script src="../js/validacionesForm/validar_registro.js"></script>
+        <script src="../js/validar_registro.js"></script>
+        <script type="module" src="../js/cerrarSession.js"></script>
     </body>
 
 </html>

@@ -91,15 +91,15 @@ document.getElementById('FormularioIncidencias').addEventListener('submit', asyn
     let id_equipo = document.getElementById('id_equipo').value;
 
     // Obtener la fecha actual
-const fechaActual = new Date();
+    const fechaActual = new Date();
 
-// Obtener el año, mes y día
-const year = fechaActual.getFullYear();
-const month = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Se agrega 1 porque los meses se indexan desde 0
-const day = String(fechaActual.getDate()).padStart(2, '0');
+    // Obtener el año, mes y día
+    const year = fechaActual.getFullYear();
+    const month = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Se agrega 1 porque los meses se indexan desde 0
+    const day = String(fechaActual.getDate()).padStart(2, '0');
 
-// Crear el formato string YYYY-MM-DD
-const fechaFormateada = `${year}-${month}-${day}`;
+    // Crear el formato string YYYY-MM-DD
+    const fechaFormateada = `${year}-${month}-${day}`;
 
 
     const incidencia = {
