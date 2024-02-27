@@ -11,10 +11,10 @@ console.log("funciona");
 async function isAdmin() {
     try {
         const response = await fetch(`http://${dirIP_api}:${PUERTO_EXPRESS}/usuarios/user`, {
-            credentials: 'include' // Incluye la cookie de sesión en la solicitud
+            credentials: 'include'
         });
         if (!response.ok) {
-            throw `Error ${response.status} de la BBDD: ${response.statusText}`;
+            window.location = "../index.html";
         }
         const datos = await response.json();
         if (datos.usuario.rol === "administrador")

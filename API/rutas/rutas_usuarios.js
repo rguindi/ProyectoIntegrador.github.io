@@ -7,5 +7,6 @@ rutasUsuarios.get('/', usuariosControllers.getUsuarios);
 rutasUsuarios.get('/:id', usuariosControllers.getUsuarioById);
 rutasUsuarios.post('/verificar', usuariosControllers.verificarUsuario);
 rutasUsuarios.post('/', usuariosControllers.crearUsuario);
+rutasUsuarios.post('/cerrar-sesion', usuariosControllers.cerrarSesion);
 
 module.exports = rutasUsuarios;
