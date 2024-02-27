@@ -16,7 +16,16 @@ async function pedirIncidencia(id) {
         throw "Ha ocurrido un error: " + respuesta.status + " (" + respuesta.statusText + ")";
     }
     const datosObtenidos = await respuesta.json();
-    return datosObtenidos;
+    return datosObtenidos[0];
+}
+
+async function pedirDetallesOrdenador(id) {
+    const respuesta = await fetch(`http://${dirIP_api}:${PUERTO_EXPRESS}/detalles/equipo/${id}`);
+    if (!respuesta.ok) {
+        throw "Ha ocurrido un error: " + respuesta.status + " (" + respuesta.statusText + ")";
+    }
+    const datosObtenidos = await respuesta.json();
+    return datosObtenidos[0];
 }
 
 function renderDatos(datos) {
@@ -54,7 +63,7 @@ function renderDatos(datos) {
 
         // Descripción del equipo
         const descripcion = document.createElement('p');
-        descripcion.classList.add('card-text', 'fst-italic');
+        descripcion.classList.add('card-text', 'text-center', 'fst-italic');
         descripcion.textContent = registro.descripcion;
 
         // Div para los botones
@@ -117,48 +126,111 @@ function renderDatos(datos) {
         botonIncidencia.classList.add('btn', 'btn-danger', 'btn-sm');
         botonIncidencia.textContent = 'Ver incidencia';
         botonIncidencia.addEventListener('click', async function () {
+
             try {
                 // Realizar solicitud para obtener detalles de incidencia
                 const incidencia = await pedirIncidencia(registro.id_equipo);
                 console.log(incidencia);
 
-                // Construir HTML con los detalles de la incidencia
-                let detallesHTML = `
-                <ul class="list-group list-group-flush detallesIncidencia">
-                    <li class="list-group-item"><strong>Incidencia:</strong></li>
-                    <li class="list-group-item">ID de Incidencia: ${incidencia.id_incidencia}</li>
-                    <li class="list-group-item">ID de Equipo: ${incidencia.id_equipo}</li>
-                    <li class="list-group-item">ID de Usuario: ${incidencia.id_usuario}</li>
-                    <li class="list-group-item">Fecha de Incidencia: ${incidencia.fecha_reporte}</li>
-                    <li class="list-group-item ${incidencia.descripcion === null ? 'd-none' : ''}">Descripción: ${incidencia.descripcion !== null ? incidencia.descripcion : 'N/A'}</li>
-                    <li class="list-group-item">Estado: ${incidencia.estado}</li>
-                    <li class="list-group-item ${incidencia.fecha_solucion === null ? 'd-none' : ''}">Fecha de Solución: ${incidencia.fecha_solucion !== null ? incidencia.fecha_solucion : 'N/A'}</li>
-                    <li class="list-group-item ${incidencia.solucion === null ? 'd-none' : ''}">Solución: ${incidencia.solucion !== null ? incidencia.solucion : 'N/A'}</li>
-                    <li class="list-group-item">Última Actualización: ${incidencia.fecha_actualizacion !== null ? incidencia.fecha_actualizacion : 'N/A'}</li>
-                </ul>`;
 
-
-                // Obtener el cuerpo de la card actual
-                const cardBody = card.querySelector('.card-body');
-
-                // Limpiar cualquier detalle anterior
-                const detallesIncidenciaAnterior = cardBody.querySelector('.detallesIncidencia');
-                if (detallesIncidenciaAnterior) {
-                    detallesIncidenciaAnterior.remove();
+                if (incidencia) {
+                    // Construir HTML con los detalles de la incidencia
+                    let detallesHTML = `
+                    <ul class="list-group list-group-flush detallesIncidencia">
+                        <li class="list-group-item"><strong>Incidencia:</strong></li>
+                        <li class="list-group-item">ID de Incidencia: ${incidencia.id_incidencia}</li>
+                        <li class="list-group-item">ID de Equipo: ${incidencia.id_equipo}</li>
+                        <li class="list-group-item">ID de Usuario: ${incidencia.id_usuario}</li>
+                        <li class="list-group-item">Fecha de Incidencia: ${incidencia.fecha_reporte}</li>
+                        <li class="list-group-item ${incidencia.descripcion === null ? 'd-none' : ''}">Descripción: ${incidencia.descripcion !== null ? incidencia.descripcion : 'N/A'}</li>
+                        <li class="list-group-item">Estado: ${incidencia.estado}</li>
+                        <li class="list-group-item ${incidencia.fecha_solucion === null ? 'd-none' : ''}">Fecha de Solución: ${incidencia.fecha_solucion !== null ? incidencia.fecha_solucion : 'N/A'}</li>
+                        <li class="list-group-item ${incidencia.solucion === null ? 'd-none' : ''}">Solución: ${incidencia.solucion !== null ? incidencia.solucion : 'N/A'}</li>
+                        <li class="list-group-item">Última Actualización: ${incidencia.fecha_actualizacion !== null ? incidencia.fecha_actualizacion : 'N/A'}</li>
+                    </ul>`;
+    
+    
+                    // Obtener el cuerpo de la card actual
+                    const cardBody = card.querySelector('.card-body');
+    
+                    // Limpiar cualquier detalle anterior
+                    const detallesIncidenciaAnterior = cardBody.querySelector('.detallesIncidencia');
+                    if (detallesIncidenciaAnterior) {
+                        detallesIncidenciaAnterior.remove();
+                    }
+                    const detallesEquipoAnteriores = cardBody.querySelector('.detallesEquipo');
+                    if (detallesEquipoAnteriores) {
+                        detallesEquipoAnteriores.remove();
+                    }
+    
+                    // Agregar detalles de la incidencia al cuerpo de la card
+                    cardBody.insertAdjacentHTML('beforeend', detallesHTML);
+                
+                } else {
+                    console.error("No hay incidencias para este equipo");
                 }
-                const detallesEquipoAnteriores = cardBody.querySelector('.detallesEquipo');
-                if (detallesEquipoAnteriores) {
-                    detallesEquipoAnteriores.remove();
-                }
-
-                // Agregar detalles de la incidencia al cuerpo de la card
-                cardBody.insertAdjacentHTML('beforeend', detallesHTML);
 
             } catch (error) {
                 console.error("Error al obtener detalles de incidencia:", error);
             }
         });
 
+
+        const botonDetallesOrdenador = document.createElement('button');
+        botonDetallesOrdenador.classList.add('btn', 'btn-success', 'btn-sm');
+        botonDetallesOrdenador.textContent = 'Ver detalles ordenador';
+        botonDetallesOrdenador.addEventListener('click', async function () {
+            
+            try {
+                // Realizar solicitud para obtener detalles de incidencia
+                const detalles_ordenador = await pedirDetallesOrdenador(registro.id_equipo);
+                console.log(detalles_ordenador);
+
+
+                if (detalles_ordenador) {
+                    // Construir HTML con los detalles de la incidencia
+                    let detallesHTML = `
+                    <ul class="list-group list-group-flush botonDetallesOrdenador">
+                        <li class="list-group-item"><strong>Detalles Ordenador:</strong></li>
+                        <li class="list-group-item">Procesador: ${detalles_ordenador.procesador}</li>
+                        <li class="list-group-item">Memoria RAM: ${detalles_ordenador.memoria_ram}</li>
+                        <li class="list-group-item">Disco Duro: ${detalles_ordenador.disco_duro}</li>
+                        <li class="list-group-item">Tarjeta Gráfica: ${detalles_ordenador.tarjeta_grafica}</li>
+                        <li class="list-group-item">Sistema Operativo: ${detalles_ordenador.sistema_operativo}</li>
+                        <li class="list-group-item">Licencia: ${detalles_ordenador.licencia}</li>
+                        <li class="list-group-item ${detalles_ordenador.otros_detalles === null ? 'd-none' : ''}">"Otros detalles: ${detalles_ordenador.otros_detalles !== null ? detalles_ordenador.otros_detalles: 'N/A'}"</li>
+                    </ul>`;
+        
+                    // Obtener el cuerpo de la card actual
+                    const cardBody = card.querySelector('.card-body');
+    
+                    // Limpiar cualquier detalle anterior
+                    const detallesIncidenciaAnterior = cardBody.querySelector('.detallesIncidencia');
+                    if (detallesIncidenciaAnterior) {
+                        detallesIncidenciaAnterior.remove();
+                    }
+
+                    const detallesEquipoAnteriores = cardBody.querySelector('.detallesEquipo');
+                    if (detallesEquipoAnteriores) {
+                        detallesEquipoAnteriores.remove();
+                    }
+
+                    const detallesOrdenadorAnteriores = cardBody.querySelector('.detalles_ordenador');
+                    if (detallesOrdenadorAnteriores) {
+                        detallesOrdenadorAnteriores.remove();
+                    }
+    
+                    // Agregar detalles del ordenador al cuerpo de la card
+                    cardBody.insertAdjacentHTML('beforeend', detallesHTML);
+                
+                } else {
+                    console.error("No hay detalles de ordenador para este equipo");
+                }
+
+            } catch (error) {
+                console.error("Error al obtener detalles de ordenador:", error);
+            }
+        });
 
 
         // Limpiar detalles al hacer doble click en el botón Detalles
@@ -176,9 +248,6 @@ function renderDatos(datos) {
                 detallesIncidencia.remove();
             }
         });
-
-
-
 
         // Agregar botones al div de botones
         divBotones.appendChild(botonDetalles);

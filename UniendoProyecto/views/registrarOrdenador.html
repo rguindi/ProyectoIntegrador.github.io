@@ -11,7 +11,7 @@
 
         <link rel="stylesheet" href="../css/estilos.css">
 
-        <title>Aulas</title>
+        <title>Registro Ordenador</title>
 
     </head>
 
@@ -67,71 +67,77 @@
                         <div class="col-md-6 offset-md-3">
                             
                             <form id="formularioDetallesOrdenador" enctype="multipart/form-data" novalidate class="container">
-                                <div class="col-12 mb-5">
-                                <div class="row">
 
-                                    <div class="col-md-6 offset-md-3">
 
-                                        <div class="col-12 mb-4">
-                                            <h2 class="text-center">Registro de Ordenador</h2>
-                                        </div>
-                            
-                                        <!-- Procesador input -->
-                                        <div class="mb-4 text-center">
-                                            <label class="form-label fw-bold" for="procesador">Procesador:</label><br>
-                                            <input type="text" id="procesador" name="procesador" class="form-control" required>
-                                            <!-- <span id="error_procesador" class="error"></span> -->
-                                        </div>
-                            
-                                        <!-- Memoria RAM input -->
-                                        <div class="mb-4 text-center">
-                                            <label class="form-label fw-bold" for="memoria_ram">Memoria RAM:</label><br>
-                                            <input type="text" id="memoria_ram" name="memoria_ram" class="form-control" required>
-                                            <!-- <span id="error_memoria_ram" class="error"></span> -->
-                                        </div>
-                            
-                                        <!-- Disco Duro input -->
-                                        <div class="mb-4 text-center">
-                                            <label class="form-label fw-bold" for="disco_duro">Disco Duro:</label><br>
-                                            <input type="text" id="disco_duro" name="disco_duro" class="form-control" required>
-                                            <!-- <span id="error_disco_duro" class="error"></span> -->
-                                        </div>
-                            
-                                        <!-- Tarjeta Gráfica input -->
-                                        <div class="mb-4 text-center">
-                                            <label class="form-label fw-bold" for="tarjeta_grafica">Tarjeta Gráfica:</label><br>
-                                            <input type="text" id="tarjeta_grafica" name="tarjeta_grafica" class="form-control" required>
-                                            <!-- <span id="error_tarjeta_grafica" class="error"></span> -->
-                                        </div>
-                            
-                                        <!-- Sistema Operativo input -->
-                                        <div class="mb-4 text-center">
-                                            <label class="form-label fw-bold" for="sistema_operativo">Sistema Operativo:</label><br>
-                                            <input type="text" id="sistema_operativo" name="sistema_operativo" class="form-control" required>
-                                            <!-- <span id="error_sistema_operativo" class="error"></span> -->
-                                        </div>
-                            
-                                        <!-- Licencia input -->
-                                        <div class="mb-4 text-center">
-                                            <label class="form-label fw-bold" for="licencia">Licencia:</label><br>
-                                            <input type="text" id="licencia" name="licencia" class="form-control" required>
-                                            <!-- <span id="error_licencia" class="error"></span> -->
-                                        </div>
-                            
-                                        <!-- Otros Detalles input -->
-                                        <div class="mb-4 text-center">
-                                            <label class="form-label fw-bold" for="otros_detalles">Otros Detalles:</label><br>
-                                            <input type="text" id="otros_detalles" name="otros_detalles" class="form-control" required>
-                                            <!-- <span id="error_otros_detalles" class="error"></span> -->
-                                        </div>
-                            
-                                        <!-- Botón de enviar -->
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-warning" name="btnInsertarAula" id="btnInsertarAula">Añadir Detalles de Ordenador</button>
-                                        </div>
+
+                                <div class="col-12 mb-4">
+                                    <h2 class="text-center">Registro de Ordenador</h2>
+                                </div>
+                    
+                                <div class="row mb-4">
+                                    <!-- Procesador input -->
+                                    <div class="col-md-6 text-center">
+                                        <label class="form-label fw-bold" for="procesador">Procesador:</label><br>
+                                        <input type="text" id="procesador" name="procesador" class="form-control" required>
+                                        <span id="error_procesador" class="error"></span>
+                                    </div>
+                        
+                                    <!-- Memoria RAM input -->
+                                    <div class="col-md-6 text-center">
+                                        <label class="form-label fw-bold" for="memoria_ram">Memoria RAM:</label><br>
+                                        <input type="text" id="memoria_ram" name="memoria_ram" class="form-control" required>
+                                        <span id="error_memoria_ram" class="error"></span>
                                     </div>
                                 </div>
+                    
+                                <div class="row mb-4">
+                                    <!-- Disco Duro input -->
+                                    <div class="col-md-6 text-center">
+                                        <label class="form-label fw-bold" for="disco_duro">Disco Duro:</label><br>
+                                        <input type="text" id="disco_duro" name="disco_duro" class="form-control" required>
+                                        <span id="error_disco_duro" class="error"></span>
+                                    </div>
+                        
+                                    <!-- Tarjeta Gráfica input -->
+                                    <div class="col-md-6 text-center">
+                                        <label class="form-label fw-bold" for="tarjeta_grafica">Tarjeta Gráfica:</label><br>
+                                        <input type="text" id="tarjeta_grafica" name="tarjeta_grafica" class="form-control" required>
+                                        <span id="error_tarjeta_grafica" class="error"></span>
+                                    </div>
+                                </div>
+                    
+                                <div class="row mb-4">
+                                    <!-- Sistema Operativo input -->
+                                    <div class="col-md-6 text-center">
+                                        <label class="form-label fw-bold" for="sistema_operativo">Sistema Operativo:</label><br>
+                                        <input type="text" id="sistema_operativo" name="sistema_operativo" class="form-control" required>
+                                        <span id="error_sistema_operativo" class="error"></span>
+                                    </div>
+                        
+                                    <!-- Licencia input -->
+                                    <div class="col-md-6 text-center">
+                                        <label class="form-label fw-bold" for="licencia">Licencia:</label><br>
+                                        <input type="text" id="licencia" name="licencia" class="form-control" required>
+                                        <span id="error_licencia" class="error"></span>
+                                    </div>
+                                </div>
+                    
+                                <div class="row mb-4">
+                                    <!-- Otros Detalles input -->
+                                    <div class="col-md-12 text-center">
+                                        <label class="form-label fw-bold" for="otros_detalles">Otros Detalles:</label><br>
+                                        <input type="text" id="otros_detalles" name="otros_detalles" class="form-control" required>
+                                        <span id="error_otros_detalles" class="error"></span>
+                                    </div>
+                                </div>
+                    
+                                <!-- Botón de enviar -->
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-warning" name="btnInsertarOrdenador" id="btnInsertarOrdenador">Añadir Detalles de Ordenador</button>
+                                </div>
+
                             </form>
+
                             <p id="p1"></p>
                             
 
@@ -153,8 +159,8 @@
             </footer>
         </div>
 
-        <!-- <script src="../js/validacionesForm/validar_equipos.js"></script> -->
+        <script src="../js/validar_detalles_ordenador.js"></script>
+        <script src="../js/peticionesDetalles.js"></script>    
     </body>
-    <script src="../js/peticionesDetalles.js"></script>    
 
 </html>

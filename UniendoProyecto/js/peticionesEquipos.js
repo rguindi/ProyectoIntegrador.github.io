@@ -135,19 +135,41 @@ const fechaFormateada = `${year}-${month}-${day}`;
       method: 'POST',
       body: datosForm
     })
+
     .then(response => {
       if (!response.ok) {
         throw new Error(`Error ${response.status} de la BBDD: ${response.statusText}`);
       }
+
+      return response.json();
+    })
+
+    .then(data => {
+
       console.log('Data inserted successfully');
       document.getElementById('respuesta').innerHTML = "Equipo insertado correctamente. ";
+
+      // Guarda el idEquipo en localStorage
+      const id_equipo = data.id;
+      localStorage.setItem('id_equipo', id_equipo);
+
       if(datosForm.has('es_ordenador') && datosForm.get('es_ordenador') === 'on'){
-        document.getElementById('respuesta').innerHTML = "Equipo insertado correctamente. Redirigiendo a detalles de equipo... ";
+        document.getElementById('respuesta').innerHTML = "Equipo insertado correctamente. Redirigiendo a detalles del ordenador... ";
+
         setTimeout(function() {
           window.location.href = "./registrarOrdenador.html";
-      }, 3000);
+        }, 3000);
+
         return;
+      
+      } else {
+        document.getElementById('respuesta').innerHTML = "Equipo insertado correctamente. Redirigiendo a detalles de equipo... ";
+
+        setTimeout(function() {
+          window.location.href = "./verEquipos_incidencias.html";
+        }, 3000);
       }
+
     })
     .catch(error => {
       console.log('Error inserting data:', error);

@@ -1,13 +1,11 @@
 const id_equipo = document.getElementById('id_equipo');
-const fecha_reporte = document.getElementById('fecha_reporte');
 const descripcion = document.getElementById('descripcion');
 const solucion = document.getElementById('solucion');
-const estado = document.getElementById('estado');
-const fecha_actualizacion = document.getElementById('fecha_actualizacion');
+
 const dirIP_api = '127.0.0.1'; // O asignar el valor que necesitas
 const PUERTO_EXPRESS = 3000; // O asignar el valor que necesitas
 const url=`http://${dirIP_api}:${PUERTO_EXPRESS}`;
-const equipo = document.getElementById('id_equipo');
+
 console.log("funciona");
 
 async function isAdmin() {
@@ -38,7 +36,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 
-
 function mostrarError(idError, mensaje) {
     document.getElementById(idError).textContent = mensaje;
 }
@@ -51,53 +48,48 @@ function limpiarErrores() {
 }
 
 export function validaIncidencia() {
+    
     limpiarErrores();
 
-    // if (!id_equipo.checkValidity()) {
-    //     id_equipo.focus();
-    //     mostrarError('error_id_equipo', id_equipo.validationMessage);
-    //    return;
-    // }
+    let error = false;
+    let primerError = null;
 
-    // if(!fecha_reporte.checkValidity()) {
-    //     fecha_reporte.focus();
-    //     mostrarError('error_fecha_reporte', fecha_reporte.validationMessage);
-    //     return;
-    // }
+    if (id_equipo.value === "defecto") {
+        id_equipo.focus();
+        mostrarError('error_equipo', 'Por favor, seleccione el equipo');
+        error = true;
 
-    // if(!descripcion.checkValidity()) {
-    //     descripcion.focus();
-    //     mostrarError('error_descripcion', descripcion.validationMessage);
-    //     return;
-    // }
-    // if(!solucion.checkValidity()) {
-    //     solucion.focus();
-    //     mostrarError('error_solucion', solucion.validationMessage);
-    //     return;
-    // }
-
-    // if (estado.value === "defecto") {
-    //     estado.focus();
-    //     mostrarError('error_estado', 'Por favor, seleccione un estado para la incidencia.');
-
-    // }
-
-    if (equipo.value === "defecto") {
-        equipo.focus();
-        mostrarError('error_equipo', 'Por favor, seleccione el equipo .');
-        return false
-    }   else {
-        return true;
+        if (!primerError) {
+            primerError = id_equipo;
+        }
     }
 
-    // if(!fecha_actualizacion.checkValidity()) {
-    //     fecha_actualizacion.focus();
-    //     mostrarError('error_fecha_actualizacion', fecha_actualizacion.validationMessage);
-    //     return;
-    // }
+    if(descripcion.value === "" || descripcion.value === null) {
+        descripcion.focus();
+        mostrarError('error_descripcion', 'La descripción no puede estar vacía');
+        error = true;
 
-    // Aquí puedes validar los otros campos del formulario de manera similar
+        if (!primerError) {
+            primerError = descripcion;
+        }
+    }
 
-    // Si todos los campos son válidos, puedes enviar el formulario
-    // document.getElementById('FormularioIncidencias').submit();
+    if(solucion.value === "" || solucion.value === null) {
+        solucion.focus();
+        mostrarError('error_solucion', 'La solución no puede estar vacía');
+        error = true;
+
+        if (!primerError) {
+            primerError = solucion;
+        }
+    }
+
+    if (!error) {
+        document.getElementById('FormularioIncidencias').submit();
+    
+    } else if (primerError) {
+        primerError.focus();
+    }
+
+    return !error;
 }

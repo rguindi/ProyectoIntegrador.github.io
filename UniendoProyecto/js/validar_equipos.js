@@ -7,7 +7,6 @@ const estado = document.getElementById('estado');
 const id_aula = document.getElementById('id_aula');
 const id_categoria = document.getElementById('id_categoria');
 const imagen_producto = document.getElementById('imagen_producto');
-
 const ano_adquisicion = document.getElementById('ano_adquisicion');
 const ordenador = document.getElementById('ordenador');
 
@@ -22,23 +21,33 @@ function limpiarErrores() {
     });
 }
 
- function validarEquipos(){
+function validarEquipos(){
+    
     limpiarErrores();
 
     let error = false;
-        //todo not null en la tabla de quipos 
+    let primerError = null;
 
     if (nombre.value === "" || nombre.value === null) {
         nombre.focus();
         nombre.setCustomValidity('El nombre del equipo es obligatorio');
         mostrarError('error_nombre', nombre.validationMessage);
         error = true;
+
+        if (!primerError) {
+            primerError = nombre;
+        }
     }
+
     if (descripcion.value === "" || descripcion.value === null) {
         descripcion.focus();
         descripcion.setCustomValidity('Añade Una Descripción del Equipo');
         mostrarError('error_descripcion', descripcion.validationMessage);
         error = true;
+
+        if (!primerError) {
+            primerError = descripcion;
+        }
     }
 
     if (marca.value === "" || marca.value === null) {
@@ -46,7 +55,10 @@ function limpiarErrores() {
         marca.setCustomValidity('Indicar la marca del equipo es obligatoria');
         mostrarError('error_marca', marca.validationMessage);
         error = true;
-        
+
+        if (!primerError) {
+            primerError = marca;
+        }
     }
 
     if (modelo.value === "" || modelo.value === null) {
@@ -54,7 +66,10 @@ function limpiarErrores() {
         modelo.setCustomValidity('Indicar el modelo del equipo es obligatorio');
         mostrarError('error_modelo', modelo.validationMessage);
         error = true;
-     
+
+        if (!primerError) {
+            primerError = modelo;
+        }
     }
 
     if(numero_de_serie.value === "" || numero_de_serie.value === null || isNaN(numero_de_serie.value)) {
@@ -62,47 +77,60 @@ function limpiarErrores() {
         numero_de_serie.setCustomValidity('El número de serie del equipo es obligatorio');
         mostrarError('error_numero_de_serie', numero_de_serie.validationMessage);
         error = true;
+
+        if (!primerError) {
+            primerError = numero_de_serie;
+        }
     }
 
     if (estado.value === "defecto") {
         estado.focus();
-        mostrarError('error_estado', 'Por favor, seleccione el estado del equipo    .');
+        mostrarError('error_estado', 'Por favor, seleccione el estado del equipo');
         error = true;
+
+        if (!primerError) {
+            primerError = estado;
+        }
     }
 
     if (id_aula.value === "defecto") {
         id_aula.focus();
-        mostrarError('error_aula', "Por favor, seleccione el aula donde se encuentra el equipo.");
+        mostrarError('error_aula', "Por favor, seleccione el aula donde se encuentra el equipo");
         error = true;
+
+        if (!primerError) {
+            primerError = id_aula;
+        }
     }
 
     if (id_categoria.value=="defecto") {
         id_categoria.focus();
-        mostrarError('error_categoria', "Por favor, seleccione la categoria del equipo.");
+        mostrarError('error_categoria', "Por favor, seleccione la categoria del equipo");
         error = true;
+
+        if (!primerError) {
+            primerError = id_categoria;
+        }
     }
 
-        //imagen default null en bd 
-   
+    //imagen default null en bd 
 
     if(ano_adquisicion.value === "" || ano_adquisicion.value === null || isNaN(ano_adquisicion.value) || ano_adquisicion.value< 1900 || ano_adquisicion.value > 2100) {
         ano_adquisicion.focus();
         ano_adquisicion.setCustomValidity('Indica el año de adquisición del equipo');
         mostrarError('error_ano_adquisicion', ano_adquisicion.validationMessage);
         error = true;
+
+        if (!primerError) {
+            primerError = ano_adquisicion;
+        }
     }
 
-    return !error;
+    if (primerError) { 
+        primerError.focus();
+    }
     
-    //Para redirigir a la pagina de registro de ordenador 
-
-    //revisar para que no se pierdan los datos antes de redirigir
-
-    // if(ordenador.checked){
-    //     window.location.href = "../views/registrarOrdenador.html";
-    //     return;
-    // }
-   
+    return !error;
 }
 
 

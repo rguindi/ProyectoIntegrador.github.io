@@ -37,9 +37,6 @@ window.onload = async function() {
    })
 
 }
-
-
-
  
 async function crearIncidencia(incidencia) {
     const url = `http://${dirIP_api}:${PUERTO_EXPRESS}/incidencias`;
@@ -76,6 +73,7 @@ async function getUsuario() {
 
 document.getElementById('FormularioIncidencias').addEventListener('submit', async (event) => {
     event.preventDefault();
+
     if (!validaIncidencia()) {
         return;
     }
@@ -118,5 +116,6 @@ const fechaFormateada = `${year}-${month}-${day}`;
     const datos = await crearIncidencia(incidencia);
  
     // Pintamos los datos
-    document.getElementById('p1').innerHTML ="Insertada incidencia: \n " + JSON.stringify(incidencia);
+    // document.getElementById('p1').innerHTML ="Insertada incidencia: \n " + JSON.stringify(incidencia);
+    window.location.href = "../views/incidencias.html";
 });

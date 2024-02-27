@@ -18,9 +18,6 @@ const getIncidencias = (req, res) => {         //localhost:3000/incidencias
   });
 };
 
-
-
-
 const getIncidenciaById = (req, res) => { //http://localhost:3000/incidencias/registro/3
   db.getConnection((err, connection) => {
     if (err) {

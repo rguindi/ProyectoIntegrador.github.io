@@ -11,7 +11,7 @@
 
         <link rel="stylesheet" href="../css/estilos.css">
 
-        <title>Incidencias</title>
+        <title>Registrar Incidencias</title>
 
     </head>
 
@@ -45,7 +45,6 @@
 
                     <li class="nav-item" ><a href="./categorias.html" class="nav-link fw-bold aNav">Categorías</a></li>
                     <li class="nav-item" ><a href="./aulas.html" class="nav-link fw-bold aNav">Aulas</a></li>
-                    <li class="nav-item" ><a href="../index.html" class="nav-link fw-bold aNav">Logout</a></li>
                 </ul>
 
             </nav>
@@ -63,52 +62,39 @@
                             
                             <form method="post"  id="FormularioIncidencias" novalidate>
 
-                                <div class="col-12 mb-5">
+                                <div class="col-12 mb-4">
                                     <h2 class="text-center">Registro de Incidencia</h2>
                                 </div>
 
                                 <!-- equipo Select -->
-                            <div class="mb-4 text-center">
-                                <label class="form-label fw-bold" for="id_equipo">Equipo</label>
-                                <br>
-                                <select id="id_equipo" name="id_equipo" class="form-select text-center" required>
-                                    <option value="defecto" selected disabled>Seleccione equipo</option>
-                                </select>
-                                <span id="error_equipo" class="error"></span>
-                            </div>
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" for="id_equipo">Equipo</label>
+                                    <br>
+                                    <select id="id_equipo" name="id_equipo" class="form-select text-center" required>
+                                        <option value="defecto" selected disabled>Seleccione equipo</option>
+                                    </select>
+                                    <span id="error_equipo" class="error"></span>
+                                </div>
 
-                                <div class="form-outline mb-4 text-center">
-                                <label class="form-label fw-bold"  for="descripcion">Descripción:</label><br>
-                                <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
-                                <!-- <span id="error_descripcion" class="error"></span> -->
-                            </div>
-                                <br>
-                            
-                                <div class="form-outline mb-4 text-center">
-                                <label class="form-label fw-bold" for="solucion">Solución:</label><br>
-                                <textarea class="form-control" id="solucion" name="solucion" required></textarea>
-                                <!-- <span id="error_solucion" class="error"></span> -->
-                            </div>
-                                <br>
+                                    <div class="form-outline mb-4 text-center">
+                                    <label class="form-label fw-bold"  for="descripcion">Descripción:</label><br>
+                                    <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+                                    <span id="error_descripcion" class="error"></span>
+                                </div>
                                 
-                                <!-- <div class="form-outline mb-4 text-center">
-                                <label class="form-label fw-bold" for="estado">Estado:</label><br>
-                                <select class="form-select text-center" id="estado" name="estado" required>
-                                    <option value="defecto">Seleccione Estado</option>
-                                    <option value="abierta">Abierta</option>
-                                    <option value="en_proceso">En Proceso</option>
-                                    <option value="cerrada">Cerrada</option>
-                                </select>
-                                <span id="error_estado" class="error"></span>
-                            </div><br> -->
-                                
-                                <!-- <label for="fecha_actualizacion">Fecha de Actualización:</label><br>
-                                <input type="date" id="fecha_actualizacion" name="fecha_actualizacion" required>
-                                <span id="error_fecha_actualizacion" class="error"></span><br><br> -->
-                                <div class="form-outline mb-4 text-center">
-                                <button type="submit" id="submitBtn"  class="btn btn-warning">Insertar Datos</button>
-                            </div>
+                                    <div class="form-outline mb-4 text-center">
+                                    <label class="form-label fw-bold" for="solucion">Solución:</label><br>
+                                    <textarea class="form-control" id="solucion" name="solucion" required></textarea>
+                                    <span id="error_solucion" class="error"></span>
+                                </div>
+                                    
+                                <div class="form-outline mb-3 text-center">
+                                    <button type="submit" id="submitBtn"  class="btn btn-warning">Insertar Incidencia</button>
+                                    
+                                </div>
+
                             </form>
+
                             <p id="p1"></p>
 
                         </div>
