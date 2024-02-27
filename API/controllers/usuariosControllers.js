@@ -101,14 +101,27 @@ const verificarUsuario = (req, res) => {
 // Función para obtener rol
 const getUser = (req, res) => {
     if (req.session.usuario) {
-        console.log(req.session.usuario);
-        console.log(req.session.usuario.rol);
-        console.log(req.session);
         res.json({ usuario: req.session.usuario });
     } else {
         res.status(401).json({ error: 'No se ha iniciado sesión' });
     }
 };
+
+const cerrarSesion = (req, res) => {
+    if (req.session.usuario) {
+        req.session.destroy((err) => {
+            if (err) {
+                res.status(500).json({ error: 'Error al cerrar sesión' });
+            } else {
+                res.json({ mensaje: 'Sesión cerrada correctamente' });
+            }
+        });
+    } else {
+        res.status(401).json({ error: 'No se ha iniciado sesión' });
+    }
+};
+
+
 
 module.exports = {
     getUsuarios,
@@ -116,4 +129,5 @@ module.exports = {
     crearUsuario,
     verificarUsuario,
     getUser,
+    cerrarSesion,
 };

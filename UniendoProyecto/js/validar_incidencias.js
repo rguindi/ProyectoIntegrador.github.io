@@ -4,19 +4,18 @@ const descripcion = document.getElementById('descripcion');
 const solucion = document.getElementById('solucion');
 const estado = document.getElementById('estado');
 const fecha_actualizacion = document.getElementById('fecha_actualizacion');
-const dirIP_api = '127.0.0.1'; // O asignar el valor que necesitas
-const PUERTO_EXPRESS = 3000; // O asignar el valor que necesitas
+const dirIP_api = '127.0.0.1';
+const PUERTO_EXPRESS = 3000;
 const url=`http://${dirIP_api}:${PUERTO_EXPRESS}`;
 const equipo = document.getElementById('id_equipo');
-console.log("funciona");
 
 async function isAdmin() {
     try {
         const response = await fetch(`http://${dirIP_api}:${PUERTO_EXPRESS}/usuarios/user`, {
-            credentials: 'include' // Incluye la cookie de sesión en la solicitud
+            credentials: 'include'
         });
         if (!response.ok) {
-            throw `Error ${response.status} de la BBDD: ${response.statusText}`;
+            window.location = "../index.html";
         }
         const datos = await response.json();
         if (datos.usuario.rol === "administrador")
