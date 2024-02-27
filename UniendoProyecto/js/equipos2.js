@@ -20,7 +20,8 @@ async function pedirIncidencia(id) {
 }
 
 async function pedirDetallesOrdenador(id) {
-    const respuesta = await fetch(`http://${dirIP_api}:${PUERTO_EXPRESS}/detalles/equipo/${id}`);
+    const respuesta = await fetch(`http://${dirIP_api}:${PUERTO_EXPRESS}/detalles/${id}`);
+    
     if (!respuesta.ok) {
         throw "Ha ocurrido un error: " + respuesta.status + " (" + respuesta.statusText + ")";
     }
@@ -48,32 +49,35 @@ function renderDatos(datos) {
         const urlImg = URL.createObjectURL(blob);
 
         const imagen = document.createElement("img");
-        imagen.style.width = "200px";
-        imagen.src = urlImg;
-        icono.appendChild(imagen);
+            imagen.style.width = "200px";
+            imagen.style.height = "150px";
+            imagen.src = urlImg;
+            icono.appendChild(imagen);
 
         // Cuerpo de la card
         const cardBody = document.createElement('div');
-        cardBody.classList.add('card-body');
+            cardBody.classList.add('card-body');
 
         // Título con el nombre del equipo
         const titulo = document.createElement('h5');
-        titulo.classList.add('card-title', 'text-center', 'fw-bold');
-        titulo.textContent = registro.nombre;
+            titulo.classList.add('card-title', 'text-center', 'fw-bold');
+            titulo.textContent = registro.nombre;
 
         // Descripción del equipo
         const descripcion = document.createElement('p');
-        descripcion.classList.add('card-text', 'text-center', 'fst-italic');
-        descripcion.textContent = registro.descripcion;
+            descripcion.classList.add('card-text', 'text-center', 'fst-italic');
+            descripcion.textContent = registro.descripcion;
 
         // Div para los botones
         const divBotones = document.createElement('div');
-        divBotones.classList.add('d-flex', 'justify-content-between', 'mt-3', 'mb-3');
-
+            divBotones.classList.add('d-flex', 'justify-content-center');
+        
         // Botón para ver detalles
         const botonDetalles = document.createElement('button');
-        botonDetalles.classList.add('btn', 'btn-warning', 'btn-sm');
-        botonDetalles.textContent = 'Ver detalles';
+            botonDetalles.classList.add('btn', 'btn-warning', 'btn-sm');
+            botonDetalles.style.marginRight = '5px';
+            botonDetalles.textContent = 'Ver detalles';
+
         botonDetalles.addEventListener('click', function () {
             // Obtener body de la card
             const cardBody = card.querySelector('.card-body');
@@ -123,10 +127,11 @@ function renderDatos(datos) {
 
 
         const botonIncidencia = document.createElement('button');
-        botonIncidencia.classList.add('btn', 'btn-danger', 'btn-sm');
-        botonIncidencia.textContent = 'Ver incidencia';
-        botonIncidencia.addEventListener('click', async function () {
+            botonIncidencia.classList.add('btn', 'btn-danger', 'btn-sm');
+            botonIncidencia.style.marginRight = '5px';
+            botonIncidencia.textContent = 'Ver incidencia';
 
+        botonIncidencia.addEventListener('click', async function () {
             try {
                 // Realizar solicitud para obtener detalles de incidencia
                 const incidencia = await pedirIncidencia(registro.id_equipo);
@@ -177,11 +182,14 @@ function renderDatos(datos) {
 
 
         const botonDetallesOrdenador = document.createElement('button');
-        botonDetallesOrdenador.classList.add('btn', 'btn-success', 'btn-sm');
-        botonDetallesOrdenador.textContent = 'Ver detalles ordenador';
+            botonDetallesOrdenador.classList.add('btn', 'btn-success', 'btn-sm');
+            botonDetallesOrdenador.textContent = 'Ver detalles ordenador';
+
         botonDetallesOrdenador.addEventListener('click', async function () {
-            
             try {
+
+                console.log(registro.id_equipo);
+
                 // Realizar solicitud para obtener detalles de incidencia
                 const detalles_ordenador = await pedirDetallesOrdenador(registro.id_equipo);
                 console.log(detalles_ordenador);
@@ -190,39 +198,22 @@ function renderDatos(datos) {
                 if (detalles_ordenador) {
                     // Construir HTML con los detalles de la incidencia
                     let detallesHTML = `
-                    <ul class="list-group list-group-flush botonDetallesOrdenador">
-                        <li class="list-group-item"><strong>Detalles Ordenador:</strong></li>
-                        <li class="list-group-item">Procesador: ${detalles_ordenador.procesador}</li>
-                        <li class="list-group-item">Memoria RAM: ${detalles_ordenador.memoria_ram}</li>
-                        <li class="list-group-item">Disco Duro: ${detalles_ordenador.disco_duro}</li>
-                        <li class="list-group-item">Tarjeta Gráfica: ${detalles_ordenador.tarjeta_grafica}</li>
-                        <li class="list-group-item">Sistema Operativo: ${detalles_ordenador.sistema_operativo}</li>
-                        <li class="list-group-item">Licencia: ${detalles_ordenador.licencia}</li>
-                        <li class="list-group-item ${detalles_ordenador.otros_detalles === null ? 'd-none' : ''}">"Otros detalles: ${detalles_ordenador.otros_detalles !== null ? detalles_ordenador.otros_detalles: 'N/A'}"</li>
-                    </ul>`;
+                    <div>
+                        <h4>Detalles del Ordenador:</h4>
+                        <p><strong>Procesador:</strong> ${detallesOrdenador.procesador}</p>
+                        <p><strong>Memoria RAM:</strong> ${detallesOrdenador.memoria_ram}</p>
+                        <p><strong>Disco Duro:</strong> ${detallesOrdenador.disco_duro}</p>
+                        <p><strong>Tarjeta Gráfica:</strong> ${detallesOrdenador.tarjeta_grafica}</p>
+                        <p><strong>Sistema Operativo:</strong> ${detallesOrdenador.sistema_operativo}</p>
+                        <p><strong>Licencia:</strong> ${detallesOrdenador.licencia}</p>
+                        <p><strong>Otros detalles:</strong> ${detallesOrdenador.otros_detalles ? detallesOrdenador.otros_detalles : 'N/A'}</p>
+                    </div>
+                    `;
+
+                    // Abrir una ventana emergente y mostrar los detalles del ordenador
+                    const detallesOrdenadorWindow = window.open('', 'Detalles del Ordenador', 'width=600,height=400');
+                    detallesOrdenadorWindow.document.body.innerHTML = detallesHTML;
         
-                    // Obtener el cuerpo de la card actual
-                    const cardBody = card.querySelector('.card-body');
-    
-                    // Limpiar cualquier detalle anterior
-                    const detallesIncidenciaAnterior = cardBody.querySelector('.detallesIncidencia');
-                    if (detallesIncidenciaAnterior) {
-                        detallesIncidenciaAnterior.remove();
-                    }
-
-                    const detallesEquipoAnteriores = cardBody.querySelector('.detallesEquipo');
-                    if (detallesEquipoAnteriores) {
-                        detallesEquipoAnteriores.remove();
-                    }
-
-                    const detallesOrdenadorAnteriores = cardBody.querySelector('.detalles_ordenador');
-                    if (detallesOrdenadorAnteriores) {
-                        detallesOrdenadorAnteriores.remove();
-                    }
-    
-                    // Agregar detalles del ordenador al cuerpo de la card
-                    cardBody.insertAdjacentHTML('beforeend', detallesHTML);
-                
                 } else {
                     console.error("No hay detalles de ordenador para este equipo");
                 }
@@ -249,9 +240,11 @@ function renderDatos(datos) {
             }
         });
 
+
         // Agregar botones al div de botones
         divBotones.appendChild(botonDetalles);
         divBotones.appendChild(botonIncidencia);
+        divBotones.appendChild(botonDetallesOrdenador);
 
         // Agregar elementos al cuerpo de la card
         cardBody.appendChild(titulo);
