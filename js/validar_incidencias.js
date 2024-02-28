@@ -84,10 +84,11 @@ export function validaIncidencia() {
         }
     }
 
-    if (!error) {
-        document.getElementById('FormularioIncidencias').submit();
+    // if (!error) {
+    //     document.getElementById('FormularioIncidencias').submit();
     
-    } else if (primerError) {
+    // } else 
+    if (primerError) {
         primerError.focus();
     }
 
